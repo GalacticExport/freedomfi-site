@@ -1,324 +1,692 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#07070a" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>FreedomFi</title>
+  <meta name="description" content="FreedomFi — Solana-native community meme coin inspired by financial freedom. Track stats, view chart, verify the contract, and join the movement." />
+  <meta name="theme-color" content="#07070a" />
 
-<title>FreedomFi — Built for the Free</title>
-<meta name="description" content="FreedomFi is a clean, serious Solana-native meme coin inspired by financial freedom." />
+  <!-- Favicon -->
+  <link rel="icon" href="./freedomfi-logo.png" />
 
-<link rel="icon" href="./freedomfi-logo.png" />
+  <style>
+    :root{
+      --bg:#05060a;
+      --bg2:#0a0b12;
+      --card:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.10);
+      --text:#f2f4ff;
+      --muted:rgba(242,244,255,.72);
 
-<style>
+      --gold1:#f7e6a3;
+      --gold2:#d9b24c;
+      --gold3:#a97b20;
 
-/* ===== RESET ===== */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Inter,sans-serif;
-  background:#05060a;
-  color:#f2f4ff;
-  overflow-x:hidden;
-}
+      --radius:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
 
-/* ===== NAV ===== */
-.nav{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:1000;
-  backdrop-filter:blur(16px);
-  background:rgba(5,6,10,.6);
-  border-bottom:1px solid rgba(217,178,76,.15);
-}
+      --max:1120px;
+      --ease:cubic-bezier(.2,.9,.2,1);
+    }
 
-.navInner{
-  max-width:1100px;
-  margin:auto;
-  padding:14px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 70% -10%, rgba(217,178,76,.18), transparent 55%),
+                  radial-gradient(900px 700px at 20% 110%, rgba(169,123,32,.15), transparent 50%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  letter-spacing:.3px;
-}
+    /* Parallax background image layer */
+    .bg{
+      position:fixed; inset:0;
+      z-index:-2;
+      background-image:url("./freedomfi-banner.jpg");
+      background-size:cover;
+      background-position:center;
+      transform: translate3d(0,0,0) scale(1.06);
+      filter: saturate(1.05) contrast(1.05);
+      opacity:.22;
+      will-change: transform;
+    }
+    .bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.70), rgba(0,0,0,.80));
+    }
 
-.brand img{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-}
+    /* subtle gold glow film */
+    .film{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background:
+        radial-gradient(900px 600px at 20% 20%, rgba(217,178,76,.12), transparent 55%),
+        radial-gradient(700px 500px at 85% 70%, rgba(247,230,163,.10), transparent 55%);
+      mix-blend-mode: screen;
+      opacity:.7;
+    }
 
-/* ===== BUTTON ===== */
-.btn{
-  padding:12px 18px;
-  border-radius:14px;
-  border:1px solid rgba(217,178,76,.35);
-  background:linear-gradient(180deg,#f7e6a3,#d9b24c);
-  color:#111;
-  font-weight:700;
-  text-decoration:none;
-}
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-/* ===== HERO ===== */
-.hero{
-  padding-top:110px;
-  padding-bottom:60px;
-}
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.35));
+      border-bottom: 1px solid rgba(217,178,76,.18);
+    }
+    .navInner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 0;
+      gap:12px;
+      min-height:56px; /* helps prevent overlap */
+    }
 
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:0 18px;
-}
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width:0;
+    }
+    .brand img{
+      width:34px; height:34px; border-radius:12px;
+      box-shadow: var(--shadow);
+      flex: 0 0 auto;
+    }
+    .brand .name{
+      font-weight:900;
+      letter-spacing:.4px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 42vw;
+    }
 
-.heroCard{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:22px;
-  padding:28px;
-}
+    .navRight{
+      display:flex; align-items:center; gap:10px;
+      flex: 0 0 auto;
+    }
 
-.hero img{
-  width:100%;
-  border-radius:18px;
-  margin-bottom:24px;
-}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
+      transition: transform .18s var(--ease), border-color .18s var(--ease);
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(217,178,76,.35); }
 
-h1{
-  font-size:44px;
-  margin-bottom:14px;
-}
+    .btnGold{
+      background: linear-gradient(180deg, rgba(217,178,76,.20), rgba(169,123,32,.16));
+      border-color: rgba(217,178,76,.30);
+    }
 
-.lead{
-  color:rgba(242,244,255,.7);
-  line-height:1.6;
-  margin-bottom:24px;
-}
+    .hamburger{
+      width:46px; height:44px;
+      display:inline-grid; place-items:center;
+      border-radius:14px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .hamburger svg{opacity:.9}
 
-/* ===== STATS ===== */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:26px;
-}
+    /* HERO */
+    .top{
+      padding:20px 0 10px;
+    }
+    .topBanner{
+      width:100%;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      background: rgba(0,0,0,.35);
+    }
+    .topBanner img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
 
-.stat{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  padding:16px;
-  text-align:center;
-}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      margin-top:16px;
+      align-items:start;
+    }
 
-.stat small{
-  opacity:.6;
-}
+    .card{
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+    }
+    .cardPad{ padding:18px; }
 
-/* ===== FAQ ===== */
-.faq{
-  margin-top:70px;
-}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(217,178,76,.10);
+      border: 1px solid rgba(217,178,76,.18);
+      color: rgba(247,230,163,.95);
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    h1{
+      font-size: clamp(38px, 5vw, 64px);
+      margin:14px 0 10px;
+      letter-spacing:-.6px;
+    }
+    p{ color: var(--muted); line-height:1.6; margin:0 0 14px; }
 
-.faq h2{
-  font-size:32px;
-  margin-bottom:18px;
-}
+    .ctaRow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+    .cta{
+      padding:12px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      font-weight:800;
+      transition: transform .18s var(--ease), border-color .18s var(--ease);
+    }
+    .cta:hover{ transform: translateY(-1px); border-color: rgba(217,178,76,.35); }
+    .cta.primary{
+      background: linear-gradient(180deg, rgba(217,178,76,.22), rgba(169,123,32,.18));
+      border-color: rgba(217,178,76,.30);
+    }
 
-.faqItem{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  margin-bottom:10px;
-  overflow:hidden;
-}
+    .note{
+      font-size:13px;
+      color: rgba(242,244,255,.62);
+      margin-top:12px;
+    }
+    .note strong{ color: rgba(242,244,255,.88); }
 
-.faqQ{
-  padding:16px;
-  cursor:pointer;
-  font-weight:600;
-  background:rgba(255,255,255,.03);
-}
+    /* STATS */
+    .statsGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .stat{
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+    }
+    .stat .label{ font-size:12px; color: rgba(242,244,255,.62); }
+    .stat .val{ font-size:18px; font-weight:900; margin-top:4px; }
+    .stat .sub{ font-size:12px; color: rgba(242,244,255,.62); margin-top:2px; }
 
-.faqA{
-  padding:16px;
-  display:none;
-  color:rgba(242,244,255,.7);
-}
+    .section{ padding:18px 0; }
+    .section h2{ margin:0 0 10px; font-size:22px; letter-spacing:-.2px; }
 
-/* ===== MOBILE ===== */
-.menuBtn{
-  display:none;
-  font-size:26px;
-  cursor:pointer;
-}
+    /* FAQ accordion */
+    .faqList{ display:grid; gap:10px; }
+    details.faq{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+    }
+    details.faq summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 14px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    details.faq summary::-webkit-details-marker{display:none}
+    .chev{
+      width:18px; height:18px; opacity:.9;
+      transition: transform .18s var(--ease);
+      flex:0 0 auto;
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    .faqBody{
+      padding:0 14px 14px;
+      color: rgba(242,244,255,.72);
+      line-height:1.6;
+    }
+    .faqBody code{
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.10);
+      padding:2px 6px;
+      border-radius:8px;
+    }
 
-.mobileMenu{
-  position:fixed;
-  top:0;
-  right:-100%;
-  width:260px;
-  height:100%;
-  background:#0b0c12;
-  padding:24px;
-  transition:.35s ease;
-  z-index:1200;
-}
+    /* Drawer */
+    .drawerBack{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      z-index:80;
+      opacity:0; pointer-events:none;
+      transition: opacity .18s var(--ease);
+    }
+    .drawerBack.show{ opacity:1; pointer-events:auto; }
 
-.mobileMenu.open{right:0}
+    .drawer{
+      position:fixed; top:0; right:0; height:100%; width:min(86vw, 360px);
+      z-index:90;
+      background: rgba(10,11,18,.92);
+      border-left: 1px solid rgba(255,255,255,.10);
+      transform: translateX(110%);
+      transition: transform .22s var(--ease);
+      display:flex; flex-direction:column;
+      padding:16px;
+      gap:10px;
+    }
+    .drawer.show{ transform: translateX(0); }
+    .drawerHeader{ display:flex; align-items:center; justify-content:space-between; }
+    .drawerClose{
+      width:44px; height:44px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-size:22px;
+    }
+    .drawer .drawerLink{
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      font-weight:900;
+    }
+    .drawer small{ color: rgba(242,244,255,.55); font-weight:800; letter-spacing:.2px; margin-top:6px; }
 
-.mobileMenu a{
-  display:block;
-  margin-bottom:18px;
-  color:#fff;
-  text-decoration:none;
-}
+    footer{
+      padding:26px 0 40px;
+      color: rgba(242,244,255,.55);
+      font-size:13px;
+    }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width:768px){
-
-  h1{font-size:32px}
-
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  .menuBtn{display:block}
-}
-
-/* smooth */
-html{scroll-behavior:smooth}
-
-</style>
+    /* MOBILE */
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
+      .brand .name{ max-width: 44vw; }
+    }
+    @media (max-width: 640px){
+      .brand .name{ max-width: 36vw; font-size:14px; }
+      .pill.hideMobile{ display:none; } /* keep nav clean */
+      .statsGrid{ grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{ animation:none !important; transition:none !important; }
+      .bg{ transform:none !important; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="film" aria-hidden="true"></div>
 
-<!-- ===== NAV ===== -->
-<header class="nav">
-  <div class="navInner">
-
-    <div class="brand">
-      <img src="./freedomfi-logo.png" alt="FreedomFi"/>
-      <span>FreedomFi</span>
+  <!-- Mobile drawer -->
+  <div class="drawerBack" id="drawerBack"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawerHeader">
+      <div class="brand" style="gap:10px">
+        <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
+        <div class="name">FreedomFi</div>
+      </div>
+      <button class="drawerClose" id="drawerClose" aria-label="Close menu">×</button>
     </div>
 
-    <a href="#" class="btn">Buy</a>
+    <small>Navigate</small>
+    <a class="drawerLink" href="#stats">Live Stats</a>
+    <a class="drawerLink" href="#chart">Chart</a>
+    <a class="drawerLink" href="#howtobuy">How to Buy</a>
+    <a class="drawerLink" href="#roadmap">Roadmap</a>
+    <a class="drawerLink" href="#faq">FAQ</a>
+    <a class="drawerLink" href="#community">Community</a>
 
-    <div class="menuBtn" onclick="toggleMenu()">☰</div>
+    <small>Actions</small>
+    <a class="drawerLink" id="drawerBuy" href="#" target="_blank" rel="noreferrer">Buy</a>
+    <a class="drawerLink" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
+  </aside>
 
-  </div>
-</header>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="wrap">
+      <div class="navInner">
+        <a class="brand" href="#top" aria-label="Home">
+          <img src="./freedomfi-logo.png" alt="FreedomFi" />
+          <div class="name">FreedomFi</div>
+        </a>
 
-<!-- ===== MOBILE MENU ===== -->
-<div class="mobileMenu" id="mobileMenu">
-  <a href="#faq">FAQ</a>
-  <a href="#">Chart</a>
-  <a href="#">How to Buy</a>
-  <a href="#">Community</a>
-</div>
-
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="container">
-    <div class="heroCard">
-
-      <img src="./freedomfi-banner.jpg" alt="FreedomFi"/>
-
-      <h1>FreedomFi</h1>
-
-      <p class="lead">
-        A clean, serious meme coin brand inspired by financial freedom.
-        Community-driven and built on Solana.
-      </p>
-
-      <a class="btn" href="#">🚀 Buy FreedomFi</a>
-
-      <!-- ===== LIVE STATS (PLACEHOLDER) ===== -->
-      <div class="stats">
-        <div class="stat">
-          <div id="holders">—</div>
-          <small>Holders</small>
-        </div>
-        <div class="stat">
-          <div id="volume">—</div>
-          <small>24h Volume</small>
-        </div>
-        <div class="stat">
-          <div id="marketcap">—</div>
-          <small>Market Cap</small>
+        <div class="navRight">
+          <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">𝕏 @FreedomFiCoin</a>
+          <a class="pill btnGold" id="buyTop" href="#" target="_blank" rel="noreferrer">Buy</a>
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
-
     </div>
+  </header>
 
-    <!-- ===== FAQ ===== -->
-    <div class="faq" id="faq">
-      <h2>FAQ</h2>
-
-      <div class="faqItem">
-        <div class="faqQ">What is FreedomFi?</div>
-        <div class="faqA">
-          FreedomFi is a community-driven Solana token focused on long-term
-          brand building and financial freedom culture.
-        </div>
+  <main id="top" class="top">
+    <div class="wrap">
+      <div class="topBanner card">
+        <img src="./freedomfi-banner.jpg" alt="FreedomFi banner" />
       </div>
 
-      <div class="faqItem">
-        <div class="faqQ">Is the liquidity locked?</div>
-        <div class="faqA">
-          Yes — liquidity is locked to promote long-term trust and stability.
-        </div>
+      <div class="grid">
+        <section class="card">
+          <div class="cardPad">
+            <div class="kicker">🦅 Built for the free • Solana-native</div>
+            <h1>FreedomFi</h1>
+            <p>
+              A clean, serious meme coin brand inspired by financial freedom. Track live stats, verify the contract,
+              view the chart, and join the movement.
+            </p>
+
+            <div class="ctaRow">
+              <a class="cta primary" id="buyHero" href="#" target="_blank" rel="noreferrer">🚀 Buy FreedomFi</a>
+              <a class="cta" id="chartHero" href="#chart">View Live Chart</a>
+              <a class="cta" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
+            </div>
+
+            <div class="note">
+              <strong>Not affiliated</strong> with any official WLFI/USD1 entity. Always verify the contract address before swapping.  [oai_citation:2‡CryptoNews](https://cryptonews.net/news/altcoins/31539021/?utm_source=chatgpt.com)
+            </div>
+          </div>
+        </section>
+
+        <aside class="card" id="stats">
+          <div class="cardPad">
+            <h2 style="margin:0 0 10px">Live Stats</h2>
+            <p style="margin-top:0">Auto-pulls data from DexScreener once you paste the CA.</p>
+
+            <div class="statsGrid">
+              <div class="stat"><div class="label">Price</div><div class="val" id="statPrice">—</div><div class="sub" id="statChange">—</div></div>
+              <div class="stat"><div class="label">Market Cap</div><div class="val" id="statMcap">—</div><div class="sub">Estimated</div></div>
+              <div class="stat"><div class="label">Liquidity</div><div class="val" id="statLiq">—</div><div class="sub">Pool liquidity</div></div>
+              <div class="stat"><div class="label">24h Volume</div><div class="val" id="statVol">—</div><div class="sub">DEX volume</div></div>
+              <div class="stat"><div class="label">Pair</div><div class="val" id="statPair">—</div><div class="sub">DexScreener</div></div>
+              <div class="stat"><div class="label">Holders</div><div class="val" id="statHolders">—</div><div class="sub">Add later / manual</div></div>
+            </div>
+
+            <div class="note" style="margin-top:12px">
+              Contract: <code id="caText">PASTE_CONTRACT_ADDRESS_HERE</code>
+            </div>
+          </div>
+        </aside>
       </div>
 
-      <div class="faqItem">
-        <div class="faqQ">Where can I buy?</div>
-        <div class="faqA">
-          FreedomFi can be purchased on supported Solana DEX platforms.
+      <!-- Chart -->
+      <section class="section" id="chart">
+        <div class="card">
+          <div class="cardPad">
+            <h2>Chart</h2>
+            <p>Embed your DexScreener link (auto-set when CA is pasted).</p>
+            <div class="ctaRow">
+              <a class="cta" id="chartBtn" href="#" target="_blank" rel="noreferrer">Open DexScreener</a>
+              <a class="cta" id="copyCa" href="#">Copy Contract</a>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="faqItem">
-        <div class="faqQ">Is this financial advice?</div>
-        <div class="faqA">
-          No. This project is for informational and community purposes only.
+      <!-- How to buy -->
+      <section class="section" id="howtobuy">
+        <div class="card">
+          <div class="cardPad">
+            <h2>How to Buy</h2>
+            <p>
+              1) Install a Solana wallet (Phantom/Solflare).<br/>
+              2) Fund with SOL.<br/>
+              3) Verify the Contract Address, then swap on a DEX.<br/>
+              4) Start small and double-check the CA to avoid clones/scams.  [oai_citation:3‡CryptoNews](https://cryptonews.net/news/altcoins/31539021/?utm_source=chatgpt.com)
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
+      <!-- Roadmap -->
+      <section class="section" id="roadmap">
+        <div class="card">
+          <div class="cardPad">
+            <h2>Roadmap</h2>
+            <p><strong>Phase 1:</strong> Launch, socials live, community growth, verification checklist.</p>
+            <p><strong>Phase 2:</strong> Listings + tools (site stats, trackers), partnerships, meme campaigns.</p>
+            <p><strong>Phase 3:</strong> Utility experiments, community votes, sustained marketing.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="card">
+          <div class="cardPad">
+            <h2>FAQ</h2>
+
+            <div class="faqList">
+              <details class="faq">
+                <summary>Is FreedomFi an “official” WLFI/USD1 token?
+                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="faqBody">
+                  No. FreedomFi is a community meme coin inspired by financial freedom and the broader crypto conversation.
+                  Always verify the exact contract address to avoid lookalike clones.  [oai_citation:4‡CryptoNews](https://cryptonews.net/news/altcoins/31539021/?utm_source=chatgpt.com)
+                </div>
+              </details>
+
+              <details class="faq">
+                <summary>How do I avoid scams and fake copies?
+                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="faqBody">
+                  Only use links posted on the official project social pages. Verify the Contract Address on the site before swapping.
+                  Using the wrong contract address can permanently lose funds.  [oai_citation:5‡CryptoNews](https://cryptonews.net/news/altcoins/31539021/?utm_source=chatgpt.com)
+                </div>
+              </details>
+
+              <details class="faq">
+                <summary>What does “liquidity locked” mean?
+                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="faqBody">
+                  “Locked liquidity” generally means the liquidity pool tokens are time-locked so they can’t be withdrawn until a preset date,
+                  which can reduce certain rug-pull risks. Always verify it with reputable tools (DexScreener / lockers).  [oai_citation:6‡Zipmex](https://zipmex.com/blog/locked-liquidity-crypto/?utm_source=chatgpt.com)
+                </div>
+              </details>
+
+              <details class="faq">
+                <summary>Is a stablecoin always safe?
+                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="faqBody">
+                  Not necessarily. Even with fiat-backed designs, risks can exist through platforms, counterparties, and DeFi lending/leveraging.
+                  Don’t assume “stable” means “risk-free.”  [oai_citation:7‡Bank Policy Institute](https://bpi.com/stablecoin-risks-some-warning-bells/?utm_source=chatgpt.com)
+                </div>
+              </details>
+
+              <details class="faq">
+                <summary>What is USD1 (in general terms)?
+                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="faqBody">
+                  USD1 has been described as a fiat-backed stablecoin designed to target a 1:1 value with USD (as opposed to algorithmic designs).
+                  Always verify the current official documentation and addresses from the issuer.  [oai_citation:8‡Eco](https://eco.com/support/en/articles/11753300-what-is-world-liberty-financial-usd-usd1-the-complete-guide-to-world-liberty-financial-s-dollar-stablecoin?utm_source=chatgpt.com)
+                </div>
+              </details>
+
+              <details class="faq">
+                <summary>Financial disclaimer
+                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="faqBody">
+                  This website is for information only and not financial advice. Crypto is risky and you can lose your entire investment.
+                  Verify contracts and do your own research.
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Community -->
+      <section class="section" id="community">
+        <div class="card">
+          <div class="cardPad">
+            <h2>Community</h2>
+            <p>
+              Follow updates on X and share the verified contract address. If you want Telegram/Discord buttons, tell me what links you want.
+            </p>
+            <div class="ctaRow">
+              <a class="cta" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Join on X</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="wrap">
+          © <span id="year"></span> FreedomFi. Not affiliated with WLFI/USD1. Verify the contract address before trading.  [oai_citation:9‡CryptoNews](https://cryptonews.net/news/altcoins/31539021/?utm_source=chatgpt.com)
+        </div>
+      </footer>
     </div>
+  </main>
 
-  </div>
-</section>
+  <script>
+    // ====== SET THESE ======
+    const CONTRACT_ADDRESS = "PASTE_CONTRACT_ADDRESS_HERE"; // <-- paste your Solana CA here
+    const BUY_URL = "#"; // <-- paste your swap link (Pump.fun / Raydium / Jupiter)
+    // =======================
 
-<script>
+    const $ = (id) => document.getElementById(id);
 
-/* ===== MOBILE MENU ===== */
-function toggleMenu(){
-  document.getElementById("mobileMenu").classList.toggle("open");
-}
+    // Fix: update all buy links
+    function setBuyLinks(){
+      ["buyTop","buyHero","drawerBuy"].forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        el.href = BUY_URL || "#";
+      });
+    }
 
-/* ===== FAQ TOGGLE ===== */
-document.querySelectorAll(".faqQ").forEach(q=>{
-  q.onclick=()=>{
-    const a=q.nextElementSibling;
-    a.style.display=a.style.display==="block"?"none":"block";
-  };
-});
+    // Parallax background
+    const bg = document.querySelector(".bg");
+    function setParallax(){
+      const y = window.scrollY || 0;
+      // subtle move; no zoom chaos
+      bg.style.transform = `translate3d(0, ${Math.min(40, y * 0.05)}px, 0) scale(1.06)`;
+    }
+    window.addEventListener("scroll", setParallax, {passive:true});
+    setParallax();
 
-/* ===== DEMO STATS (until live) ===== */
-document.getElementById("holders").textContent="—";
-document.getElementById("volume").textContent="—";
-document.getElementById("marketcap").textContent="—";
+    // Drawer
+    const drawer = $("drawer");
+    const back = $("drawerBack");
+    function openDrawer(){
+      drawer.classList.add("show");
+      back.classList.add("show");
+    }
+    function closeDrawer(){
+      drawer.classList.remove("show");
+      back.classList.remove("show");
+    }
+    $("hamburger").addEventListener("click", openDrawer);
+    $("drawerClose").addEventListener("click", closeDrawer);
+    back.addEventListener("click", closeDrawer);
+    drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
 
-</script>
+    // Copy CA
+    $("copyCa").addEventListener("click", async (e) => {
+      e.preventDefault();
+      try{
+        await navigator.clipboard.writeText(CONTRACT_ADDRESS);
+        $("copyCa").textContent = "Copied ✓";
+        setTimeout(()=> $("copyCa").textContent = "Copy Contract", 1200);
+      }catch(_){
+        alert("Copy failed — long-press the CA in the Live Stats box.");
+      }
+    });
 
+    // Footer year
+    $("year").textContent = new Date().getFullYear();
+
+    // Contract text
+    $("caText").textContent = CONTRACT_ADDRESS;
+
+    // Chart link (DexScreener token page)
+    const dexUrl = CONTRACT_ADDRESS && CONTRACT_ADDRESS !== "PASTE_CONTRACT_ADDRESS_HERE"
+      ? `https://dexscreener.com/solana/${CONTRACT_ADDRESS}`
+      : "#";
+    $("chartBtn").href = dexUrl;
+
+    // Set buy links now
+    setBuyLinks();
+
+    // Live stats (DexScreener)
+    function fmtUsd(n){
+      if(n === null || n === undefined || isNaN(n)) return "—";
+      const abs = Math.abs(n);
+      if(abs >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
+      if(abs >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
+      if(abs >= 1e3) return "$" + (n/1e3).toFixed(2) + "K";
+      return "$" + Number(n).toFixed(4);
+    }
+
+    async function loadDex(){
+      if(!CONTRACT_ADDRESS || CONTRACT_ADDRESS === "PASTE_CONTRACT_ADDRESS_HERE") return;
+
+      try{
+        // DexScreener token endpoint
+        const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CONTRACT_ADDRESS}`);
+        const j = await r.json();
+        const pairs = j && j.pairs ? j.pairs : [];
+        if(!pairs.length) return;
+
+        // pick the best pair by liquidity
+        pairs.sort((a,b)=> (b.liquidity?.usd||0) - (a.liquidity?.usd||0));
+        const p = pairs[0];
+
+        const price = Number(p.priceUsd);
+        const change = p.priceChange?.h24;
+        const mcap = Number(p.fdv || p.marketCap || NaN);
+        const liq = Number(p.liquidity?.usd || NaN);
+        const vol = Number(p.volume?.h24 || NaN);
+
+        $("statPrice").textContent = fmtUsd(price);
+        $("statChange").textContent = (change !== undefined && change !== null)
+          ? `${change > 0 ? "▲" : "▼"} ${Math.abs(change).toFixed(2)}% (24h)`
+          : "—";
+
+        $("statMcap").textContent = isNaN(mcap) ? "—" : fmtUsd(mcap);
+        $("statLiq").textContent = isNaN(liq) ? "—" : fmtUsd(liq);
+        $("statVol").textContent = isNaN(vol) ? "—" : fmtUsd(vol);
+
+        $("statPair").textContent = (p.dexId ? p.dexId.toUpperCase() : "DEX") + " / " + (p.quoteToken?.symbol || "SOL");
+
+        // If you want: set chart button directly to the pair URL
+        if(p.url) $("chartBtn").href = p.url;
+
+      }catch(err){
+        console.warn("Dex load failed", err);
+      }
+    }
+    loadDex();
+    setInterval(loadDex, 30000);
+  </script>
 </body>
 </html>
