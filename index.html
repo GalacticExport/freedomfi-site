@@ -429,7 +429,24 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
-</style>
+/* ===== Gold particle layer ===== */
+#goldParticles{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;       /* above bg, below content */
+  pointer-events: none;
+  opacity: .85;     /* visible for testing */
+}
+
+.bg{ z-index: -1; }
+
+.nav, main, footer, header, section{
+  position: relative;
+  z-index: 2;
+}
+  </style>
 </head>
 
 <body>
