@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>FreedomFi</title>
-  <meta name="description" content="FreedomFi — Solana-native community meme coin inspired by financial freedom. Track stats, view chart, verify the contract, and join the movement." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>FreedomFi — Built for the Free</title>
+  <meta name="description" content="FreedomFi is a clean, serious meme coin brand inspired by financial freedom. Track live stats, verify the contract, view the chart, and join the movement." />
   <meta name="theme-color" content="#07070a" />
 
   <!-- Favicon -->
-  <link rel="icon" href="./freedomfi-logo.PNG" />
+  <link rel="icon" href="./freedomfi-logo.png" />
 
   <style>
     :root{
@@ -17,7 +17,7 @@
       --card:rgba(255,255,255,.06);
       --line:rgba(255,255,255,.10);
       --text:#f2f4ff;
-      --muted:rgba(242,244,255,.72);
+      --muted:rgba(242,244,255,.70);
 
       --gold1:#f7e6a3;
       --gold2:#d9b24c;
@@ -25,522 +25,370 @@
 
       --radius:18px;
       --shadow:0 18px 60px rgba(0,0,0,.45);
-
       --max:1120px;
-      --ease:cubic-bezier(.2,.9,.2,1);
+
+      --easeOut:cubic-bezier(.2,.9,.2,1);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
-      background: radial-gradient(1200px 800px at 70% -10%, rgba(217,178,76,.18), transparent 55%),
-                  radial-gradient(900px 700px at 20% 110%, rgba(169,123,32,.15), transparent 50%),
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(217,178,76,.15), transparent 55%),
+                  radial-gradient(1200px 900px at 80% 10%, rgba(247,230,163,.10), transparent 55%),
                   linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
     }
 
-    /* Parallax background image layer */
-    .bg{
-      position:fixed; inset:0;
-      z-index:-2;
-      background-image:url("./freedomfi-banner.PNG");
-      background-size:cover;
-      background-position:center;
-      transform: translate3d(0,0,0) scale(1.06);
-      filter: saturate(1.05) contrast(1.05);
-      opacity:.22;
-      will-change: transform;
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
     }
-    .bg::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.70), rgba(0,0,0,.80));
-    }
+    .cardPad{padding:22px}
 
-    /* subtle gold glow film */
-    .film{
+    /* Background film */
+    .bgMark{
       position:fixed; inset:0;
+      background:
+        radial-gradient(1200px 900px at 50% 30%, rgba(217,178,76,.10), transparent 60%),
+        url('./freedomfi-watermark.png');
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size: cover;
+      opacity:.10;
+      pointer-events:none;
+      z-index:-2;
+      filter: blur(.0px);
+    }
+    .film{
+      position:fixed; inset:-40px;
+      background:
+        radial-gradient(900px 700px at 25% 10%, rgba(0,0,0,.55), rgba(0,0,0,.0) 70%),
+        radial-gradient(900px 700px at 75% 10%, rgba(0,0,0,.50), rgba(0,0,0,.0) 70%),
+        radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,.55), rgba(0,0,0,.0) 70%);
       pointer-events:none;
       z-index:-1;
-      background:
-        radial-gradient(900px 600px at 20% 20%, rgba(217,178,76,.12), transparent 55%),
-        radial-gradient(700px 500px at 85% 70%, rgba(247,230,163,.10), transparent 55%);
-      mix-blend-mode: screen;
-      opacity:.7;
     }
-
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
     /* NAV */
     .nav{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.35));
-      border-bottom: 1px solid rgba(217,178,76,.18);
+      background:linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.45));
+      border-bottom:1px solid rgba(217,178,76,.22);
+      backdrop-filter: blur(12px);
     }
     .navInner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:12px 0;
       gap:12px;
-      min-height:56px; /* helps prevent overlap */
+      padding:12px 0;
     }
 
     .brand{
       display:flex; align-items:center; gap:10px;
       min-width:0;
+      max-width:52%;
     }
     .brand img{
-      width:34px; height:34px; border-radius:12px;
-      box-shadow: var(--shadow);
-      flex: 0 0 auto;
+      width:34px; height:34px;
+      border-radius:12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      flex:0 0 auto;
     }
     .brand .name{
       font-weight:900;
-      letter-spacing:.4px;
+      letter-spacing:.2px;
+      font-size:18px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      max-width: 42vw;
     }
 
-    .navRight{
-      display:flex; align-items:center; gap:10px;
-      flex: 0 0 auto;
-    }
-
+    .navRight{display:flex; align-items:center; gap:10px; flex:0 0 auto}
     .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 10px 28px rgba(0,0,0,.25);
-      transition: transform .18s var(--ease), border-color .18s var(--ease);
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
+      font-weight:800;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
       user-select:none;
       white-space:nowrap;
     }
-    .pill:hover{ transform: translateY(-1px); border-color: rgba(217,178,76,.35); }
-
+    .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
     .btnGold{
-      background: linear-gradient(180deg, rgba(217,178,76,.20), rgba(169,123,32,.16));
-      border-color: rgba(217,178,76,.30);
+      border:1px solid rgba(217,178,76,.55);
+      background:linear-gradient(180deg, rgba(247,230,163,.18), rgba(217,178,76,.10));
+      box-shadow: 0 12px 30px rgba(217,178,76,.10);
     }
 
+    .hideMobile{display:inline-flex}
     .hamburger{
-      width:46px; height:44px;
-      display:inline-grid; place-items:center;
+      width:44px; height:44px;
       border-radius:14px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.10);
-    }
-    .hamburger svg{opacity:.9}
-
-    /* HERO */
-    .top{
-      padding:20px 0 10px;
-    }
-    .topBanner{
-      width:100%;
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      background: rgba(0,0,0,.35);
-    }
-    .topBanner img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:16px;
-      margin-top:16px;
-      align-items:start;
-    }
-
-    .card{
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      overflow:hidden;
-    }
-    .cardPad{ padding:18px; }
-
-    .kicker{
-      display:inline-flex; gap:10px; align-items:center;
-      padding:10px 12px;
-      border-radius:999px;
-      background: rgba(217,178,76,.10);
-      border: 1px solid rgba(217,178,76,.18);
-      color: rgba(247,230,163,.95);
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    h1{
-      font-size: clamp(38px, 5vw, 64px);
-      margin:14px 0 10px;
-      letter-spacing:-.6px;
-    }
-    p{ color: var(--muted); line-height:1.6; margin:0 0 14px; }
-
-    .ctaRow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
-    .cta{
-      padding:12px 16px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      font-weight:800;
-      transition: transform .18s var(--ease), border-color .18s var(--ease);
-    }
-    .cta:hover{ transform: translateY(-1px); border-color: rgba(217,178,76,.35); }
-    .cta.primary{
-      background: linear-gradient(180deg, rgba(217,178,76,.22), rgba(169,123,32,.18));
-      border-color: rgba(217,178,76,.30);
-    }
-
-    .note{
-      font-size:13px;
-      color: rgba(242,244,255,.62);
-      margin-top:12px;
-    }
-    .note strong{ color: rgba(242,244,255,.88); }
-
-    /* STATS */
-    .statsGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .stat{
-      padding:12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-    }
-    .stat .label{ font-size:12px; color: rgba(242,244,255,.62); }
-    .stat .val{ font-size:18px; font-weight:900; margin-top:4px; }
-    .stat .sub{ font-size:12px; color: rgba(242,244,255,.62); margin-top:2px; }
-
-    .section{ padding:18px 0; }
-    .section h2{ margin:0 0 10px; font-size:22px; letter-spacing:-.2px; }
-
-    /* FAQ accordion */
-    .faqList{ display:grid; gap:10px; }
-    details.faq{
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      overflow:hidden;
-    }
-    details.faq summary{
-      list-style:none;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      display:inline-flex; align-items:center; justify-content:center;
       cursor:pointer;
-      padding:14px 14px;
-      font-weight:900;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
     }
-    details.faq summary::-webkit-details-marker{display:none}
-    .chev{
-      width:18px; height:18px; opacity:.9;
-      transition: transform .18s var(--ease);
-      flex:0 0 auto;
-    }
-    details[open] .chev{ transform: rotate(180deg); }
-    .faqBody{
-      padding:0 14px 14px;
-      color: rgba(242,244,255,.72);
-      line-height:1.6;
-    }
-    .faqBody code{
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.10);
-      padding:2px 6px;
-      border-radius:8px;
-    }
+    .hamburger:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+    .hamburger svg{opacity:.95}
 
     /* Drawer */
     .drawerBack{
       position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(8px);
-      z-index:80;
-      opacity:0; pointer-events:none;
-      transition: opacity .18s var(--ease);
-    }
-    .drawerBack.show{ opacity:1; pointer-events:auto; }
-
-    .drawer{
-      position:fixed; top:0; right:0; height:100%; width:min(86vw, 360px);
+      background:rgba(0,0,0,.55);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s var(--easeOut);
       z-index:90;
-      background: rgba(10,11,18,.92);
-      border-left: 1px solid rgba(255,255,255,.10);
-      transform: translateX(110%);
-      transition: transform .22s var(--ease);
-      display:flex; flex-direction:column;
+    }
+    .drawerBack.show{opacity:1; pointer-events:auto}
+    .drawer{
+      position:fixed; top:0; right:0;
+      width:min(92vw, 420px);
+      height:100%;
+      transform: translateX(105%);
+      transition: transform .22s var(--easeOut);
+      z-index:91;
+      border-left:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(10,11,18,.96), rgba(5,6,10,.92));
+      backdrop-filter: blur(14px);
       padding:16px;
-      gap:10px;
+      overflow:auto;
     }
-    .drawer.show{ transform: translateX(0); }
-    .drawerHeader{ display:flex; align-items:center; justify-content:space-between; }
+    .drawer.open{transform:translateX(0)}
+    .drawerHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:12px;
+    }
+    .drawerHeader .brandMini{
+      display:flex; align-items:center; gap:10px; min-width:0;
+    }
+    .drawerHeader .brandMini img{width:34px;height:34px;border-radius:12px}
+    .drawerHeader .brandMini span{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .drawerClose{
-      width:44px; height:44px; border-radius:14px;
+      width:44px;height:44px;border-radius:14px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      font-size:22px;
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
     }
-    .drawer .drawerLink{
-      padding:12px 12px;
-      border-radius: 14px;
+    .drawer small{color:rgba(242,244,255,.60); font-weight:800; letter-spacing:.2px}
+    .drawerLink{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 14px;
+      border-radius:16px;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
+      background:rgba(255,255,255,.05);
+      margin:10px 0;
+      font-weight:850;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .drawerLink:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
+
+    /* HERO */
+    main{padding:20px 0 90px}
+    .top{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:18px;
+    }
+    .banner{
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      box-shadow:var(--shadow);
+    }
+    .banner img{display:block; width:100%; height:auto}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:linear-gradient(180deg, rgba(217,178,76,.16), rgba(0,0,0,.10));
+      color:rgba(247,230,163,.95);
       font-weight:900;
+      letter-spacing:.2px;
+      margin-bottom:14px;
     }
-    .drawer small{ color: rgba(242,244,255,.55); font-weight:800; letter-spacing:.2px; margin-top:6px; }
+    h1{font-size:56px; line-height:1.02; margin:0 0 10px}
+    p{color:var(--muted); font-size:18px; line-height:1.55; margin:0 0 18px}
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap}
+    .ctaRow .pill{padding:12px 18px}
 
-    footer{
-      padding:26px 0 40px;
-      color: rgba(242,244,255,.55);
-      font-size:13px;
+    /* Sections */
+    .section{margin-top:18px}
+    .section h2{
+      margin:0 0 12px;
+      font-size:22px;
+      letter-spacing:.2px;
+    }
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+
+    .stat{
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+    }
+    .stat .label{color:rgba(242,244,255,.65); font-weight:850; font-size:12px; letter-spacing:.2px}
+    .stat .value{font-size:20px; font-weight:950; margin-top:6px}
+
+    /* CA box */
+    .codeRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .code{
+      flex:1 1 320px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.25);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      color:rgba(242,244,255,.92);
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .copyBtn{cursor:pointer}
+
+    /* Vault */
+    .vaultHeader{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .tag{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:rgba(217,178,76,.10);
+      color:rgba(247,230,163,.95);
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .vaultGrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .vaultMiniGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    .timeBox{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(217,178,76,.25);
+      background:rgba(0,0,0,.18);
+      text-align:center;
+    }
+    .timeBox .num{font-weight:950; font-size:22px}
+    .timeBox .lbl{color:rgba(242,244,255,.65); font-size:12px; font-weight:850; margin-top:4px}
+
+    .field{display:flex; flex-direction:column; gap:8px; margin:10px 0}
+    label{font-weight:850; color:rgba(242,244,255,.78)}
+    input, select{
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.22);
+      color:rgba(242,244,255,.92);
+      outline:none;
+      font-size:16px;
+    }
+    input::placeholder{color:rgba(242,244,255,.45)}
+    .submitBtn{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(59,130,246,.35);
+      background:rgba(59,130,246,.20);
+      padding:12px 14px;
+      font-weight:950;
+      cursor:pointer;
+      color:rgba(242,244,255,.95);
+    }
+    .note{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:rgba(242,244,255,.80);
+      font-weight:750;
     }
 
-    /* MOBILE */
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: 1fr; }
-      .brand .name{ max-width: 44vw; }
+    /* FAQ */
+    .faqItem{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      overflow:hidden;
+      margin:10px 0;
+    }
+    .faqQ{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:16px 16px;
+      cursor:pointer;
+      background:transparent;
+      border:0;
+      color:rgba(242,244,255,.95);
+      font-weight:950;
+      font-size:18px;
+      text-align:left;
+    }
+    .faqA{
+      padding:0 16px 16px;
+      color:rgba(242,244,255,.72);
+      line-height:1.55;
+      display:none;
+    }
+    .faqItem.open .faqA{display:block}
+    .chev{transition: transform .18s var(--easeOut)}
+    .faqItem.open .chev{transform:rotate(180deg)}
+
+    footer{padding:40px 0 60px; color:rgba(242,244,255,.55); font-size:13px}
+    footer a{text-decoration:underline; text-decoration-color:rgba(217,178,76,.35)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .top{grid-template-columns:1fr; }
+      h1{font-size:48px}
+      .brand{max-width:60%}
     }
     @media (max-width: 640px){
-      .brand .name{ max-width: 36vw; font-size:14px; }
-      .pill.hideMobile{ display:none; } /* keep nav clean */
-      .statsGrid{ grid-template-columns: 1fr; }
+      .hideMobile{display:none}
+      .brand{max-width:58%}
+      h1{font-size:44px}
+      .grid2{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .vaultGrid{grid-template-columns:1fr}
     }
-    @media (prefers-reduced-motion: reduce){
-      *{ animation:none !important; transition:none !important; }
-      .bg{ transform:none !important; }
-    }
-/* ===== Presale Vault ===== */
-.vault .sectionHead{max-width:780px;margin:0 auto 18px;}
-.vaultGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start;}
-@media (max-width: 900px){.vaultGrid{grid-template-columns:1fr;}}
-
-.vaultCard{overflow:hidden}
-.vaultTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
-.vaultTitle{font-size:18px;font-weight:900;letter-spacing:.3px}
-.vaultSub{margin-top:4px}
-.vaultBadge{
-  font-size:12px;font-weight:900;letter-spacing:.6px;
-  padding:8px 10px;border-radius:999px;
-  border:1px solid rgba(217,178,76,.25);
-  background:linear-gradient(180deg, rgba(217,178,76,.14), rgba(0,0,0,.15));
-  color:rgba(242,244,255,.92);
-  white-space:nowrap;
-}
-
-.vaultStats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px;}
-@media (max-width:520px){.vaultStats{grid-template-columns:1fr;}}
-.stat{padding:12px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
-.statLabel{font-size:12px;color:rgba(242,244,255,.7);margin-bottom:6px}
-.statValue{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}
-.dot{width:10px;height:10px;border-radius:999px;background:radial-gradient(circle at 30% 30%, #ffd27a, #d9b24c);box-shadow:0 0 18px rgba(217,178,76,.45);display:inline-block;}
-
-.vaultCountdown{padding:14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
-.countLabel{font-size:12px;color:rgba(242,244,255,.7);margin-bottom:10px}
-.countRow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.countBox{padding:12px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(217,178,76,.18);text-align:center;}
-.countNum{font-size:18px;font-weight:1000;letter-spacing:.5px}
-.countTxt{font-size:11px;color:rgba(242,244,255,.7);margin-top:4px}
-
-.vaultProgress{padding:14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
-.progressHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
-.progressLabel{font-weight:900}
-.progressMeta{font-size:12px;color:rgba(242,244,255,.72)}
-.bar{height:12px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);overflow:hidden;}
-.barFill{height:100%;width:0%;
-  background:linear-gradient(90deg, rgba(217,178,76,.35), rgba(255,210,122,.75), rgba(217,178,76,.35));
-  box-shadow:0 0 30px rgba(217,178,76,.35);
-  transition:width .9s cubic-bezier(.2,.9,.2,1);
-}
-.progressFoot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;}
-
-.vaultTiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
-@media (max-width:520px){.vaultTiers{grid-template-columns:1fr;}}
-.tier{padding:12px;border-radius:16px;background:rgba(0,0,0,.22);border:1px solid rgba(217,178,76,.14);}
-.tierName{font-weight:1000;letter-spacing:.3px}
-.tierDesc{margin-top:6px;font-size:12px}
-
-.vaultNote{
-  margin-top:14px;
-  padding:12px 14px;
-  border-radius:16px;
-  background:rgba(217,178,76,.08);
-  border:1px solid rgba(217,178,76,.22);
-  color:rgba(242,244,255,.9);
-  font-size:13px;
-}
-.vaultNote a{color:rgba(255,210,122,.95);font-weight:900}
-
-.vaultFormCard .formHead{margin-bottom:12px}
-.formTitle{font-size:16px;font-weight:1000}
-.vaultForm{display:flex;flex-direction:column;gap:10px;margin-top:10px}
-.field{display:flex;flex-direction:column;gap:6px}
-.fieldLabel{font-size:12px;color:rgba(242,244,255,.72);font-weight:800}
-.input{
-  padding:12px 12px;border-radius:14px;
-  background:rgba(0,0,0,.25);
-  border:1px solid rgba(255,255,255,.12);
-  color:rgba(242,244,255,.92);
-  outline:none;
-}
-.input:focus{border-color:rgba(217,178,76,.42);box-shadow:0 0 0 4px rgba(217,178,76,.12);}
-.btn.full{width:100%}
-.hidden{display:none}
-
-.divider{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
-
-.earlyPass{
-  padding:14px;border-radius:18px;
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.22));
-  border:1px solid rgba(217,178,76,.18);
-}
-.passTop{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.passTitle{font-weight:1000}
-.passChip{font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12)}
-.passBody{margin-top:12px;display:flex;flex-direction:column;gap:8px}
-.passRow{display:flex;justify-content:space-between;gap:10px;font-weight:800}
-.passFoot{margin-top:12px}
-/* ===== Drawer (mobile menu) FIX ===== */
-.drawerBack{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease;
-  z-index: 999;
-}
-.drawerBack.show{
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.drawer{
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: min(86vw, 360px);
-  transform: translateX(110%);
-  transition: transform .25s ease;
-  z-index: 1000;
-  background: rgba(10, 12, 18, .92);
-  backdrop-filter: blur(14px);
-  border-left: 1px solid rgba(217,178,76,.22);
-  box-shadow: 0 24px 80px rgba(0,0,0,.55);
-  padding: 16px 14px;
-}
-.drawer.open{
-  transform: translateX(0);
-}
-
-.drawerHeader{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  margin-bottom: 10px;
-}
-
-.drawerClose{
-  appearance:none;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-  color: rgba(242,244,255,.95);
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-weight: 800;
-}
-
-.drawer small{
-  display:block;
-  margin: 14px 0 8px;
-  color: rgba(242,244,255,.55);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-size: 11px;
-}
-
-.drawerLink{
-  display:block;
-  padding: 12px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  color: rgba(242,244,255,.92);
-  text-decoration:none;
-  margin-bottom: 10px;
-}
-.drawerLink:active{ transform: translateY(1px); }
-
-/* ===== Vault area polish ===== */
-.vaultTitle{
-  font-size: 28px;
-  letter-spacing: -.02em;
-}
-.vaultSub{
-  color: rgba(242,244,255,.70);
-  margin-top: 6px;
-  line-height: 1.35;
-}
-.vaultBox{
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  border-radius: 18px;
-  padding: 16px;
-}
-.vaultGrid{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 10px;
-}
-@media (max-width: 520px){
-  .vaultGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-.timeTile{
-  border: 1px solid rgba(217,178,76,.22);
-  background: rgba(10, 12, 18, .55);
-  border-radius: 16px;
-  padding: 12px;
-  text-align:center;
-}
-.timeTile .num{
-  font-size: 22px;
-  font-weight: 900;
-}
-.timeTile .lbl{
-  margin-top: 4px;
-  font-size: 12px;
-  color: rgba(242,244,255,.65);
-}
   </style>
 </head>
 
 <body>
-  <div class="bg" aria-hidden="true"></div>
+  <div class="bgMark" aria-hidden="true"></div>
   <div class="film" aria-hidden="true"></div>
+
+  <!-- Drawer overlay + panel -->
+  <div class="drawerBack" id="drawerBack" aria-hidden="true"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawerHeader">
+      <div class="brandMini">
+        <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
+        <span>FreedomFi</span>
+      </div>
+      <button class="drawerClose" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
 
     <small>Navigate</small>
     <a class="drawerLink" href="#stats">Live Stats</a>
@@ -550,8 +398,9 @@
     <a class="drawerLink" href="#faq">FAQ</a>
     <a class="drawerLink" href="#community">Community</a>
 
+    <div style="height:10px"></div>
     <small>Actions</small>
-    <a class="drawerLink" id="drawerBuy" href="#" target="_blank" rel="noreferrer">Buy</a>
+    <a class="drawerLink" id="drawerBuy" href="#buy">Buy</a>
     <a class="drawerLink" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
   </aside>
 
@@ -559,23 +408,17 @@
   <header class="nav">
     <div class="wrap">
       <div class="navInner">
-        <a class="brand" href="#top" aria-label="Home">
-          <img src="./freedomfi-logo.PNG" alt="FreedomFi" />
+        <a class="brand" href="#top" aria-label="Go to top">
+          <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
           <div class="name">FreedomFi</div>
         </a>
 
         <div class="navRight">
-          <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">𝕏 @FreedomFiCoin</a>
-          <a class="pill btnGold" id="buyTop" href="#" target="_blank" rel="noreferrer">Buy</a>
-<button class="hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-    <path d="M4 7h16M4 12h16M4 17h16"
-          stroke="rgba(242,244,255,.92)"
-          stroke-width="2"
-          stroke-linecap="round"/>
-  </svg>
-</button>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X @FreedomFiCoin</a>
+          <a class="pill btnGold" id="buyTop" href="#buy">Buy</a>
+
+          <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
@@ -584,672 +427,485 @@
     </div>
   </header>
 
-  <main id="top" class="top">
+  <main id="top">
     <div class="wrap">
-      <div class="topBanner card">
-        <img src="./freedomfi-banner.PNG" alt="FreedomFi banner" />
-      </div>
 
-      <div class="grid">
+      <div class="top">
+        <div class="banner">
+          <img src="./freedomfi-banner.png" alt="FreedomFi banner" />
+        </div>
+
         <section class="card">
           <div class="cardPad">
             <div class="kicker">🦅 Built for the free • Solana-native</div>
             <h1>FreedomFi</h1>
             <p>
-              A clean, serious meme coin brand inspired by financial freedom. Track live stats, verify the contract,
-              view the chart, and join the movement.
+              A clean, serious meme coin brand inspired by financial freedom.
+              Track live stats, verify the contract, view the chart, and join the movement.
             </p>
-
             <div class="ctaRow">
-              <a class="cta primary" id="buyHero" href="#" target="_blank" rel="noreferrer">🚀 Buy FreedomFi</a>
-              <a class="cta" id="chartHero" href="#chart">View Live Chart</a>
-              <a class="cta" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
-            </div>
-
-            <div class="note">
-              <strong>Not affiliated</strong> with any official WLFI/USD1 entity. Always verify the contract address before swapping.  
+              <a class="pill btnGold" href="#buy">🚀 Buy FreedomFi</a>
+              <a class="pill" href="#chart">View Live Chart</a>
+              <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
             </div>
           </div>
         </section>
-<section id="vault" class="section vault">
-  <div class="container">
-    <div class="sectionHead">
-      <span class="pill">🔒 Presale Vault</span>
-      <h2>Early Access Vault</h2>
-      <p class="muted">
-        Lock in your spot before launch. <strong>No funds are collected on this site</strong> until the official Contract Address (CA) is published.
-      </p>
-    </div>
-
-    <div class="vaultGrid">
-      <!-- Left: Vault Card -->
-      <div class="card vaultCard">
-        <div class="vaultTop">
-          <div>
-            <div class="vaultTitle">FreedomFi Vault Access</div>
-            <div class="muted vaultSub">
-              Whitelist + launch alert + early access link
-            </div>
-          </div>
-          <div class="vaultBadge">Pre-Launch</div>
-        </div>
-
-        <div class="vaultStats">
-          <div class="stat">
-            <div class="statLabel">Status</div>
-            <div class="statValue"><span class="dot"></span> Accepting entries</div>
-          </div>
-          <div class="stat">
-            <div class="statLabel">Launch (est.)</div>
-            <div class="statValue" id="vaultLaunchText">TBA</div>
-          </div>
-        </div>
-
-        <div class="vaultCountdown">
-          <div class="countLabel">Countdown</div>
-          <div class="countRow" id="vaultCountdown">
-            <div class="countBox"><div class="countNum" id="cdD">--</div><div class="countTxt">Days</div></div>
-            <div class="countBox"><div class="countNum" id="cdH">--</div><div class="countTxt">Hours</div></div>
-            <div class="countBox"><div class="countNum" id="cdM">--</div><div class="countTxt">Min</div></div>
-            <div class="countBox"><div class="countNum" id="cdS">--</div><div class="countTxt">Sec</div></div>
-          </div>
-          <div class="muted tiny">If you don’t set a date yet, this will show “TBA”.</div>
-        </div>
-
-        <div class="vaultProgress">
-          <div class="progressHead">
-            <div class="progressLabel">Vault Spots</div>
-            <div class="progressMeta"><span id="vaultFilled">0</span>/<span id="vaultCap">2500</span> filled</div>
-          </div>
-          <div class="bar">
-            <div class="barFill" id="vaultBar"></div>
-          </div>
-          <div class="progressFoot">
-            <div class="muted tiny">Slots remaining: <span id="vaultRemain">--</span></div>
-            <div class="muted tiny">Auto-updates (display only)</div>
-          </div>
-        </div>
-
-        <div class="vaultTiers">
-          <div class="tier">
-            <div class="tierName">Bronze</div>
-            <div class="tierDesc muted">Launch alert + official links</div>
-          </div>
-          <div class="tier">
-            <div class="tierName">Silver</div>
-            <div class="tierDesc muted">Priority alert (early)</div>
-          </div>
-          <div class="tier">
-            <div class="tierName">Gold</div>
-            <div class="tierDesc muted">Early access link + priority alert</div>
-          </div>
-        </div>
-
-        <div class="vaultNote">
-          <strong>Important:</strong> Never send SOL to anyone claiming to be “presale.” FreedomFi will only post official links on
-          <a href="https://x.com/FreedomFiCoin" target="_blank" rel="noopener">X (@FreedomFiCoin)</a>.
-        </div>
       </div>
 
-      <!-- Right: Form -->
-      <div class="card vaultFormCard">
-        <div class="formHead">
-          <div class="formTitle">Get Vault Access</div>
-          <div class="muted">Join the list — we’ll send the official launch link when CA is live.</div>
-        </div>
-
-        <!-- Netlify Form -->
-        <form
-          class="vaultForm"
-          name="vault-access"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-        >
-          <input type="hidden" name="form-name" value="vault-access" />
-          <p class="hidden">
-            <label>Don’t fill this out: <input name="bot-field" /></label>
+      <!-- LIVE STATS -->
+      <section class="section card" id="stats">
+        <div class="cardPad">
+          <h2>Live Stats</h2>
+          <p id="statsHint" style="margin-top:-4px">
+            Paste your Contract Address (CA) when ready — stats will auto-populate.
           </p>
 
-          <label class="field">
-            <span class="fieldLabel">Email</span>
-            <input class="input" type="email" name="email" placeholder="you@email.com" required />
-          </label>
-
-          <label class="field">
-            <span class="fieldLabel">Solana Wallet (optional)</span>
-            <input class="input" type="text" name="wallet" placeholder="Paste wallet address" />
-          </label>
-
-          <label class="field">
-            <span class="fieldLabel">Tier (display only)</span>
-            <select class="input" name="tier">
-              <option value="Bronze">Bronze</option>
-              <option value="Silver">Silver</option>
-              <option value="Gold">Gold</option>
-            </select>
-          </label>
-
-          <label class="field">
-            <span class="fieldLabel">Referral code (optional)</span>
-            <input class="input" type="text" name="ref" placeholder="FRDM-XXXX" />
-          </label>
-
-          <button class="btn primary full" type="submit" id="vaultSubmitBtn">
-            🔒 Secure My Spot
-          </button>
-
-          <div class="muted tiny">
-            This is a <strong>pre-launch vault</strong> (no payment). Your info is used only for launch notifications.
-          </div>
-        </form>
-
-        <div class="divider"></div>
-
-        <div class="earlyPass">
-          <div class="passTop">
-            <div class="passTitle">Early Access Pass</div>
-            <div class="passChip">Valid at launch</div>
-          </div>
-          <div class="passBody">
-            <div class="passRow"><span class="muted">Project</span><span>FreedomFi</span></div>
-            <div class="passRow"><span class="muted">Network</span><span>Solana</span></div>
-            <div class="passRow"><span class="muted">CA</span><span class="muted">Pending</span></div>
-            <div class="passRow"><span class="muted">Access</span><span>Whitelist</span></div>
-          </div>
-          <div class="passFoot muted tiny">
-            CA will be posted publicly on X before any buy links go live.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-        <aside class="card" id="stats">
-          <div class="cardPad">
-            <h2 style="margin:0 0 10px">Live Stats</h2>
-            <p style="margin-top:0">Auto-pulls data from DexScreener once you paste the CA.</p>
-
-            <div class="statsGrid">
-              <div class="stat"><div class="label">Price</div><div class="val" id="statPrice">—</div><div class="sub" id="statChange">—</div></div>
-              <div class="stat"><div class="label">Market Cap</div><div class="val" id="statMcap">—</div><div class="sub">Estimated</div></div>
-              <div class="stat"><div class="label">Liquidity</div><div class="val" id="statLiq">—</div><div class="sub">Pool liquidity</div></div>
-              <div class="stat"><div class="label">24h Volume</div><div class="val" id="statVol">—</div><div class="sub">DEX volume</div></div>
-              <div class="stat"><div class="label">Pair</div><div class="val" id="statPair">—</div><div class="sub">DexScreener</div></div>
-              <div class="stat"><div class="label">Holders</div><div class="val" id="statHolders">—</div><div class="sub">Add later / manual</div></div>
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Price</div>
+              <div class="value" id="statPrice">—</div>
             </div>
-
-            <div class="note" style="margin-top:12px">
-              Contract: <code id="caText">PASTE_CONTRACT_ADDRESS_HERE</code>
+            <div class="stat">
+              <div class="label">24h Volume</div>
+              <div class="value" id="statVol">—</div>
+            </div>
+            <div class="stat">
+              <div class="label">Liquidity</div>
+              <div class="value" id="statLiq">—</div>
             </div>
           </div>
-        </aside>
-      </div>
 
-      <!-- Chart -->
-      <section class="section" id="chart">
-        <div class="card">
-          <div class="cardPad">
-            <h2>Chart</h2>
-            <p>Embed your DexScreener link (auto-set when CA is pasted).</p>
-            <div class="ctaRow">
-              <a class="cta" id="chartBtn" href="#" target="_blank" rel="noreferrer">Open DexScreener</a>
-              <a class="cta" id="copyCa" href="#">Copy Contract</a>
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Market Cap</div>
+              <div class="value" id="statMcap">—</div>
+            </div>
+            <div class="stat">
+              <div class="label">FDV</div>
+              <div class="value" id="statFdv">—</div>
+            </div>
+            <div class="stat">
+              <div class="label">Holders</div>
+              <div class="value" id="statHolders">—</div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- How to buy -->
-      <section class="section" id="howtobuy">
-        <div class="card">
-          <div class="cardPad">
-            <h2>How to Buy</h2>
-            <p>
-              1) Install a Solana wallet (Phantom/Solflare).<br/>
-              2) Fund with SOL.<br/>
-              3) Verify the Contract Address, then swap on a DEX.<br/>
-              4) Start small and double-check the CA to avoid clones/scams.  
+          <div class="section" id="buy">
+            <h2 style="margin-top:18px">Contract Address (CA)</h2>
+            <div class="codeRow">
+              <div class="code" id="caText">CA: (paste after launch)</div>
+              <button class="pill copyBtn" id="copyCA">Copy</button>
+            </div>
+            <p style="margin-top:10px">
+              Always verify the CA directly from this site and the official socials before swapping.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Roadmap -->
-      <section class="section" id="roadmap">
-        <div class="card">
-          <div class="cardPad">
-            <h2>Roadmap</h2>
-            <p><strong>Phase 1:</strong> Launch, socials live, community growth, verification checklist.</p>
-            <p><strong>Phase 2:</strong> Listings + tools (site stats, trackers), partnerships, meme campaigns.</p>
-            <p><strong>Phase 3:</strong> Utility experiments, community votes, sustained marketing.</p>
+      <!-- VAULT ACCESS (pre-launch waitlist; no payments) -->
+      <section class="section card" id="vault">
+        <div class="cardPad">
+          <div class="vaultHeader">
+            <div>
+              <h2 style="margin:0 0 6px">FreedomFi Vault Access</h2>
+              <p style="margin:0">Whitelist + launch alert + early access link</p>
+            </div>
+            <div class="tag">Pre-Launch</div>
+          </div>
+
+          <div class="vaultGrid">
+            <div class="card" style="box-shadow:none">
+              <div class="cardPad">
+                <div class="grid2">
+                  <div class="stat">
+                    <div class="label">Status</div>
+                    <div class="value">🟡 Accepting entries</div>
+                  </div>
+                  <div class="stat">
+                    <div class="label">Launch (EST)</div>
+                    <div class="value">Mar 5, 2026 • 8:00 PM</div>
+                  </div>
+                </div>
+
+                <div style="height:12px"></div>
+                <div class="label" style="color:rgba(242,244,255,.65);font-weight:900;margin-bottom:10px">Countdown</div>
+                <div class="vaultMiniGrid" aria-label="Countdown">
+                  <div class="timeBox"><div class="num" id="cdDays">—</div><div class="lbl">Days</div></div>
+                  <div class="timeBox"><div class="num" id="cdHours">—</div><div class="lbl">Hours</div></div>
+                  <div class="timeBox"><div class="num" id="cdMins">—</div><div class="lbl">Min</div></div>
+                  <div class="timeBox"><div class="num" id="cdSecs">—</div><div class="lbl">Sec</div></div>
+                </div>
+
+                <div class="note">
+                  This is a <b>pre-launch vault (no payment)</b>. Your info is used only for launch notifications.
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="box-shadow:none">
+              <div class="cardPad">
+                <h3 style="margin:0 0 6px; font-size:18px">Get Vault Access</h3>
+                <p style="margin:0 0 12px">Join the list — we’ll send the official launch link when CA is live.</p>
+
+                <!-- Netlify form: works on Netlify once deployed -->
+                <form name="vault" method="POST" data-netlify="true">
+                  <input type="hidden" name="form-name" value="vault" />
+
+                  <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="you@email.com" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="wallet">Solana Wallet (optional)</label>
+                    <input id="wallet" name="wallet" type="text" placeholder="Paste wallet address" />
+                  </div>
+
+                  <div class="field">
+                    <label for="tier">Tier (display only)</label>
+                    <select id="tier" name="tier">
+                      <option>Bronze</option>
+                      <option>Silver</option>
+                      <option>Gold</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="ref">Referral code (optional)</label>
+                    <input id="ref" name="ref" type="text" placeholder="FRDM-XXXX" />
+                  </div>
+
+                  <button class="submitBtn" type="submit">🔒 Secure My Spot</button>
+                </form>
+
+                <p style="margin-top:12px; color:rgba(242,244,255,.60); font-size:13px">
+                  Tip: after deploy, Netlify → Forms will show submissions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHART -->
+      <section class="section card" id="chart">
+        <div class="cardPad">
+          <h2>Chart</h2>
+          <p>
+            When your CA is live, this button can point to Dexscreener (auto-updated below).
+          </p>
+          <div class="ctaRow">
+            <a class="pill" id="chartBtn" href="#" target="_blank" rel="noreferrer">Open Dexscreener</a>
+          </div>
+          <p style="margin-top:12px;color:rgba(242,244,255,.60);font-size:13px">
+            Note: we can’t reliably show “holders” in-browser without a backend/indexer. This site keeps it safe and lightweight.
+          </p>
+        </div>
+      </section>
+
+      <!-- HOW TO BUY -->
+      <section class="section card" id="howtobuy">
+        <div class="cardPad">
+          <h2>How to Buy</h2>
+          <div class="grid2">
+            <div class="stat">
+              <div class="label">1) Get SOL</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Buy SOL on a reputable exchange and send it to your wallet.
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">2) Verify the CA</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Use the CA shown on this site + official socials. Never trust random DMs.
+              </div>
+            </div>
+          </div>
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">3) Swap</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Use a Solana DEX / swap UI and confirm token details before swapping.
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">4) Track</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Watch price/volume/liquidity in Live Stats and Dexscreener.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ROADMAP -->
+      <section class="section card" id="roadmap">
+        <div class="cardPad">
+          <h2>Roadmap</h2>
+          <div class="grid2">
+            <div class="stat">
+              <div class="label">Phase 1</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Brand launch, socials, site, community foundation.
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">Phase 2</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Launch + liquidity setup, tracking, listings, partnerships.
+              </div>
+            </div>
+          </div>
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Phase 3</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Utility experiments, community votes, sustained marketing.
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">Phase 4</div>
+              <div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">
+                Ecosystem growth, collabs, bigger distribution.
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- FAQ -->
-      <section class="section" id="faq">
-        <div class="card">
-          <div class="cardPad">
-            <h2>FAQ</h2>
+      <section class="section card" id="faq">
+        <div class="cardPad">
+          <h2>FAQ</h2>
 
-            <div class="faqList">
-              <details class="faq">
-                <summary>Is FreedomFi an “official” WLFI/USD1 token?
-                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </summary>
-                <div class="faqBody">
-                  No. FreedomFi is a community meme coin inspired by financial freedom and the broader crypto conversation.
-                  Always verify the exact contract address to avoid lookalike clones.  
-              </details>
-
-              <details class="faq">
-                <summary>How do I avoid scams and fake copies?
-                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </summary>
-                <div class="faqBody">
-                  Only use links posted on the official project social pages. Verify the Contract Address on the site before swapping.
-                  Using the wrong contract address can permanently lose funds.  
-                </div>
-              </details>
-
-              <details class="faq">
-                <summary>What does “liquidity locked” mean?
-                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </summary>
-                <div class="faqBody">
-                  “Locked liquidity” generally means the liquidity pool tokens are time-locked so they can’t be withdrawn until a preset date,
-                  which can reduce certain rug-pull risks. Always verify it with reputable tools (DexScreener / lockers).  
-                </div>
-              </details>
-
-              <details class="faq">
-                <summary>Is a stablecoin always safe?
-                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </summary>
-                <div class="faqBody">
-                  Not necessarily. Even with fiat-backed designs, risks can exist through platforms, counterparties, and DeFi lending/leveraging.
-                  Don’t assume “stable” means “risk-free.”  
-                </div>
-              </details>
-
-              <details class="faq">
-                <summary>What is USD1 (in general terms)?
-                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </summary>
-                <div class="faqBody">
-                  USD1 has been described as a fiat-backed stablecoin designed to target a 1:1 value with USD (as opposed to algorithmic designs).
-                  Always verify the current official documentation and addresses from the issuer.  
-                </div>
-              </details>
-
-              <details class="faq">
-                <summary>Financial disclaimer
-                  <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(242,244,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </summary>
-                <div class="faqBody">
-                  This website is for information only and not financial advice. Crypto is risky and you can lose your entire investment.
-                  Verify contracts and do your own research.
-                </div>
-              </details>
+          <div class="faqItem">
+            <button class="faqQ" type="button">
+              Is FreedomFi an “official” WLFI/USD1 token?
+              <span class="chev">▾</span>
+            </button>
+            <div class="faqA">
+              No. FreedomFi is its own community project and is not officially affiliated with WLFI or USD1. Always rely on official project channels and this site’s verified CA once published.
             </div>
+          </div>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">
+              How do I avoid scams and fake copies?
+              <span class="chev">▾</span>
+            </button>
+            <div class="faqA">
+              Only use links posted on the official project pages. Verify the Contract Address on this site before swapping. Using the wrong contract address can permanently lose funds.
+            </div>
+          </div>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">
+              What does “liquidity locked” mean?
+              <span class="chev">▾</span>
+            </button>
+            <div class="faqA">
+              It typically means the liquidity pool tokens are time-locked so they can’t be withdrawn until a set date. You should still verify the lock using reputable tools and never treat it as a guarantee.
+            </div>
+          </div>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">
+              Is a stablecoin always safe?
+              <span class="chev">▾</span>
+            </button>
+            <div class="faqA">
+              No. Stablecoins can carry risks: issuer/reserve risk, depegging, exchange risk, and smart contract risk. Always do your own research and manage position size accordingly.
+            </div>
+          </div>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">
+              What is USD1 (in general terms)?
+              <span class="chev">▾</span>
+            </button>
+            <div class="faqA">
+              In general terms, USD1 is described as a U.S. dollar-pegged token backed by reserves like U.S. Treasuries/cash equivalents (as reported publicly). Always verify the issuer’s latest disclosures directly.
+            </div>
+          </div>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">
+              When will the CA be posted?
+              <span class="chev">▾</span>
+            </button>
+            <div class="faqA">
+              The CA will be posted here after launch. Until then, treat any CA you see elsewhere as unverified.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- COMMUNITY -->
+      <section class="section card" id="community">
+        <div class="cardPad">
+          <h2>Community</h2>
+          <p>
+            FreedomFi is community-driven. Follow the official socials and stay alert for the verified CA.
+          </p>
+          <div class="ctaRow">
+            <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
+            <a class="pill" href="#vault">Vault Access</a>
           </div>
         </div>
       </section>
 
-      <!-- Community -->
-      <section class="section" id="community">
-        <div class="card">
-          <div class="cardPad">
-            <h2>Community</h2>
-            <p>
-              Follow updates on X and share the verified contract address. If you want Telegram/Discord buttons, tell me what links you want.
-            </p>
-            <div class="ctaRow">
-              <a class="cta" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Join on X</a>
-            </div>
+      <footer class="wrap">
+        <div style="padding-top:28px">
+          <div style="margin-bottom:10px">
+            <b>Disclaimer:</b> This site is for informational/community purposes only and is not financial advice.
+            Crypto assets can be volatile and risky.
           </div>
-        </div>
-      </section>
-
-      <footer>
-        <div class="wrap">
-          © <span id="year"></span> FreedomFi. Not affiliated with WLFI/USD1. Verify the contract address before trading.  
+          <div>© <span id="year"></span> FreedomFi</div>
         </div>
       </footer>
+
     </div>
   </main>
 
   <script>
-    // ====== SET THESE ======
-    const CONTRACT_ADDRESS = "PASTE_CONTRACT_ADDRESS_HERE"; // <-- paste your Solana CA here
-    const BUY_URL = "#"; // <-- paste your swap link (Pump.fun / Raydium / Jupiter)
-    // =======================
-
+    // ===== Utilities
     const $ = (id) => document.getElementById(id);
 
-    // Fix: update all buy links
-    function setBuyLinks(){
-      ["buyTop","buyHero","drawerBuy"].forEach(id=>{
-        const el = $(id);
-        if(!el) return;
-        el.href = BUY_URL || "#";
-      });
+    function fmtUSD(n){
+      if(!isFinite(n)) return "—";
+      return n >= 1 ? "$" + n.toLocaleString(undefined,{maximumFractionDigits: 6})
+                    : "$" + n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
+    }
+    function fmtCompact(n){
+      if(!isFinite(n)) return "—";
+      return n.toLocaleString(undefined,{notation:"compact", maximumFractionDigits:2});
     }
 
-    // Parallax background
-    const bg = document.querySelector(".bg");
-    function setParallax(){
-      const y = window.scrollY || 0;
-      // subtle move; no zoom chaos
-      bg.style.transform = `translate3d(0, ${Math.min(40, y * 0.05)}px, 0) scale(1.06)`;
-    }
-    window.addEventListener("scroll", setParallax, {passive:true});
-    setParallax();
-
-    // Drawer
+    // ===== Drawer Menu (fixes your current issue)
+    const menuBtn = $("menuBtn");
+    const drawerBack = $("drawerBack");
     const drawer = $("drawer");
-    const back = $("drawerBack");
+    const drawerClose = $("drawerClose");
+
     function openDrawer(){
-      drawer.classList.add("show");
-      back.classList.add("show");
+      if(!drawer || !drawerBack || !menuBtn) return;
+      drawer.classList.add("open");
+      drawerBack.classList.add("show");
+      menuBtn.setAttribute("aria-expanded","true");
+      document.documentElement.style.overflow = "hidden";
     }
     function closeDrawer(){
-      drawer.classList.remove("show");
-      back.classList.remove("show");
+      if(!drawer || !drawerBack || !menuBtn) return;
+      drawer.classList.remove("open");
+      drawerBack.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded","false");
+      document.documentElement.style.overflow = "";
     }
-    $("hamburger").addEventListener("click", openDrawer);
-    $("drawerClose").addEventListener("click", closeDrawer);
-    back.addEventListener("click", closeDrawer);
-    drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
 
-    // Copy CA
-    $("copyCa").addEventListener("click", async (e) => {
-      e.preventDefault();
+    menuBtn?.addEventListener("click", (e)=>{ e.preventDefault(); openDrawer(); });
+    drawerClose?.addEventListener("click", (e)=>{ e.preventDefault(); closeDrawer(); });
+    drawerBack?.addEventListener("click", closeDrawer);
+    drawer?.addEventListener("click", (e)=>{
+      const a = e.target.closest("a");
+      if(a) closeDrawer();
+    });
+    window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeDrawer(); });
+
+    // ===== Copy CA
+    $("copyCA")?.addEventListener("click", async ()=>{
+      const txt = ($("caText")?.textContent || "").replace(/^CA:\s*/,'').trim();
+      if(!txt || txt.toLowerCase().includes("paste")) return;
       try{
-        await navigator.clipboard.writeText(CONTRACT_ADDRESS);
-        $("copyCa").textContent = "Copied ✓";
-        setTimeout(()=> $("copyCa").textContent = "Copy Contract", 1200);
-      }catch(_){
-        alert("Copy failed — long-press the CA in the Live Stats box.");
-      }
+        await navigator.clipboard.writeText(txt);
+        $("copyCA").textContent = "Copied";
+        setTimeout(()=>$("copyCA").textContent="Copy", 900);
+      }catch{}
     });
 
-    // Footer year
-    $("year").textContent = new Date().getFullYear();
+    // ===== Countdown (March 5, 2026 8:00 PM EST)
+    // Using explicit -05:00 offset for EST.
+    const LAUNCH_ISO = "2026-03-05T20:00:00-05:00";
+    const launchTs = Date.parse(LAUNCH_ISO);
 
-    // Contract text
-    $("caText").textContent = CONTRACT_ADDRESS;
+    function renderCountdown(){
+      const now = Date.now();
+      let diff = Math.max(0, launchTs - now);
 
-    // Chart link (DexScreener token page)
-    const dexUrl = CONTRACT_ADDRESS && CONTRACT_ADDRESS !== "PASTE_CONTRACT_ADDRESS_HERE"
-      ? `https://dexscreener.com/solana/${CONTRACT_ADDRESS}`
-      : "#";
-    $("chartBtn").href = dexUrl;
+      const d = $("cdDays"), h = $("cdHours"), m = $("cdMins"), s = $("cdSecs");
+      if(!d || !h || !m || !s) return;
 
-    // Set buy links now
-    setBuyLinks();
+      const totalSec = Math.floor(diff / 1000);
+      const days = Math.floor(totalSec / 86400);
+      const hrs  = Math.floor((totalSec % 86400) / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
 
-    // Live stats (DexScreener)
-    function fmtUsd(n){
-      if(n === null || n === undefined || isNaN(n)) return "—";
-      const abs = Math.abs(n);
-      if(abs >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
-      if(abs >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
-      if(abs >= 1e3) return "$" + (n/1e3).toFixed(2) + "K";
-      return "$" + Number(n).toFixed(4);
+      d.textContent = String(days);
+      h.textContent = String(hrs).padStart(2,"0");
+      m.textContent = String(mins).padStart(2,"0");
+      s.textContent = String(secs).padStart(2,"0");
     }
+    renderCountdown();
+    setInterval(renderCountdown, 1000);
+
+    // ===== FAQ accordion
+    document.querySelectorAll(".faqItem").forEach(item=>{
+      const btn = item.querySelector(".faqQ");
+      btn?.addEventListener("click", ()=> item.classList.toggle("open"));
+    });
+
+    // ===== Dexscreener stats (auto when CA is set)
+    // Put your CA here when you have it:
+    const CONTRACT_ADDRESS = ""; // <-- paste CA here later
 
     async function loadDex(){
-      if(!CONTRACT_ADDRESS || CONTRACT_ADDRESS === "PASTE_CONTRACT_ADDRESS_HERE") return;
+      // If no CA yet, keep placeholders.
+      if(!CONTRACT_ADDRESS){
+        $("chartBtn").href = "#";
+        return;
+      }
+
+      // Show CA in the CA box
+      const caText = $("caText");
+      if(caText) caText.textContent = "CA: " + CONTRACT_ADDRESS;
 
       try{
-        // DexScreener token endpoint
-        const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CONTRACT_ADDRESS}`);
-        const j = await r.json();
-        const pairs = j && j.pairs ? j.pairs : [];
+        const url = "https://api.dexscreener.com/latest/dex/tokens/" + CONTRACT_ADDRESS;
+        const res = await fetch(url, {cache:"no-store"});
+        const data = await res.json();
+        const pairs = data?.pairs || [];
         if(!pairs.length) return;
 
-        // pick the best pair by liquidity
-        pairs.sort((a,b)=> (b.liquidity?.usd||0) - (a.liquidity?.usd||0));
+        // Choose highest liquidity pair
+        pairs.sort((a,b)=> (Number(b.liquidity?.usd)||0) - (Number(a.liquidity?.usd)||0));
         const p = pairs[0];
 
-        const price = Number(p.priceUsd);
-        const change = p.priceChange?.h24;
-        const mcap = Number(p.fdv || p.marketCap || NaN);
-        const liq = Number(p.liquidity?.usd || NaN);
-        const vol = Number(p.volume?.h24 || NaN);
+        $("statPrice").textContent = fmtUSD(Number(p.priceUsd));
+        $("statVol").textContent   = "$" + fmtCompact(Number(p.volume?.h24));
+        $("statLiq").textContent   = "$" + fmtCompact(Number(p.liquidity?.usd));
+        $("statMcap").textContent  = "$" + fmtCompact(Number(p.marketCap));
+        $("statFdv").textContent   = "$" + fmtCompact(Number(p.fdv));
 
-        $("statPrice").textContent = fmtUsd(price);
-        $("statChange").textContent = (change !== undefined && change !== null)
-          ? `${change > 0 ? "▲" : "▼"} ${Math.abs(change).toFixed(2)}% (24h)`
-          : "—";
+        // Dexscreener doesn't reliably provide holders here.
+        $("statHolders").textContent = "—";
 
-        $("statMcap").textContent = isNaN(mcap) ? "—" : fmtUsd(mcap);
-        $("statLiq").textContent = isNaN(liq) ? "—" : fmtUsd(liq);
-        $("statVol").textContent = isNaN(vol) ? "—" : fmtUsd(vol);
-
-        $("statPair").textContent = (p.dexId ? p.dexId.toUpperCase() : "DEX") + " / " + (p.quoteToken?.symbol || "SOL");
-
-        // If you want: set chart button directly to the pair URL
         if(p.url) $("chartBtn").href = p.url;
 
+        const hint = $("statsHint");
+        if(hint) hint.textContent = "Live stats are pulled from Dexscreener. Always verify the CA before swapping.";
       }catch(err){
+        // Keep silent in UI; you can check console if needed.
         console.warn("Dex load failed", err);
       }
     }
+
     loadDex();
     setInterval(loadDex, 30000);
- <script>
-  // ===== Presale Vault (Display + Netlify Form) =====
 
-  // 1) SET YOUR CAP + (optional) LAUNCH DATE
-  const VAULT_CAP = 2500;
-
-  // Optional: set a real date/time later (example: "2026-04-01T19:00:00-05:00")
-  // Leave as null for "TBA"
-  const LAUNCH_ISO = null;
-
-  // 2) Display-only "filled" number (change this anytime)
-  // You can manually set this, or let it simulate for vibes.
-  let vaultFilled = 642; // <-- EDIT THIS NUMBER WHENEVER YOU WANT
-
-  // If you want it to slowly "tick up" while people visit, set true:
-  const SIMULATE = true;
-
-  const elCap = document.getElementById("vaultCap");
-  const elFilled = document.getElementById("vaultFilled");
-  const elRemain = document.getElementById("vaultRemain");
-  const elBar = document.getElementById("vaultBar");
-  const elLaunchText = document.getElementById("vaultLaunchText");
-
-  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-  function renderVault(){
-    vaultFilled = clamp(vaultFilled, 0, VAULT_CAP);
-    const remain = VAULT_CAP - vaultFilled;
-    elCap.textContent = String(VAULT_CAP);
-    elFilled.textContent = String(vaultFilled);
-    elRemain.textContent = String(remain);
-    elBar.style.width = ((vaultFilled / VAULT_CAP) * 100).toFixed(1) + "%";
-  }
-
-  function renderCountdown(){
-    const d = document.getElementById("cdD");
-    const h = document.getElementById("cdH");
-    const m = document.getElementById("cdM");
-    const s = document.getElementById("cdS");
-
-    if(!LAUNCH_ISO){
-      elLaunchText.textContent = "TBA";
-      d.textContent = "--"; h.textContent = "--"; m.textContent = "--"; s.textContent = "--";
-      return;
-    }
-
-    const target = new Date(LAUNCH_ISO).getTime();
-    const now = Date.now();
-    let diff = Math.max(0, target - now);
-
-    const days = Math.floor(diff / (1000*60*60*24)); diff -= days*(1000*60*60*24);
-    const hrs  = Math.floor(diff / (1000*60*60)); diff -= hrs*(1000*60*60);
-    const mins = Math.floor(diff / (1000*60)); diff -= mins*(1000*60);
-    const secs = Math.floor(diff / 1000);
-
-    elLaunchText.textContent = new Date(LAUNCH_ISO).toLocaleString();
-    d.textContent = String(days);
-    h.textContent = String(hrs).padStart(2,"0");
-    m.textContent = String(mins).padStart(2,"0");
-    s.textContent = String(secs).padStart(2,"0");
-  }
-
-  // Optional tiny simulation
-  function startSim(){
-    if(!SIMULATE) return;
-    setInterval(() => {
-      // slow drift upward until close to cap
-      const wiggle = Math.random() < 0.65 ? 1 : 0;
-      if(vaultFilled < VAULT_CAP - 80) vaultFilled += wiggle;
-      renderVault();
-    }, 3500);
-  }
-
-  // Prevent double-submit feel (display only)
-  const form = document.querySelector('form[name="vault-access"]');
-  const btn = document.getElementById("vaultSubmitBtn");
-  if(form && btn){
-    form.addEventListener("submit", () => {
-      btn.disabled = true;
-      btn.textContent = "✅ Spot Reserved (Submitting...)";
-      // Let Netlify handle the POST normally
-      // (You can remove this if you want default behavior)
-      setTimeout(() => {
-        btn.textContent = "✅ Submitted";
-      }, 1200);
-    });
-  }
-
-  renderVault();
-  renderCountdown();
-  startSim();
-  setInterval(renderCountdown, 1000);
-// ===== Mobile drawer menu =====
-const menuBtn = document.getElementById("menuBtn");
-const drawerBack = document.getElementById("drawerBack");
-const drawer = document.getElementById("drawer");
-const drawerClose = document.getElementById("drawerClose");
-
-function openDrawer(){
-  if(!drawer || !drawerBack || !menuBtn) return;
-  drawer.classList.add("open");
-  drawerBack.classList.add("show");
-  menuBtn.setAttribute("aria-expanded","true");
-  document.documentElement.style.overflow = "hidden";
-}
-
-function closeDrawer(){
-  if(!drawer || !drawerBack || !menuBtn) return;
-  drawer.classList.remove("open");
-  drawerBack.classList.remove("show");
-  menuBtn.setAttribute("aria-expanded","false");
-  document.documentElement.style.overflow = "";
-}
-
-menuBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  drawer?.classList.contains("open") ? closeDrawer() : openDrawer();
-});
-
-drawerBack?.addEventListener("click", closeDrawer);
-drawerClose?.addEventListener("click", closeDrawer);
-
-document.addEventListener("keydown", (e) => {
-  if(e.key === "Escape") closeDrawer();
-});
-
-// Close when tapping a drawer link
-document.querySelectorAll(".drawerLink").forEach(a=>{
-  a.addEventListener("click", closeDrawer);
-});
-// ===== Mobile drawer menu wiring =====
-(() => {
-  const menuBtn = document.getElementById("menuBtn");
-  const drawerBack = document.getElementById("drawerBack");
-  const drawer = document.getElementById("drawer");
-  const drawerClose = document.getElementById("drawerClose");
-
-  function openDrawer(){
-    if(!drawer || !drawerBack || !menuBtn) return;
-    drawer.classList.add("open");
-    drawerBack.classList.add("show");
-    menuBtn.setAttribute("aria-expanded", "true");
-    document.documentElement.style.overflow = "hidden";
-  }
-
-  function closeDrawer(){
-    if(!drawer || !drawerBack || !menuBtn) return;
-    drawer.classList.remove("open");
-    drawerBack.classList.remove("show");
-    menuBtn.setAttribute("aria-expanded", "false");
-    document.documentElement.style.overflow = "";
-  }
-
-  menuBtn?.addEventListener("click", (e) => { e.preventDefault(); openDrawer(); });
-  drawerBack?.addEventListener("click", closeDrawer);
-  drawerClose?.addEventListener("click", closeDrawer);
-
-  document.addEventListener("keydown", (e) => {
-    if(e.key === "Escape") closeDrawer();
-  });
-
-  // Close after tapping any drawer link
-  drawer?.addEventListener("click", (e) => {
-    const a = e.target.closest("a");
-    if(a) closeDrawer();
-  });
-})();
-
-
-// ===== Countdown: Mar 5, 2026 8:00 PM EST =====
-// EST is UTC-5, so 8:00 PM EST = 01:00 UTC next day
-const LAUNCH_TS = Date.parse("2026-03-06T01:00:00Z");
-
-function pad2(n){ return String(n).padStart(2,"0"); }
-
-function renderCountdown(){
-  const now = Date.now();
-  let diff = LAUNCH_TS - now;
-
-  const $d = document.getElementById("cdDays");
-  const $h = document.getElementById("cdHours");
-  const $m = document.getElementById("cdMins");
-  const $s = document.getElementById("cdSecs");
-
-  if(!$d || !$h || !$m || !$s) return;
-
-  if(diff <= 0){
-    $d.textContent = "00";
-    $h.textContent = "00";
-    $m.textContent = "00";
-    $s.textContent = "00";
-    return;
-  }
-
-  const totalSec = Math.floor(diff / 1000);
-  const days = Math.floor(totalSec / 86400);
-  const hrs  = Math.floor((totalSec % 86400) / 3600);
-  const mins = Math.floor((totalSec % 3600) / 60);
-  const secs = totalSec % 60;
-
-  $d.textContent = String(days);
-  $h.textContent = pad2(hrs);
-  $m.textContent = pad2(mins);
-  $s.textContent = pad2(secs);
-}
-// March 5, 2026 @ 8:00 PM EST
-// EST is UTC-5 → 01:00 UTC on March 6
-const LAUNCH_TS = Date.parse("2026-03-06T01:00:00Z");
-renderCountdown();
-setInterval(renderCountdown, 1000);
+    // Footer year
+    $("year").textContent = String(new Date().getFullYear());
   </script>
 </body>
 </html>
