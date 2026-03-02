@@ -714,14 +714,6 @@
 
     // ========= PARALLAX (banner background moves on scroll) =========
     const root = document.documentElement;
-    function setParallax(){
-      const y = window.scrollY || 0;
-      // move background slowly: adjust multiplier to taste
-      const bgY = Math.round(y * 0.12);
-      root.style.setProperty("--bgY", bgY + "px");
-    }
-    window.addEventListener("scroll", setParallax, {passive:true});
-    setParallax();
 
     // ========= SAFETY: if CA not set =========
     if(CONTRACT_ADDRESS === "PASTE_YOUR_CA_HERE"){
