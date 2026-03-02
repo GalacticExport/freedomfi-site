@@ -442,25 +442,13 @@
     }
     .bg{ z-index: -1; }
     .nav, main, footer, header, section{ position: relative; z-index: 2; }
-  </style>
-  @media (max-width:640px){
-
-  .navInner{
-    gap:8px;
-  }
-
-  .brand span{
-    font-size:14px;
-    white-space:nowrap;
-  }
-
-  .navLinks{
-    display:none;
-  }
-
+@media (max-width:640px){
+  .navInner{ gap:8px; }
+  .brand span{ font-size:14px; white-space:nowrap; }
+  .navLinks{ display:none; }
 }
-</head>
-
+  </style>
+  </head>
 <body>
   <canvas id="goldParticles"></canvas>
   <div class="bg" aria-hidden="true"></div>
