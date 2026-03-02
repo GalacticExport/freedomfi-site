@@ -330,6 +330,96 @@
       *{ animation:none !important; transition:none !important; }
       .bg{ transform:none !important; }
     }
+/* ===== Presale Vault ===== */
+.vault .sectionHead{max-width:780px;margin:0 auto 18px;}
+.vaultGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start;}
+@media (max-width: 900px){.vaultGrid{grid-template-columns:1fr;}}
+
+.vaultCard{overflow:hidden}
+.vaultTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.vaultTitle{font-size:18px;font-weight:900;letter-spacing:.3px}
+.vaultSub{margin-top:4px}
+.vaultBadge{
+  font-size:12px;font-weight:900;letter-spacing:.6px;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(217,178,76,.25);
+  background:linear-gradient(180deg, rgba(217,178,76,.14), rgba(0,0,0,.15));
+  color:rgba(242,244,255,.92);
+  white-space:nowrap;
+}
+
+.vaultStats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px;}
+@media (max-width:520px){.vaultStats{grid-template-columns:1fr;}}
+.stat{padding:12px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.statLabel{font-size:12px;color:rgba(242,244,255,.7);margin-bottom:6px}
+.statValue{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:999px;background:radial-gradient(circle at 30% 30%, #ffd27a, #d9b24c);box-shadow:0 0 18px rgba(217,178,76,.45);display:inline-block;}
+
+.vaultCountdown{padding:14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
+.countLabel{font-size:12px;color:rgba(242,244,255,.7);margin-bottom:10px}
+.countRow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.countBox{padding:12px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(217,178,76,.18);text-align:center;}
+.countNum{font-size:18px;font-weight:1000;letter-spacing:.5px}
+.countTxt{font-size:11px;color:rgba(242,244,255,.7);margin-top:4px}
+
+.vaultProgress{padding:14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
+.progressHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
+.progressLabel{font-weight:900}
+.progressMeta{font-size:12px;color:rgba(242,244,255,.72)}
+.bar{height:12px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);overflow:hidden;}
+.barFill{height:100%;width:0%;
+  background:linear-gradient(90deg, rgba(217,178,76,.35), rgba(255,210,122,.75), rgba(217,178,76,.35));
+  box-shadow:0 0 30px rgba(217,178,76,.35);
+  transition:width .9s cubic-bezier(.2,.9,.2,1);
+}
+.progressFoot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;}
+
+.vaultTiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+@media (max-width:520px){.vaultTiers{grid-template-columns:1fr;}}
+.tier{padding:12px;border-radius:16px;background:rgba(0,0,0,.22);border:1px solid rgba(217,178,76,.14);}
+.tierName{font-weight:1000;letter-spacing:.3px}
+.tierDesc{margin-top:6px;font-size:12px}
+
+.vaultNote{
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:rgba(217,178,76,.08);
+  border:1px solid rgba(217,178,76,.22);
+  color:rgba(242,244,255,.9);
+  font-size:13px;
+}
+.vaultNote a{color:rgba(255,210,122,.95);font-weight:900}
+
+.vaultFormCard .formHead{margin-bottom:12px}
+.formTitle{font-size:16px;font-weight:1000}
+.vaultForm{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.field{display:flex;flex-direction:column;gap:6px}
+.fieldLabel{font-size:12px;color:rgba(242,244,255,.72);font-weight:800}
+.input{
+  padding:12px 12px;border-radius:14px;
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(242,244,255,.92);
+  outline:none;
+}
+.input:focus{border-color:rgba(217,178,76,.42);box-shadow:0 0 0 4px rgba(217,178,76,.12);}
+.btn.full{width:100%}
+.hidden{display:none}
+
+.divider{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
+
+.earlyPass{
+  padding:14px;border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.22));
+  border:1px solid rgba(217,178,76,.18);
+}
+.passTop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.passTitle{font-weight:1000}
+.passChip{font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12)}
+.passBody{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.passRow{display:flex;justify-content:space-between;gap:10px;font-weight:800}
+.passFoot{margin-top:12px}
   </style>
 </head>
 
@@ -410,7 +500,160 @@
             </div>
           </div>
         </section>
+<section id="vault" class="section vault">
+  <div class="container">
+    <div class="sectionHead">
+      <span class="pill">🔒 Presale Vault</span>
+      <h2>Early Access Vault</h2>
+      <p class="muted">
+        Lock in your spot before launch. <strong>No funds are collected on this site</strong> until the official Contract Address (CA) is published.
+      </p>
+    </div>
 
+    <div class="vaultGrid">
+      <!-- Left: Vault Card -->
+      <div class="card vaultCard">
+        <div class="vaultTop">
+          <div>
+            <div class="vaultTitle">FreedomFi Vault Access</div>
+            <div class="muted vaultSub">
+              Whitelist + launch alert + early access link
+            </div>
+          </div>
+          <div class="vaultBadge">Pre-Launch</div>
+        </div>
+
+        <div class="vaultStats">
+          <div class="stat">
+            <div class="statLabel">Status</div>
+            <div class="statValue"><span class="dot"></span> Accepting entries</div>
+          </div>
+          <div class="stat">
+            <div class="statLabel">Launch (est.)</div>
+            <div class="statValue" id="vaultLaunchText">TBA</div>
+          </div>
+        </div>
+
+        <div class="vaultCountdown">
+          <div class="countLabel">Countdown</div>
+          <div class="countRow" id="vaultCountdown">
+            <div class="countBox"><div class="countNum" id="cdD">--</div><div class="countTxt">Days</div></div>
+            <div class="countBox"><div class="countNum" id="cdH">--</div><div class="countTxt">Hours</div></div>
+            <div class="countBox"><div class="countNum" id="cdM">--</div><div class="countTxt">Min</div></div>
+            <div class="countBox"><div class="countNum" id="cdS">--</div><div class="countTxt">Sec</div></div>
+          </div>
+          <div class="muted tiny">If you don’t set a date yet, this will show “TBA”.</div>
+        </div>
+
+        <div class="vaultProgress">
+          <div class="progressHead">
+            <div class="progressLabel">Vault Spots</div>
+            <div class="progressMeta"><span id="vaultFilled">0</span>/<span id="vaultCap">2500</span> filled</div>
+          </div>
+          <div class="bar">
+            <div class="barFill" id="vaultBar"></div>
+          </div>
+          <div class="progressFoot">
+            <div class="muted tiny">Slots remaining: <span id="vaultRemain">--</span></div>
+            <div class="muted tiny">Auto-updates (display only)</div>
+          </div>
+        </div>
+
+        <div class="vaultTiers">
+          <div class="tier">
+            <div class="tierName">Bronze</div>
+            <div class="tierDesc muted">Launch alert + official links</div>
+          </div>
+          <div class="tier">
+            <div class="tierName">Silver</div>
+            <div class="tierDesc muted">Priority alert (early)</div>
+          </div>
+          <div class="tier">
+            <div class="tierName">Gold</div>
+            <div class="tierDesc muted">Early access link + priority alert</div>
+          </div>
+        </div>
+
+        <div class="vaultNote">
+          <strong>Important:</strong> Never send SOL to anyone claiming to be “presale.” FreedomFi will only post official links on
+          <a href="https://x.com/FreedomFiCoin" target="_blank" rel="noopener">X (@FreedomFiCoin)</a>.
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="card vaultFormCard">
+        <div class="formHead">
+          <div class="formTitle">Get Vault Access</div>
+          <div class="muted">Join the list — we’ll send the official launch link when CA is live.</div>
+        </div>
+
+        <!-- Netlify Form -->
+        <form
+          class="vaultForm"
+          name="vault-access"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="vault-access" />
+          <p class="hidden">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <label class="field">
+            <span class="fieldLabel">Email</span>
+            <input class="input" type="email" name="email" placeholder="you@email.com" required />
+          </label>
+
+          <label class="field">
+            <span class="fieldLabel">Solana Wallet (optional)</span>
+            <input class="input" type="text" name="wallet" placeholder="Paste wallet address" />
+          </label>
+
+          <label class="field">
+            <span class="fieldLabel">Tier (display only)</span>
+            <select class="input" name="tier">
+              <option value="Bronze">Bronze</option>
+              <option value="Silver">Silver</option>
+              <option value="Gold">Gold</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="fieldLabel">Referral code (optional)</span>
+            <input class="input" type="text" name="ref" placeholder="FRDM-XXXX" />
+          </label>
+
+          <button class="btn primary full" type="submit" id="vaultSubmitBtn">
+            🔒 Secure My Spot
+          </button>
+
+          <div class="muted tiny">
+            This is a <strong>pre-launch vault</strong> (no payment). Your info is used only for launch notifications.
+          </div>
+        </form>
+
+        <div class="divider"></div>
+
+        <div class="earlyPass">
+          <div class="passTop">
+            <div class="passTitle">Early Access Pass</div>
+            <div class="passChip">Valid at launch</div>
+          </div>
+          <div class="passBody">
+            <div class="passRow"><span class="muted">Project</span><span>FreedomFi</span></div>
+            <div class="passRow"><span class="muted">Network</span><span>Solana</span></div>
+            <div class="passRow"><span class="muted">CA</span><span class="muted">Pending</span></div>
+            <div class="passRow"><span class="muted">Access</span><span>Whitelist</span></div>
+          </div>
+          <div class="passFoot muted tiny">
+            CA will be posted publicly on X before any buy links go live.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
         <aside class="card" id="stats">
           <div class="cardPad">
             <h2 style="margin:0 0 10px">Live Stats</h2>
@@ -686,6 +929,99 @@
     }
     loadDex();
     setInterval(loadDex, 30000);
+ <script>
+  // ===== Presale Vault (Display + Netlify Form) =====
+
+  // 1) SET YOUR CAP + (optional) LAUNCH DATE
+  const VAULT_CAP = 2500;
+
+  // Optional: set a real date/time later (example: "2026-04-01T19:00:00-05:00")
+  // Leave as null for "TBA"
+  const LAUNCH_ISO = null;
+
+  // 2) Display-only "filled" number (change this anytime)
+  // You can manually set this, or let it simulate for vibes.
+  let vaultFilled = 642; // <-- EDIT THIS NUMBER WHENEVER YOU WANT
+
+  // If you want it to slowly "tick up" while people visit, set true:
+  const SIMULATE = true;
+
+  const elCap = document.getElementById("vaultCap");
+  const elFilled = document.getElementById("vaultFilled");
+  const elRemain = document.getElementById("vaultRemain");
+  const elBar = document.getElementById("vaultBar");
+  const elLaunchText = document.getElementById("vaultLaunchText");
+
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+  function renderVault(){
+    vaultFilled = clamp(vaultFilled, 0, VAULT_CAP);
+    const remain = VAULT_CAP - vaultFilled;
+    elCap.textContent = String(VAULT_CAP);
+    elFilled.textContent = String(vaultFilled);
+    elRemain.textContent = String(remain);
+    elBar.style.width = ((vaultFilled / VAULT_CAP) * 100).toFixed(1) + "%";
+  }
+
+  function renderCountdown(){
+    const d = document.getElementById("cdD");
+    const h = document.getElementById("cdH");
+    const m = document.getElementById("cdM");
+    const s = document.getElementById("cdS");
+
+    if(!LAUNCH_ISO){
+      elLaunchText.textContent = "TBA";
+      d.textContent = "--"; h.textContent = "--"; m.textContent = "--"; s.textContent = "--";
+      return;
+    }
+
+    const target = new Date(LAUNCH_ISO).getTime();
+    const now = Date.now();
+    let diff = Math.max(0, target - now);
+
+    const days = Math.floor(diff / (1000*60*60*24)); diff -= days*(1000*60*60*24);
+    const hrs  = Math.floor(diff / (1000*60*60)); diff -= hrs*(1000*60*60);
+    const mins = Math.floor(diff / (1000*60)); diff -= mins*(1000*60);
+    const secs = Math.floor(diff / 1000);
+
+    elLaunchText.textContent = new Date(LAUNCH_ISO).toLocaleString();
+    d.textContent = String(days);
+    h.textContent = String(hrs).padStart(2,"0");
+    m.textContent = String(mins).padStart(2,"0");
+    s.textContent = String(secs).padStart(2,"0");
+  }
+
+  // Optional tiny simulation
+  function startSim(){
+    if(!SIMULATE) return;
+    setInterval(() => {
+      // slow drift upward until close to cap
+      const wiggle = Math.random() < 0.65 ? 1 : 0;
+      if(vaultFilled < VAULT_CAP - 80) vaultFilled += wiggle;
+      renderVault();
+    }, 3500);
+  }
+
+  // Prevent double-submit feel (display only)
+  const form = document.querySelector('form[name="vault-access"]');
+  const btn = document.getElementById("vaultSubmitBtn");
+  if(form && btn){
+    form.addEventListener("submit", () => {
+      btn.disabled = true;
+      btn.textContent = "✅ Spot Reserved (Submitting...)";
+      // Let Netlify handle the POST normally
+      // (You can remove this if you want default behavior)
+      setTimeout(() => {
+        btn.textContent = "✅ Submitted";
+      }, 1200);
+    });
+  }
+
+  renderVault();
+  renderCountdown();
+  startSim();
+  setInterval(renderCountdown, 1000);
+</script>
   </script>
 </body>
 </html>
