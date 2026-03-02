@@ -587,6 +587,28 @@
           </div>
         </div>
       </section>
+      (function tierDescriptions(){
+  const tierSel = document.getElementById("vaultTier");
+  const out = document.getElementById("tierInfoText");
+  if(!tierSel || !out) return;
+
+  const desc = {
+    bronze: `<b>Bronze — Launch Alert</b><br>
+      You’ll get the official Contract Address (CA) + X links as soon as they’re posted.`,
+    silver: `<b>Silver — Priority Alert</b><br>
+      You’ll get the same official links first (sent ahead of the general alert).`,
+    gold: `<b>Gold — Early Access Link</b><br>
+      You’ll get the early “launch link” message before the public post (same CA, same links).`
+  };
+
+  function render(){
+    const key = (tierSel.value || "").toLowerCase();
+    out.innerHTML = desc[key] || desc.bronze;
+  }
+
+  tierSel.addEventListener("change", render);
+  render();
+})();
 
       <!-- CHART -->
       <section class="section card" id="chart">
