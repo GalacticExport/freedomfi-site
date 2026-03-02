@@ -420,6 +420,121 @@
 .passBody{margin-top:12px;display:flex;flex-direction:column;gap:8px}
 .passRow{display:flex;justify-content:space-between;gap:10px;font-weight:800}
 .passFoot{margin-top:12px}
+/* ===== Drawer (mobile menu) FIX ===== */
+.drawerBack{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 999;
+}
+.drawerBack.show{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: min(86vw, 360px);
+  transform: translateX(110%);
+  transition: transform .25s ease;
+  z-index: 1000;
+  background: rgba(10, 12, 18, .92);
+  backdrop-filter: blur(14px);
+  border-left: 1px solid rgba(217,178,76,.22);
+  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+  padding: 16px 14px;
+}
+.drawer.open{
+  transform: translateX(0);
+}
+
+.drawerHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 10px;
+}
+
+.drawerClose{
+  appearance:none;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(242,244,255,.95);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 800;
+}
+
+.drawer small{
+  display:block;
+  margin: 14px 0 8px;
+  color: rgba(242,244,255,.55);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.drawerLink{
+  display:block;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(242,244,255,.92);
+  text-decoration:none;
+  margin-bottom: 10px;
+}
+.drawerLink:active{ transform: translateY(1px); }
+
+/* ===== Vault area polish ===== */
+.vaultTitle{
+  font-size: 28px;
+  letter-spacing: -.02em;
+}
+.vaultSub{
+  color: rgba(242,244,255,.70);
+  margin-top: 6px;
+  line-height: 1.35;
+}
+.vaultBox{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  border-radius: 18px;
+  padding: 16px;
+}
+.vaultGrid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 10px;
+}
+@media (max-width: 520px){
+  .vaultGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+.timeTile{
+  border: 1px solid rgba(217,178,76,.22);
+  background: rgba(10, 12, 18, .55);
+  border-radius: 16px;
+  padding: 12px;
+  text-align:center;
+}
+.timeTile .num{
+  font-size: 22px;
+  font-weight: 900;
+}
+.timeTile .lbl{
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(242,244,255,.65);
+}
   </style>
 </head>
 
@@ -452,9 +567,12 @@
         <div class="navRight">
           <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">𝕏 @FreedomFiCoin</a>
           <a class="pill btnGold" id="buyTop" href="#" target="_blank" rel="noreferrer">Buy</a>
-          <button class="hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
+<button class="hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M4 7h16M4 12h16M4 17h16"
+          stroke="rgba(242,244,255,.92)"
+          stroke-width="2"
+          stroke-linecap="round"/>
   </svg>
 </button>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -1052,6 +1170,86 @@ document.addEventListener("keydown", (e) => {
 document.querySelectorAll(".drawerLink").forEach(a=>{
   a.addEventListener("click", closeDrawer);
 });
+// ===== Mobile drawer menu wiring =====
+(() => {
+  const menuBtn = document.getElementById("menuBtn");
+  const drawerBack = document.getElementById("drawerBack");
+  const drawer = document.getElementById("drawer");
+  const drawerClose = document.getElementById("drawerClose");
+
+  function openDrawer(){
+    if(!drawer || !drawerBack || !menuBtn) return;
+    drawer.classList.add("open");
+    drawerBack.classList.add("show");
+    menuBtn.setAttribute("aria-expanded", "true");
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  function closeDrawer(){
+    if(!drawer || !drawerBack || !menuBtn) return;
+    drawer.classList.remove("open");
+    drawerBack.classList.remove("show");
+    menuBtn.setAttribute("aria-expanded", "false");
+    document.documentElement.style.overflow = "";
+  }
+
+  menuBtn?.addEventListener("click", (e) => { e.preventDefault(); openDrawer(); });
+  drawerBack?.addEventListener("click", closeDrawer);
+  drawerClose?.addEventListener("click", closeDrawer);
+
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape") closeDrawer();
+  });
+
+  // Close after tapping any drawer link
+  drawer?.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if(a) closeDrawer();
+  });
+})();
+
+
+// ===== Countdown: Mar 5, 2026 8:00 PM EST =====
+// EST is UTC-5, so 8:00 PM EST = 01:00 UTC next day
+const LAUNCH_TS = Date.parse("2026-03-06T01:00:00Z");
+
+function pad2(n){ return String(n).padStart(2,"0"); }
+
+function renderCountdown(){
+  const now = Date.now();
+  let diff = LAUNCH_TS - now;
+
+  const $d = document.getElementById("cdDays");
+  const $h = document.getElementById("cdHours");
+  const $m = document.getElementById("cdMins");
+  const $s = document.getElementById("cdSecs");
+
+  if(!$d || !$h || !$m || !$s) return;
+
+  if(diff <= 0){
+    $d.textContent = "00";
+    $h.textContent = "00";
+    $m.textContent = "00";
+    $s.textContent = "00";
+    return;
+  }
+
+  const totalSec = Math.floor(diff / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hrs  = Math.floor((totalSec % 86400) / 3600);
+  const mins = Math.floor((totalSec % 3600) / 60);
+  const secs = totalSec % 60;
+
+  $d.textContent = String(days);
+  $h.textContent = pad2(hrs);
+  $m.textContent = pad2(mins);
+  $s.textContent = pad2(secs);
+}
+// March 5, 2026 @ 8:00 PM EST
+// EST is UTC-5 → 01:00 UTC on March 6
+const LAUNCH_TS = Date.parse("2026-03-06T01:00:00Z");
+renderCountdown();
+setInterval(renderCountdown, 1000);
   </script>
 </body>
 </html>
