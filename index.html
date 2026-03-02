@@ -731,6 +731,66 @@
       buyDex.href = "#";
       buyPump.href = "#";
     }
+// ===== Smooth parallax (less “jumpy” on iOS) =====
+(function(){
+  const root = document.documentElement;
+  let targetY = 0;
+  let currentY = 0;
+
+  function onScroll(){
+    const y = window.scrollY || 0;
+    targetY = Math.round(y * 0.14); // parallax strength
+  }
+
+  function tick(){
+    currentY += (targetY - currentY) * 0.08;
+    root.style.setProperty("--bgY", Math.round(currentY) + "px");
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+  tick();
+})();
+
+// ===== Scroll reveal (fade/slide in) =====
+(function(){
+  const selectors = [
+    ".topBanner",
+    ".hero .panel",
+    ".hero .mini",
+    "section",
+    ".infoCard",
+    ".phase",
+    ".embedWrap",
+    "footer"
+  ];
+
+  const els = [];
+  selectors.forEach(sel => document.querySelectorAll(sel).forEach(el => els.push(el)));
+
+  els.forEach(el => el.classList.add("reveal"));
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add("in");
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+
+  els.forEach(el => io.observe(el));
+})();
+
+// ===== Navbar shrink on scroll =====
+(function(){
+  const nav = document.querySelector(".nav");
+  function update(){
+    if(!nav) return;
+    const y = window.scrollY || 0;
+    nav.classList.toggle("shrink", y > 16);
+  }
+  window.addEventListener("scroll", update, {passive:true});
+  update();
+})();
   </script>
 </body>
 </html>
