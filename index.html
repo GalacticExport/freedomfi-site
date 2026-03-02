@@ -427,17 +427,6 @@
   <div class="bg" aria-hidden="true"></div>
   <div class="film" aria-hidden="true"></div>
 
-  <!-- Mobile drawer -->
-  <div class="drawerBack" id="drawerBack"></div>
-  <aside class="drawer" id="drawer" aria-label="Menu">
-    <div class="drawerHeader">
-      <div class="brand" style="gap:10px">
-        <img src="./freedomfi-logo.PNG" alt="FreedomFi logo" />
-        <div class="name">FreedomFi</div>
-      </div>
-      <button class="drawerClose" id="drawerClose" aria-label="Close menu">×</button>
-    </div>
-
     <small>Navigate</small>
     <a class="drawerLink" href="#stats">Live Stats</a>
     <a class="drawerLink" href="#chart">Chart</a>
@@ -463,7 +452,11 @@
         <div class="navRight">
           <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">𝕏 @FreedomFiCoin</a>
           <a class="pill btnGold" id="buyTop" href="#" target="_blank" rel="noreferrer">Buy</a>
-          <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <button class="hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</button>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
             </svg>
@@ -1021,6 +1014,44 @@
   renderCountdown();
   startSim();
   setInterval(renderCountdown, 1000);
-</script>
+// ===== Mobile drawer menu =====
+const menuBtn = document.getElementById("menuBtn");
+const drawerBack = document.getElementById("drawerBack");
+const drawer = document.getElementById("drawer");
+const drawerClose = document.getElementById("drawerClose");
+
+function openDrawer(){
+  if(!drawer || !drawerBack || !menuBtn) return;
+  drawer.classList.add("open");
+  drawerBack.classList.add("show");
+  menuBtn.setAttribute("aria-expanded","true");
+  document.documentElement.style.overflow = "hidden";
+}
+
+function closeDrawer(){
+  if(!drawer || !drawerBack || !menuBtn) return;
+  drawer.classList.remove("open");
+  drawerBack.classList.remove("show");
+  menuBtn.setAttribute("aria-expanded","false");
+  document.documentElement.style.overflow = "";
+}
+
+menuBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  drawer?.classList.contains("open") ? closeDrawer() : openDrawer();
+});
+
+drawerBack?.addEventListener("click", closeDrawer);
+drawerClose?.addEventListener("click", closeDrawer);
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeDrawer();
+});
+
+// Close when tapping a drawer link
+document.querySelectorAll(".drawerLink").forEach(a=>{
+  a.addEventListener("click", closeDrawer);
+});
+  </script>
 </body>
 </html>
