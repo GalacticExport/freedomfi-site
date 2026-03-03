@@ -132,18 +132,16 @@
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px 0 8px;            /* gives it space inside the header */
-  color:rgba(242,244,255,.72);
+  padding:6px 0 6px;          /* smaller */
+  color:rgba(242,244,255,.70);
   font-weight:800;
-  font-size:12px;
-  letter-spacing:.15px;
+  font-size:11px;             /* smaller */
+  letter-spacing:.12px;
+  line-height:1.15;
 
-  white-space:normal;            /* allow wrapping */
-  overflow:visible;              /* stop clipping */
-  line-height:1.25;
-  border-bottom:1px solid rgba(255,255,255,.08); /* makes it feel “built in” */
+  border-bottom:1px solid rgba(255,255,255,.08);
+  white-space:normal;
 }
-
 .dotMini{
   width:8px;
   height:8px;
@@ -154,15 +152,9 @@
 }
 
 @media (max-width: 640px){
-  .navInner{ padding:10px 0; }   /* slightly tighter */
-  .navNotice{ font-size:11px; padding:8px 0 8px; }
+  .navInner{ padding:6px 0; }   /* slightly tighter */
+  .navNotice{ font-size:10px; padding:4px 0 6px; }
 }
-    .navInner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      padding:12px 0;
-    }
-
     .brand{
       display:flex; align-items:center; gap:10px;
       min-width:0;
