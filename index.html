@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>FreedomFi — Built for the Free</title>
-  <meta name="description" content="FreedomFi is a clean, serious Solana-native meme coin brand inspired by financial freedom. Verify the CA, view the chart, track stats, and join the movement." />
+  <meta name="description" content="FreedomFi is a clean, serious Solana-native brand inspired by financial freedom. Verify the CA, view the chart, track stats, and join the movement." />
   <meta name="theme-color" content="#07070a" />
 
   <link rel="icon" href="./freedomfi-logo.png" />
@@ -105,7 +105,6 @@
       border-bottom:1px solid rgba(217,178,76,.25);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      /* iOS safe-area without pushing the header down */
       padding-top: env(safe-area-inset-top);
     }
 
@@ -460,6 +459,56 @@
     .chev{transition: transform .18s var(--easeOut)}
     .faqItem.open .chev{transform:rotate(180deg)}
 
+    /* Roadmap / Tokenomics polish */
+    .phase{
+      padding:16px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+    }
+    .phaseTop{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .phaseTitle{
+      font-weight:950;
+      letter-spacing:.35px;
+      font-size:16px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .phaseBadge{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:rgba(217,178,76,.10);
+      color:rgba(247,230,163,.95);
+      font-weight:950;
+      font-size:11px;
+      letter-spacing:.25px;
+      white-space:nowrap;
+    }
+    ul.clean{
+      margin:0;
+      padding-left:18px;
+      color:rgba(242,244,255,.78);
+      line-height:1.8;
+      font-weight:650;
+      font-size:13px;
+    }
+    ul.clean li{margin:2px 0}
+    .mutedSmall{
+      color:rgba(242,244,255,.60);
+      font-size:12px;
+      font-weight:750;
+      letter-spacing:.12px;
+      margin-top:10px;
+    }
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+
     footer{padding:40px 0 60px; color:rgba(242,244,255,.55); font-size:12px; letter-spacing:.1px}
     footer a{text-decoration:underline; text-decoration-color:rgba(217,178,76,.35)}
 
@@ -468,6 +517,7 @@
       .top{grid-template-columns:1fr;}
       h1{font-size:48px}
       .brand{max-width:70%}
+      .split{grid-template-columns:1fr}
     }
     @media (max-width: 640px){
       .hideMobile{display:none}
@@ -503,10 +553,11 @@
     <a class="drawerLink" href="#stats">Live Stats</a>
     <a class="drawerLink" href="#vault">Vault</a>
     <a class="drawerLink" href="#chart">Chart</a>
+    <a class="drawerLink" href="#roadmap">Roadmap</a>
     <a class="drawerLink" href="#tokenomics">Tokenomics</a>
+    <a class="drawerLink" href="#founder">Founder</a>
     <a class="drawerLink" href="#solana">Why Solana</a>
     <a class="drawerLink" href="#howtobuy">How to Buy</a>
-    <a class="drawerLink" href="#roadmap">Roadmap</a>
     <a class="drawerLink" href="#faq">FAQ</a>
     <a class="drawerLink" href="#community">Community</a>
 
@@ -532,6 +583,8 @@
         </a>
 
         <div class="navRight">
+          <a class="pill hideMobile" href="#roadmap">Roadmap</a>
+          <a class="pill hideMobile" href="#tokenomics">Tokenomics</a>
           <a class="pill hideMobile" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Telegram</a>
           <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X</a>
           <a class="pill btnGold" id="buyTop" href="#buy">Buy</a>
@@ -549,6 +602,7 @@
   <main id="top">
     <div class="wrap">
 
+      <!-- HERO -->
       <div class="top">
         <div class="banner">
           <img src="./freedomfi-banner.png" alt="FreedomFi banner" />
@@ -559,11 +613,13 @@
             <div class="kicker">🦅 Built for the free • Solana-native</div>
             <h1>FreedomFi</h1>
             <p>
-              A clean, serious meme coin brand inspired by financial freedom.
-              Verify the CA, view the chart, and join the movement.
+              A clean, serious Solana-native brand inspired by financial freedom.
+              Verify the CA, view live stats, and join the community before launch.
             </p>
             <div class="ctaRow">
-              <a class="pill btnGold" href="#buy">🚀 Buy FreedomFi</a>
+              <a class="pill btnGold" href="#vault">🔒 Vault Access</a>
+              <a class="pill" href="#roadmap">Public Roadmap</a>
+              <a class="pill" href="#tokenomics">Tokenomics</a>
               <a class="pill" href="#chart">View Chart</a>
               <a class="pill" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
               <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
@@ -745,16 +801,141 @@
         </div>
       </section>
 
-      <!-- TOKENOMICS -->
+      <!-- ROADMAP (UPGRADED) -->
+      <section class="section card" id="roadmap">
+        <div class="cardPad">
+          <h2>Public Roadmap</h2>
+          <p style="margin-top:-4px">Direction over noise. Execution over hype.</p>
+
+          <div class="split" style="margin-top:12px">
+            <div class="phase">
+              <div class="phaseTop">
+                <div class="phaseTitle">Phase I — Foundation</div>
+                <div class="phaseBadge">Pre-Launch</div>
+              </div>
+              <ul class="clean">
+                <li>Brand system + verification center</li>
+                <li>Vault access + launch alert pipeline</li>
+                <li>Contract deployment plan + safety checklist</li>
+                <li>Community growth with anti-scam standards</li>
+              </ul>
+              <div class="mutedSmall">Goal: build trust + clean infrastructure before attention spikes.</div>
+            </div>
+
+            <div class="phase">
+              <div class="phaseTop">
+                <div class="phaseTitle">Phase II — Launch</div>
+                <div class="phaseBadge">Launch Window</div>
+              </div>
+              <ul class="clean">
+                <li>CA published here + pinned Telegram</li>
+                <li>Liquidity lock proof published</li>
+                <li>Authority status published (mint/freeze)</li>
+                <li>Live stats + chart unlocked</li>
+              </ul>
+              <div class="mutedSmall">Goal: keep launch clean, verifiable, and scam-resistant.</div>
+            </div>
+          </div>
+
+          <div class="split" style="margin-top:16px">
+            <div class="phase">
+              <div class="phaseTop">
+                <div class="phaseTitle">Phase III — Expansion</div>
+                <div class="phaseBadge">Post-Launch</div>
+              </div>
+              <ul class="clean">
+                <li>Transparency dashboard upgrades</li>
+                <li>Strategic ecosystem collaborations</li>
+                <li>Listings outreach (methodical + selective)</li>
+                <li>Content + community scale systems</li>
+              </ul>
+              <div class="mutedSmall">Goal: grow without sacrificing structure.</div>
+            </div>
+
+            <div class="phase">
+              <div class="phaseTop">
+                <div class="phaseTitle">Phase IV — Positioning</div>
+                <div class="phaseBadge">Long-Term</div>
+              </div>
+              <ul class="clean">
+                <li>Brand durability + cycle resilience</li>
+                <li>Governance / community initiatives (if needed)</li>
+                <li>Partnerships aligned with Solana culture</li>
+                <li>Long-term product direction (to be announced)</li>
+              </ul>
+              <div class="mutedSmall">Goal: become a Solana-native brand that lasts.</div>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px">
+            <b>Note:</b> Roadmap items are subject to market conditions and security considerations. We prioritize safety and verification.
+          </div>
+        </div>
+      </section>
+
+      <!-- TOKENOMICS (UPGRADED) -->
       <section class="section card" id="tokenomics">
         <div class="cardPad">
           <h2>Tokenomics</h2>
-          <p style="margin-top:-4px">Clear, simple, transparent. Update details after launch.</p>
+          <p style="margin-top:-4px">Clear, simple, transparent. Final values can be updated at launch for accuracy.</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat"><div class="label">Network</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Solana</div></div>
+            <div class="stat"><div class="label">Taxes</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">0 / 0 (typical Solana)</div></div>
+          </div>
+
           <div class="grid2" style="margin-top:12px">
             <div class="stat"><div class="label">Total Supply</div><div class="value" id="tokSupply">—</div></div>
-            <div class="stat"><div class="label">Taxes</div><div class="value">0 / 0 (typical Solana)</div></div>
+            <div class="stat"><div class="label">Contract Address</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Published at launch</div></div>
           </div>
-          <div class="note">After launch we publish proof links: CA, Solscan, liquidity, and authority status.</div>
+
+          <div class="section" style="margin-top:16px">
+            <h2 style="font-size:18px;margin:0 0 10px">Allocation (template)</h2>
+            <div class="grid3">
+              <div class="stat"><div class="label">Community + Liquidity</div><div class="value" id="allocCommunity">—</div></div>
+              <div class="stat"><div class="label">Ecosystem / Development</div><div class="value" id="allocEcosystem">—</div></div>
+              <div class="stat"><div class="label">Strategic Growth</div><div class="value" id="allocGrowth">—</div></div>
+            </div>
+            <div class="grid3" style="margin-top:12px">
+              <div class="stat"><div class="label">Founder</div><div class="value" id="allocFounder">—</div></div>
+              <div class="stat"><div class="label">Reserve</div><div class="value" id="allocReserve">—</div></div>
+              <div class="stat"><div class="label">Lock / Vesting</div><div class="value" id="allocLock">—</div></div>
+            </div>
+
+            <div class="note" style="margin-top:12px">
+              After launch we publish proof links: CA, Solscan, liquidity lock, and authority status.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOUNDER (NEW) -->
+      <section class="section card" id="founder">
+        <div class="cardPad">
+          <h2>Founder</h2>
+          <p style="margin-top:-4px">Leadership, accountability, and a long-term approach.</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Name</div>
+              <div class="value">Jordan White</div>
+            </div>
+            <div class="stat">
+              <div class="label">Role</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Founder • FreedomFi</div>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:12px">
+            FreedomFi is being built as a structured, Solana-native brand focused on transparency, verification, and durable community growth.
+            Founder socials are intentionally not linked here to keep communication centralized through official project channels.
+          </div>
+
+          <div class="ctaRow" style="margin-top:14px">
+            <a class="pill btnGold" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Official Telegram</a>
+            <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Official X</a>
+            <a class="pill" href="#verify">Verify Links</a>
+          </div>
         </div>
       </section>
 
@@ -782,21 +963,6 @@
           <div class="grid2" style="margin-top:12px">
             <div class="stat"><div class="label">3) Swap</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Use a Solana DEX UI and confirm token details.</div></div>
             <div class="stat"><div class="label">4) Track</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Watch price/volume/liquidity in Live Stats and Dexscreener.</div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ROADMAP -->
-      <section class="section card" id="roadmap">
-        <div class="cardPad">
-          <h2>Roadmap</h2>
-          <div class="grid2">
-            <div class="stat"><div class="label">Phase 1</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Brand + community foundation.</div></div>
-            <div class="stat"><div class="label">Phase 2</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Launch + tracking + proof links.</div></div>
-          </div>
-          <div class="grid2" style="margin-top:12px">
-            <div class="stat"><div class="label">Phase 3</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Listings outreach + partnerships.</div></div>
-            <div class="stat"><div class="label">Phase 4</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Ecosystem growth + longevity.</div></div>
           </div>
         </div>
       </section>
@@ -901,6 +1067,17 @@
     const LP_LOCK_URL = "";      // <-- paste proof link later (optional)
     const AUTHORITY_STATUS_TEXT = ""; // <-- paste later (e.g. "Mint revoked, Freeze revoked")
 
+    // Tokenomics (fill now; can adjust later)
+    const TOKENOMICS = {
+      totalSupplyText: "—",            // e.g. "1,000,000,000"
+      communityText: "—",              // e.g. "60%"
+      ecosystemText: "—",              // e.g. "15%"
+      growthText: "—",                 // e.g. "10%"
+      founderText: "—",                // e.g. "10%"
+      reserveText: "—",                // e.g. "5%"
+      lockText: "—"                    // e.g. "Founder allocation locked 6 months"
+    };
+
     function launchLive(){ return Date.now() >= launchTs; }
 
     // Countdown
@@ -924,6 +1101,18 @@
     document.querySelectorAll(".faqItem").forEach(item=>{
       item.querySelector(".faqQ")?.addEventListener("click", ()=> item.classList.toggle("open"));
     });
+
+    // Fill tokenomics
+    function applyTokenomics(){
+      $("tokSupply").textContent = TOKENOMICS.totalSupplyText || "—";
+      $("allocCommunity").textContent = TOKENOMICS.communityText || "—";
+      $("allocEcosystem").textContent = TOKENOMICS.ecosystemText || "—";
+      $("allocGrowth").textContent = TOKENOMICS.growthText || "—";
+      $("allocFounder").textContent = TOKENOMICS.founderText || "—";
+      $("allocReserve").textContent = TOKENOMICS.reserveText || "—";
+      $("allocLock").textContent = TOKENOMICS.lockText || "—";
+    }
+    applyTokenomics();
 
     // CA + chart gating
     function applyGates(){
@@ -967,7 +1156,7 @@
 
     // Copy CA
     $("copyCA")?.addEventListener("click", async ()=>{
-      const txt = ($("caText")?.textContent || "").replace(/^CA:\\s*/,'').trim();
+      const txt = ($("caText")?.textContent || "").replace(/^CA:\s*/,'').trim();
       if(!txt || txt.toLowerCase().includes("locked")) return;
       try{
         await navigator.clipboard.writeText(txt);
