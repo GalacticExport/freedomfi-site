@@ -2,1059 +2,977 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>FreedomFi — Sovereignty Through Decentralization</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>FreedomFi — Built for the Free</title>
+  <meta name="description" content="FreedomFi is a clean, serious Solana-native meme coin brand inspired by financial freedom. Verify the CA, view the chart, track stats, and join the movement." />
+  <meta name="theme-color" content="#07070a" />
 
-  <meta name="description" content="FreedomFi is a Solana-native community asset built for transparency, long-term alignment, and digital sovereignty. Secure early access to launch updates through the Freedom Vault." />
-  <meta name="theme-color" content="#070A12" />
+  <!-- Favicon -->
+  <link rel="icon" href="./freedomfi-logo.png" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="FreedomFi — Sovereignty Through Decentralization" />
-  <meta property="og:description" content="Solana-native community asset. Secure early access through the Freedom Vault. Transparency-first. Built to last." />
+  <meta property="og:title" content="FreedomFi — Built for the Free" />
+  <meta property="og:description" content="Solana-native. Verify the CA, view the chart, track stats, and join the movement." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freedomfiofficial.com/" />
-  <!-- TODO: add a real social image -->
-  <meta property="og:image" content="https://freedomfiofficial.com/og.png" />
+  <meta property="og:image" content="https://freedomfiofficial.com/freedomfi-banner.png" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="FreedomFi — Sovereignty Through Decentralization" />
-  <meta name="twitter:description" content="Solana-native community asset. Secure early access through the Freedom Vault." />
-  <meta name="twitter:image" content="https://freedomfiofficial.com/og.png" />
-
-  <!-- Preconnect / Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="twitter:title" content="FreedomFi — Built for the Free" />
+  <meta name="twitter:description" content="Solana-native. Verify the CA, view the chart, track stats, and join the movement." />
+  <meta name="twitter:image" content="https://freedomfiofficial.com/freedomfi-banner.png" />
 
   <style>
     :root{
-      --bg:#070A12;
-      --bg2:#0B1020;
+      --bg:#05060a;
+      --bg2:#0a0b12;
       --card:rgba(255,255,255,.06);
-      --card2:rgba(255,255,255,.085);
-      --line:rgba(255,255,255,.12);
-      --text:#EAF1FF;
-      --muted:#A7B3D6;
-      --accent:#3B82F6;
-      --accent2:#22D3EE;
-      --good:#22C55E;
-      --warn:#F59E0B;
-      --bad:#EF4444;
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 26px;
-      --max: 1180px;
+      --line:rgba(255,255,255,.10);
+      --text:#f2f4ff;
+      --muted:rgba(242,244,255,.70);
+
+      --gold1:#f7e6a3;
+      --gold2:#d9b24c;
+      --gold3:#a97b20;
+
+      --radius:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+      --max:1120px;
+
+      --easeOut:cubic-bezier(.2,.9,.2,1);
     }
+
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 70% -10%, rgba(59,130,246,.22), transparent 55%),
-        radial-gradient(900px 600px at 10% 0%, rgba(34,211,238,.16), transparent 55%),
-        radial-gradient(1000px 700px at 50% 110%, rgba(59,130,246,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg), #050710 70%, #04050d);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(217,178,76,.15), transparent 55%),
+                  radial-gradient(1200px 900px at 80% 10%, rgba(247,230,163,.10), transparent 55%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
 
-    /* Top warning bar */
-    .scambar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: rgba(7,10,18,.78);
-      border-bottom:1px solid var(--line);
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
     }
-    .scambar .inner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:10px 0;
-      font-size:13px; color:var(--muted);
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      white-space:nowrap;
-    }
-    .dot{width:8px; height:8px; border-radius:999px; background:var(--warn); box-shadow:0 0 18px rgba(245,158,11,.6)}
-    .scambar .links{display:flex; gap:10px; flex-wrap:wrap}
-    .scambar .links a{
-      padding:6px 10px; border-radius:999px; border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .scambar .links a:hover{border-color: rgba(59,130,246,.55); background: rgba(59,130,246,.08)}
+    .cardPad{padding:22px}
 
-    /* Header */
-    header{
-      position:sticky; top:46px; z-index:40;
-      backdrop-filter: blur(16px);
-      background: rgba(7,10,18,.62);
-      border-bottom:1px solid var(--line);
+    /* Background film */
+    .bgMark{
+      position:fixed; inset:0;
+      background:
+        radial-gradient(1200px 900px at 50% 30%, rgba(217,178,76,.10), transparent 60%),
+        url('./freedomfi-watermark.png');
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size: cover;
+      opacity:.10;
+      pointer-events:none;
+      z-index:-2;
     }
-    .nav{
+    .film{
+      position:fixed; inset:-40px;
+      background:
+        radial-gradient(900px 700px at 25% 10%, rgba(0,0,0,.55), rgba(0,0,0,.0) 70%),
+        radial-gradient(900px 700px at 75% 10%, rgba(0,0,0,.50), rgba(0,0,0,.0) 70%),
+        radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,.55), rgba(0,0,0,.0) 70%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    /* TRUST STRIP */
+    .trustStrip{
+      position:sticky; top:0; z-index:60;
+      background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.48));
+      border-bottom:1px solid rgba(217,178,76,.22);
+      backdrop-filter: blur(12px);
+    }
+    .trustInner{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 0;
+      gap:10px;
+      padding:10px 0;
+      flex-wrap:wrap;
     }
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{
-      width:38px; height:38px; border-radius:12px;
-      background: radial-gradient(circle at 30% 30%, rgba(34,211,238,.55), rgba(59,130,246,.35) 45%, rgba(255,255,255,.05) 70%);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 0 40px rgba(59,130,246,.12);
-    }
-    .brand strong{letter-spacing:.3px}
-    .brand small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
-    .navlinks{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end}
-    .navlinks a{
-      font-size:14px; color:var(--muted);
-      padding:8px 10px; border-radius:999px;
-      border:1px solid transparent;
-    }
-    .navlinks a:hover{color:var(--text); border-color:var(--line); background: rgba(255,255,255,.03)}
-    .ctaRow{display:flex; gap:10px; align-items:center}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    .trustPill{
+      display:inline-flex; align-items:center; gap:10px;
       padding:10px 14px;
       border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      font-weight:600;
-      box-shadow:none;
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
+      font-weight:850;
+      white-space:nowrap;
     }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(59,130,246,.55); background: rgba(59,130,246,.10)}
-    .btn.primary{
-      border-color: rgba(59,130,246,.55);
-      background: linear-gradient(90deg, rgba(59,130,246,.25), rgba(34,211,238,.18));
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background:rgba(245,158,11,.95);
+      box-shadow:0 0 18px rgba(245,158,11,.55);
+      flex:0 0 auto;
     }
-    .btn.ghost{background: rgba(255,255,255,.02)}
-    .btn svg{width:16px; height:16px}
+    .trustLinks{display:flex; gap:10px; flex-wrap:wrap}
 
-    /* Hero */
-    .hero{padding:56px 0 18px}
-    .heroGrid{
-      display:grid; grid-template-columns: 1.15fr .85fr; gap:22px; align-items:stretch;
+    /* NAV */
+    .nav{
+      position:sticky; top:56px; z-index:50;
+      background:linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.45));
+      border-bottom:1px solid rgba(217,178,76,.22);
+      backdrop-filter: blur(12px);
     }
-    .heroCard{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius: var(--radius2);
-      padding:26px;
-      box-shadow: var(--shadow);
-      position:relative;
+    .navInner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width:0;
+      max-width:52%;
+    }
+    .brand img{
+      width:34px; height:34px;
+      border-radius:12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      flex:0 0 auto;
+    }
+    .brand .name{
+      font-weight:900;
+      letter-spacing:.2px;
+      font-size:18px;
+      white-space:nowrap;
       overflow:hidden;
-    }
-    .heroCard:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(600px 260px at 40% 0%, rgba(59,130,246,.22), transparent 60%),
-        radial-gradient(520px 260px at 90% 30%, rgba(34,211,238,.18), transparent 60%);
-      pointer-events:none;
-      opacity:.9;
-    }
-    .heroCard > *{position:relative}
-    h1{
-      margin:0 0 10px;
-      font-size:46px;
-      line-height:1.06;
-      letter-spacing:-.8px;
-    }
-    .sub{
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.6;
-      margin:0 0 18px;
-      max-width: 60ch;
-    }
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin:10px 0 18px}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:13px;
-    }
-    .pill .ok{width:8px; height:8px; border-radius:999px; background: var(--good); box-shadow:0 0 18px rgba(34,197,94,.45)}
-    .heroBtns{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
-    .trustStrip{
-      margin-top:18px;
-      display:grid; grid-template-columns: repeat(4, 1fr); gap:10px;
-    }
-    .trust{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 14px;
-      padding:12px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .trust b{color:var(--text); display:block; margin-bottom:4px; font-size:14px}
-    .mini{
-      margin-top:10px; color:rgba(231,241,255,.72); font-size:12px
+      text-overflow:ellipsis;
     }
 
-    /* Right hero: live panel */
-    .panel{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius2);
-      padding:22px;
-      box-shadow: var(--shadow);
-      position:relative; overflow:hidden;
+    .navRight{display:flex; align-items:center; gap:10px; flex:0 0 auto}
+    .pill{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
+      font-weight:800;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+      user-select:none;
+      white-space:nowrap;
     }
-    .panel:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(420px 220px at 70% 0%, rgba(34,211,238,.15), transparent 60%),
-        radial-gradient(520px 260px at 30% 90%, rgba(59,130,246,.15), transparent 60%);
+    .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+    .btnGold{
+      border:1px solid rgba(217,178,76,.55);
+      background:linear-gradient(180deg, rgba(247,230,163,.18), rgba(217,178,76,.10));
+      box-shadow: 0 12px 30px rgba(217,178,76,.10);
+    }
+
+    .hideMobile{display:inline-flex}
+    .hamburger{
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      display:inline-flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .hamburger:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+    .hamburger svg{opacity:.95}
+
+    /* Drawer */
+    .drawerBack{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      opacity:0;
       pointer-events:none;
+      transition: opacity .18s var(--easeOut);
+      z-index:90;
     }
-    .panel > *{position:relative}
-    .panel h3{margin:0 0 8px; font-size:16px; letter-spacing:.2px}
-    .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px}
-    .stat{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 14px;
-      padding:12px;
+    .drawerBack.show{opacity:1; pointer-events:auto}
+    .drawer{
+      position:fixed; top:0; right:0;
+      width:min(92vw, 420px);
+      height:100%;
+      transform: translateX(105%);
+      transition: transform .22s var(--easeOut);
+      z-index:91;
+      border-left:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(10,11,18,.96), rgba(5,6,10,.92));
+      backdrop-filter: blur(14px);
+      padding:16px;
+      overflow:auto;
     }
-    .stat span{display:block; color:var(--muted); font-size:12px}
-    .stat strong{display:block; margin-top:6px; font-size:16px}
-    .divider{height:1px; background: var(--line); margin:16px 0}
-    .copyRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .codebox{
-      flex:1;
-      min-width: 220px;
-      padding:10px 12px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.22);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      color: rgba(231,241,255,.85);
-      font-size: 12.5px;
-      overflow:hidden; text-overflow: ellipsis; white-space: nowrap;
+    .drawer.open{transform:translateX(0)}
+    .drawerHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:12px;
     }
-    .hint{color:var(--muted); font-size:12px; margin-top:10px; line-height:1.5}
+    .drawerHeader .brandMini{
+      display:flex; align-items:center; gap:10px; min-width:0;
+    }
+    .drawerHeader .brandMini img{width:34px;height:34px;border-radius:12px}
+    .drawerHeader .brandMini span{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .drawerClose{
+      width:44px;height:44px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .drawer small{color:rgba(242,244,255,.60); font-weight:800; letter-spacing:.2px}
+    .drawerLink{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      margin:10px 0;
+      font-weight:850;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .drawerLink:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
+
+    /* HERO */
+    main{padding:20px 0 90px}
+    .top{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:18px;
+    }
+    .banner{
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      box-shadow:var(--shadow);
+    }
+    .banner img{display:block; width:100%; height:auto}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:linear-gradient(180deg, rgba(217,178,76,.16), rgba(0,0,0,.10));
+      color:rgba(247,230,163,.95);
+      font-weight:900;
+      letter-spacing:.2px;
+      margin-bottom:14px;
+    }
+    h1{font-size:56px; line-height:1.02; margin:0 0 10px}
+    p{color:var(--muted); font-size:18px; line-height:1.55; margin:0 0 18px}
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap}
+    .ctaRow .pill{padding:12px 18px}
 
     /* Sections */
-    section{padding:56px 0}
-    .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:16px; margin-bottom:16px
+    .section{margin-top:18px}
+    .section h2{
+      margin:0 0 12px;
+      font-size:22px;
+      letter-spacing:.2px;
     }
-    .sectionHead h2{margin:0; font-size:28px; letter-spacing:-.4px}
-    .sectionHead p{margin:0; color:var(--muted); max-width: 70ch; line-height:1.6}
-    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
-    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
-    .card{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius);
-      padding:18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+
+    .stat{
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
     }
-    .card h4{margin:0 0 10px; font-size:15px}
-    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:14px}
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:10px;
+    .stat .label{color:rgba(242,244,255,.65); font-weight:850; font-size:12px; letter-spacing:.2px}
+    .stat .value{font-size:20px; font-weight:950; margin-top:6px}
+
+    /* CA box */
+    .codeRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .code{
+      flex:1 1 320px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.25);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      color:rgba(242,244,255,.92);
+      overflow:auto;
+      white-space:nowrap;
     }
+    .copyBtn{cursor:pointer}
+    .copyBtn:disabled{opacity:.55; cursor:not-allowed}
+
+    /* Embed */
+    .embedWrap{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      overflow:hidden;
+      position:relative;
+      min-height:420px;
+    }
+    .embedLock{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.35);
+      padding:16px;
+      text-align:center;
+      color:rgba(242,244,255,.75);
+      font-weight:850;
+    }
+    iframe{width:100%; height:520px; border:0; display:none}
 
     /* Vault */
-    .vault{
-      border-radius: 28px;
-      border:1px solid rgba(59,130,246,.35);
-      background: linear-gradient(180deg, rgba(59,130,246,.10), rgba(255,255,255,.03));
-      padding:22px;
-      position:relative;
-      overflow:hidden;
+    .vaultHeader{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:12px;
     }
-    .vault:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(700px 260px at 20% 0%, rgba(34,211,238,.18), transparent 60%),
-        radial-gradient(700px 260px at 80% 100%, rgba(59,130,246,.18), transparent 60%);
-      opacity:.9;
-      pointer-events:none;
+    .tag{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:rgba(217,178,76,.10);
+      color:rgba(247,230,163,.95);
+      font-weight:900;
+      white-space:nowrap;
     }
-    .vault > *{position:relative}
-    form.vaultForm{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px
+    .vaultGrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .vaultMiniGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    .timeBox{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(217,178,76,.25);
+      background:rgba(0,0,0,.18);
+      text-align:center;
     }
-    .input{
-      flex:1; min-width: 240px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.20);
+    .timeBox .num{font-weight:950; font-size:22px}
+    .timeBox .lbl{color:rgba(242,244,255,.65); font-size:12px; font-weight:850; margin-top:4px}
+
+    .field{display:flex; flex-direction:column; gap:8px; margin:10px 0}
+    label{font-weight:850; color:rgba(242,244,255,.78)}
+    input, select{
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.22);
+      color:rgba(242,244,255,.92);
+      outline:none;
+      font-size:16px;
+    }
+    input::placeholder{color:rgba(242,244,255,.45)}
+    .submitBtn{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(217,178,76,.35);
+      background:rgba(217,178,76,.16);
       padding:12px 14px;
-      border-radius: 14px;
-      color:var(--text);
-      outline:none;
-      font-size:14px;
-    }
-    .input:focus{border-color: rgba(34,211,238,.55); box-shadow:0 0 0 3px rgba(34,211,238,.10)}
-    .smallRow{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .counter{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px; border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      color: rgba(231,241,255,.85);
-      font-size: 13px;
-    }
-    .bar{
-      width: 180px; height: 8px; border-radius: 999px;
-      background: rgba(255,255,255,.10);
-      overflow:hidden;
-    }
-    .bar > i{
-      display:block; height:100%; width:35%;
-      background: linear-gradient(90deg, rgba(59,130,246,.8), rgba(34,211,238,.8));
-      border-radius: 999px;
-    }
-
-    /* Tokenomics */
-    .split{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px}
-    .donutWrap{display:flex; align-items:center; justify-content:center; padding:16px}
-    .donut{
-      width: 260px; height: 260px; border-radius: 999px;
-      background: conic-gradient(
-        rgba(59,130,246,.85) 0 40%,
-        rgba(34,211,238,.85) 40% 70%,
-        rgba(34,197,94,.85) 70% 85%,
-        rgba(245,158,11,.9) 85% 95%,
-        rgba(239,68,68,.9) 95% 100%
-      );
-      position:relative;
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-    }
-    .donut:after{
-      content:"";
-      position:absolute; inset: 26%;
-      background: radial-gradient(circle at 40% 30%, rgba(255,255,255,.06), rgba(0,0,0,.30));
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-    }
-    .list{display:grid; gap:10px}
-    .li{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:12px; border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:rgba(231,241,255,.86);
-      font-size: 14px;
-    }
-    .li b{font-weight:700}
-    .k{color:var(--muted); font-size:12px}
-
-    /* FAQ accordion */
-    .faq{display:grid; gap:10px}
-    details{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 14px 14px;
-    }
-    summary{
+      font-weight:950;
       cursor:pointer;
-      list-style:none;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      font-weight:700;
-      color: rgba(231,241,255,.92);
-      outline:none;
+      color:rgba(242,244,255,.95);
     }
-    summary::-webkit-details-marker{display:none}
-    details p{margin:10px 0 0; color:var(--muted); line-height:1.6; font-size:14px}
-    .chev{
-      width: 14px; height: 14px;
-      border-right:2px solid rgba(231,241,255,.65);
-      border-bottom:2px solid rgba(231,241,255,.65);
-      transform: rotate(45deg);
-      transition: transform .15s ease;
-      margin-right:6px;
+    .note{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:rgba(242,244,255,.80);
+      font-weight:750;
     }
-    details[open] .chev{transform: rotate(225deg)}
 
-    /* Dexscreener */
-    .iframeWrap{
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.20);
-      border-radius: 18px;
+    /* FAQ */
+    .faqItem{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
       overflow:hidden;
-      min-height: 420px;
-      position:relative;
+      margin:10px 0;
     }
-    .iframeWrap .lock{
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      padding:20px;
-      background: radial-gradient(600px 260px at 50% 30%, rgba(59,130,246,.12), transparent 55%),
-                  rgba(0,0,0,.35);
-      color: rgba(231,241,255,.90);
+    .faqQ{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:16px 16px;
+      cursor:pointer;
+      background:transparent;
+      border:0;
+      color:rgba(242,244,255,.95);
+      font-weight:950;
+      font-size:18px;
+      text-align:left;
     }
-    .lock .inner{
-      max-width: 520px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      border-radius: 18px;
-      padding:18px;
+    .faqA{
+      padding:0 16px 16px;
+      color:rgba(242,244,255,.72);
+      line-height:1.55;
+      display:none;
     }
-    .lock h3{margin:0 0 8px}
-    .lock p{margin:0; color:var(--muted); line-height:1.6}
+    .faqItem.open .faqA{display:block}
+    .chev{transition: transform .18s var(--easeOut)}
+    .faqItem.open .chev{transform:rotate(180deg)}
 
-    /* Footer */
-    footer{
-      border-top:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      padding:26px 0;
-      color:var(--muted);
-    }
-    .foot{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;
-    }
-    .foot a{color:var(--muted)}
-    .foot a:hover{color:var(--text)}
-    .fine{margin-top:12px; font-size:12px; line-height:1.6; max-width: 90ch}
+    footer{padding:40px 0 60px; color:rgba(242,244,255,.55); font-size:13px}
+    footer a{text-decoration:underline; text-decoration-color:rgba(217,178,76,.35)}
 
     /* Responsive */
     @media (max-width: 980px){
-      .heroGrid{grid-template-columns: 1fr}
-      .trustStrip{grid-template-columns: repeat(2, 1fr)}
-      .grid3{grid-template-columns: 1fr}
-      .grid2{grid-template-columns: 1fr}
-      .split{grid-template-columns: 1fr}
-      h1{font-size: 38px}
+      .top{grid-template-columns:1fr;}
+      h1{font-size:48px}
+      .brand{max-width:60%}
+      .nav{top:84px}
+    }
+    @media (max-width: 640px){
+      .hideMobile{display:none}
+      .brand{max-width:58%}
+      h1{font-size:44px}
+      .grid2{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .vaultGrid{grid-template-columns:1fr}
+      .vaultMiniGrid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"FreedomFi",
-    "url":"https://freedomfiofficial.com/",
-    "sameAs":[
-      "https://t.me/FreedomFiOfficial"
-    ]
-  }
-  </script>
 </head>
 
 <body>
+  <div class="bgMark" aria-hidden="true"></div>
+  <div class="film" aria-hidden="true"></div>
 
-  <!-- Scam / Safety bar -->
-  <div class="scambar">
+  <!-- TRUST STRIP -->
+  <div class="trustStrip">
     <div class="wrap">
-      <div class="inner">
-        <div class="badge"><span class="dot"></span><span><b>Anti-Scam:</b> FreedomFi will never DM first or ask for your seed phrase.</span></div>
-        <div class="links">
-          <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener">Telegram</a>
-          <!-- TODO: add your X link -->
-          <a href="#" id="xLinkTop" target="_blank" rel="noopener">X</a>
+      <div class="trustInner">
+        <div class="trustPill"><span class="dot"></span>Anti-scam: We never DM first • Never ask seed phrases • Verify links here</div>
+        <div class="trustLinks">
+          <a class="pill" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Telegram</a>
+          <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X</a>
+          <a class="pill btnGold" href="#vault">Vault</a>
         </div>
       </div>
     </div>
   </div>
 
-  <header>
+  <!-- Drawer overlay + panel -->
+  <div class="drawerBack" id="drawerBack" aria-hidden="true"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawerHeader">
+      <div class="brandMini">
+        <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
+        <span>FreedomFi</span>
+      </div>
+      <button class="drawerClose" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+
+    <small>Navigate</small>
+    <a class="drawerLink" href="#verify">Verification</a>
+    <a class="drawerLink" href="#stats">Live Stats</a>
+    <a class="drawerLink" href="#vault">Vault</a>
+    <a class="drawerLink" href="#chart">Chart</a>
+    <a class="drawerLink" href="#tokenomics">Tokenomics</a>
+    <a class="drawerLink" href="#solana">Why Solana</a>
+    <a class="drawerLink" href="#howtobuy">How to Buy</a>
+    <a class="drawerLink" href="#roadmap">Roadmap</a>
+    <a class="drawerLink" href="#faq">FAQ</a>
+    <a class="drawerLink" href="#community">Community</a>
+
+    <div style="height:10px"></div>
+    <small>Actions</small>
+    <a class="drawerLink" id="drawerBuy" href="#buy">Buy</a>
+    <a class="drawerLink" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
+    <a class="drawerLink" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
+  </aside>
+
+  <!-- NAV -->
+  <header class="nav">
     <div class="wrap">
-      <div class="nav">
-        <a class="brand" href="#top" aria-label="FreedomFi home">
-          <span class="logo" aria-hidden="true"></span>
-          <div>
-            <strong>FreedomFi</strong>
-            <small>Solana-native · Transparency-first</small>
-          </div>
+      <div class="navInner">
+        <a class="brand" href="#top" aria-label="Go to top">
+          <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
+          <div class="name">FreedomFi</div>
         </a>
 
-        <nav class="navlinks" aria-label="Primary">
-          <a href="#trust">Trust</a>
-          <a href="#vault">Vault</a>
-          <a href="#solana">Solana</a>
-          <a href="#tokenomics">Tokenomics</a>
-          <a href="#roadmap">Roadmap</a>
-          <a href="#faq">FAQ</a>
-        </nav>
+        <div class="navRight">
+          <a class="pill hideMobile" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Telegram</a>
+          <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X @FreedomFiCoin</a>
+          <a class="pill btnGold" id="buyTop" href="#buy">Buy</a>
 
-        <div class="ctaRow">
-          <a class="btn ghost" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener">
-            <!-- telegram icon -->
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21.8 5.2 3.7 12.2c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.7 5.3c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.2-2.2 4.5 3.3c.8.4 1.4.2 1.6-.8l3-14.2c.3-1.2-.4-1.7-1-1.6Z" stroke="currentColor" stroke-width="1.4"/><path d="M8.3 15.1 18.7 8.7c.5-.3 1 0 .6.4l-8.6 7.9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-            Join Telegram
-          </a>
-          <a class="btn primary" href="#vault">Enter The Vault</a>
+          <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
   </header>
 
   <main id="top">
-    <!-- HERO -->
-    <div class="hero">
-      <div class="wrap">
-        <div class="heroGrid">
-          <div class="heroCard">
-            <h1>Sovereignty Through Decentralization.</h1>
-            <p class="sub">
-              FreedomFi is a <b>Solana-native community asset</b> built for transparency, long-term alignment, and digital sovereignty.
-              Secure early access updates through the <b>Freedom Vault</b> — and stay ahead of launch milestones.
+    <div class="wrap">
+
+      <div class="top">
+        <div class="banner">
+          <img src="./freedomfi-banner.png" alt="FreedomFi banner" />
+        </div>
+
+        <section class="card">
+          <div class="cardPad">
+            <div class="kicker">🦅 Built for the free • Solana-native</div>
+            <h1>FreedomFi</h1>
+            <p>
+              A clean, serious meme coin brand inspired by financial freedom.
+              Verify the CA, view the chart, and join the movement.
             </p>
-
-            <div class="pillRow" aria-label="Highlights">
-              <div class="pill"><span class="ok"></span>Solana-native</div>
-              <div class="pill"><span class="ok"></span>Transparency-first</div>
-              <div class="pill"><span class="ok"></span>Community-driven</div>
-              <div class="pill"><span class="ok"></span>Security roadmap</div>
-            </div>
-
-            <div class="heroBtns">
-              <a class="btn primary" href="#vault">🔒 Secure Vault Access</a>
-              <a class="btn" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener">💬 Join Telegram</a>
-              <!-- TODO: set X -->
-              <a class="btn" href="#" id="xLinkHero" target="_blank" rel="noopener">🐦 Follow on X</a>
-            </div>
-
-            <div class="trustStrip" id="trust">
-              <div class="trust"><b>Verified Links</b>Official Telegram & socials only.</div>
-              <div class="trust"><b>Launch Readiness</b>Metrics & chart activate March 5.</div>
-              <div class="trust"><b>Transparency</b>Token details presented clearly.</div>
-              <div class="trust"><b>Security Path</b>Audit/lock proofs linked post-launch.</div>
-            </div>
-
-            <div class="mini">
-              March 5 · 5:00 PM — contract address + live markets go public.
+            <div class="ctaRow">
+              <a class="pill btnGold" href="#buy">🚀 Buy FreedomFi</a>
+              <a class="pill" href="#chart">View Chart</a>
+              <a class="pill" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
+              <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
             </div>
           </div>
-
-          <!-- LIVE PANEL -->
-          <aside class="panel" aria-label="Live metrics and contract panel">
-            <h3>Live Network Panel</h3>
-            <p class="hint" style="margin:0">
-              This panel becomes fully live at launch. Until then, it stays locked to prevent spoofed contract addresses.
-            </p>
-
-            <div class="statGrid" role="list" aria-label="Stats">
-              <div class="stat" role="listitem"><span>Market Cap</span><strong id="mc">$ —</strong></div>
-              <div class="stat" role="listitem"><span>Liquidity</span><strong id="liq">$ —</strong></div>
-              <div class="stat" role="listitem"><span>Holders</span><strong id="holders">—</strong></div>
-              <div class="stat" role="listitem"><span>24h Volume</span><strong id="vol">$ —</strong></div>
-            </div>
-
-            <div class="divider"></div>
-
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
-              <div>
-                <div class="tag">Contract Address</div>
-              </div>
-              <div class="tag" id="launchStatus">Locked until March 5 · 5:00 PM</div>
-            </div>
-
-            <div class="copyRow" style="margin-top:10px">
-              <div class="codebox" id="caBox">CA will be published at launch.</div>
-              <button class="btn" id="copyCA" type="button" disabled>Copy</button>
-            </div>
-
-            <div class="hint">
-              Safety tip: Always confirm the contract address only from this website + pinned Telegram message.
-            </div>
-          </aside>
-        </div>
+        </section>
       </div>
-    </div>
 
-    <!-- TRUST FEATURES -->
-    <section>
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Trust, Structure, and Signal</h2>
-            <p>FreedomFi is built like a real project: clear messaging, transparent planning, and a security-first release process.</p>
+      <!-- VERIFICATION -->
+      <section class="section card" id="verify">
+        <div class="cardPad">
+          <h2>Verification Center</h2>
+          <p style="margin-top:-4px">If it isn’t listed here or pinned in the official Telegram, it’s not official.</p>
+
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Official Website</div>
+              <div class="value" style="font-size:16px"><a href="https://freedomfiofficial.com/" style="text-decoration:underline">freedomfiofficial.com</a></div>
+            </div>
+            <div class="stat">
+              <div class="label">Official Telegram</div>
+              <div class="value" style="font-size:16px"><a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a></div>
+            </div>
+            <div class="stat">
+              <div class="label">Official X</div>
+              <div class="value" style="font-size:16px"><a href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer" style="text-decoration:underline">@FreedomFiCoin</a></div>
+            </div>
+          </div>
+
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Solscan (after launch)</div>
+              <div class="value" id="solscanLink" style="font-size:16px;color:rgba(242,244,255,.75)">Locked</div>
+            </div>
+            <div class="stat">
+              <div class="label">Liquidity lock proof</div>
+              <div class="value" id="lpLockLink" style="font-size:16px;color:rgba(242,244,255,.75)">Soon</div>
+            </div>
+            <div class="stat">
+              <div class="label">Mint / Freeze authority</div>
+              <div class="value" id="authStatus" style="font-size:16px;color:rgba(242,244,255,.75)">Soon</div>
+            </div>
+          </div>
+
+          <div class="note"><b>Rule:</b> Never buy from a CA sent in a DM. Wait for the CA here + pinned Telegram.</div>
+        </div>
+      </section>
+
+      <!-- LIVE STATS -->
+      <section class="section card" id="stats">
+        <div class="cardPad">
+          <h2>Live Stats</h2>
+          <p id="statsHint" style="margin-top:-4px">CA unlocks at launch. Stats and chart populate after you paste the CA.</p>
+
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat"><div class="label">Price</div><div class="value" id="statPrice">—</div></div>
+            <div class="stat"><div class="label">24h Volume</div><div class="value" id="statVol">—</div></div>
+            <div class="stat"><div class="label">Liquidity</div><div class="value" id="statLiq">—</div></div>
+          </div>
+
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat"><div class="label">Market Cap</div><div class="value" id="statMcap">—</div></div>
+            <div class="stat"><div class="label">FDV</div><div class="value" id="statFdv">—</div></div>
+            <div class="stat"><div class="label">Holders</div><div class="value" id="statHolders">—</div></div>
+          </div>
+
+          <div class="section" id="buy">
+            <h2 style="margin-top:18px">Contract Address (CA)</h2>
+            <div class="codeRow">
+              <div class="code" id="caText">CA: (locked until launch)</div>
+              <button class="pill copyBtn" id="copyCA" disabled title="Locked until launch">Copy</button>
+            </div>
+            <p style="margin-top:10px">Always verify the CA from this site + pinned Telegram before swapping.</p>
           </div>
         </div>
+      </section>
 
-        <div class="grid3">
-          <div class="card">
-            <div class="tag">🛡️ Security Path</div>
-            <h4>Proof-linked security</h4>
-            <p>Post-launch, we link audit status, liquidity lock proof, and market dashboards directly—no screenshots, no vague claims.</p>
+      <!-- VAULT -->
+      <section class="section card" id="vault">
+        <div class="cardPad">
+          <div class="vaultHeader">
+            <div>
+              <h2 style="margin:0 0 6px">FreedomFi Vault Access</h2>
+              <p style="margin:0">Whitelist + launch alert + early access link</p>
+            </div>
+            <div class="tag">Pre-Launch</div>
           </div>
-          <div class="card">
-            <div class="tag">✅ Verified Socials</div>
-            <h4>Official channels only</h4>
-            <p>Telegram is the primary community hub. All official announcements will be mirrored across verified links.</p>
-          </div>
-          <div class="card">
-            <div class="tag">📊 Live Metrics</div>
-            <h4>Real data, not placeholders</h4>
-            <p>Market stats + chart embed activate at launch and reflect live, public market sources.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- VAULT -->
-    <section id="vault">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>🔒 The Freedom Vault</h2>
-            <p>Secure priority updates, launch alerts, and vault-only announcements. No spam. No nonsense.</p>
-          </div>
-        </div>
-
-        <div class="vault">
-          <div class="grid2">
-            <div class="card" style="background: rgba(0,0,0,.14)">
-              <h4>Secure early access</h4>
-              <p>
-                Get launch reminders, verified contract publication alerts, and key project milestones.
-                Vault access is the safest way to stay synced with official releases.
-              </p>
-
-              <!-- Netlify form (works without backend) -->
-              <form class="vaultForm" name="vault" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="vault">
-                <p style="display:none">
-                  <label>Don’t fill this out: <input name="bot-field" /></label>
-                </p>
-                <input class="input" type="email" name="email" placeholder="Enter email for vault access" required />
-                <button class="btn primary" type="submit">Secure My Access</button>
-              </form>
-
-              <div class="smallRow">
-                <div class="counter" aria-label="Vault spots counter">
-                  <span>Spots secured:</span>
-                  <b id="vaultCount">—</b>
-                  <span style="color:var(--muted)">/</span>
-                  <b id="vaultMax">2500</b>
-                  <span class="bar" aria-hidden="true"><i id="vaultBar"></i></span>
+          <div class="vaultGrid">
+            <div class="card" style="box-shadow:none">
+              <div class="cardPad">
+                <div class="grid2">
+                  <div class="stat"><div class="label">Status</div><div class="value">🟡 Accepting entries</div></div>
+                  <div class="stat"><div class="label">Launch (EST)</div><div class="value">Mar 5, 2026 • 8:00 PM</div></div>
                 </div>
-                <div class="tag">Encrypted storage · privacy respected</div>
+
+                <div style="height:12px"></div>
+                <div class="label" style="color:rgba(242,244,255,.65);font-weight:900;margin-bottom:10px">Countdown</div>
+                <div class="vaultMiniGrid" aria-label="Countdown">
+                  <div class="timeBox"><div class="num" id="cdDays">—</div><div class="lbl">Days</div></div>
+                  <div class="timeBox"><div class="num" id="cdHours">—</div><div class="lbl">Hours</div></div>
+                  <div class="timeBox"><div class="num" id="cdMins">—</div><div class="lbl">Min</div></div>
+                  <div class="timeBox"><div class="num" id="cdSecs">—</div><div class="lbl">Sec</div></div>
+                </div>
+
+                <div class="note">
+                  This is a <b>pre-launch vault (no payment)</b>. We will never ask for seed phrases or private keys.
+                  Only trust links from this site + the official Telegram.
+                </div>
               </div>
-
-              <p class="hint" style="margin-top:12px">
-                Want the fastest updates? Join Telegram: <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener" style="text-decoration:underline">t.me/FreedomFiOfficial</a>
-              </p>
             </div>
 
-            <div class="card" style="background: rgba(0,0,0,.14)">
-              <h4>What you receive</h4>
-              <div class="list">
-                <div class="li"><span><b>Launch alert</b><span class="k"> · exact time confirmation</span></span><span>✅</span></div>
-                <div class="li"><span><b>Verified CA</b><span class="k"> · official publishing</span></span><span>✅</span></div>
-                <div class="li"><span><b>Market dashboard</b><span class="k"> · live chart + stats</span></span><span>✅</span></div>
-                <div class="li"><span><b>Security links</b><span class="k"> · lock/audit references</span></span><span>✅</span></div>
-                <div class="li"><span><b>Milestone updates</b><span class="k"> · roadmap progress</span></span><span>✅</span></div>
+            <div class="card" style="box-shadow:none">
+              <div class="cardPad">
+                <h3 style="margin:0 0 6px; font-size:18px">Get Vault Access</h3>
+                <p style="margin:0 0 12px">Join the list — we’ll send the official launch link when CA is live.</p>
+
+                <form name="vault" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="vault" />
+                  <p style="display:none">
+                    <label>Don’t fill this out: <input name="bot-field" /></label>
+                  </p>
+
+                  <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="you@email.com" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="wallet">Solana Wallet (optional)</label>
+                    <input id="wallet" name="wallet" type="text" placeholder="Paste wallet address" />
+                  </div>
+
+                  <div class="field">
+                    <label for="tier">Tier (display only)</label>
+                    <select id="tier" name="tier">
+                      <option>Bronze</option>
+                      <option>Silver</option>
+                      <option>Gold</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="ref">Referral code (optional)</label>
+                    <input id="ref" name="ref" type="text" placeholder="FRDM-XXXX" />
+                  </div>
+
+                  <button class="submitBtn" type="submit">🔒 Secure My Spot</button>
+                </form>
+
+                <p style="margin-top:12px; color:rgba(242,244,255,.60); font-size:13px">
+                  Tip: after deploy, Netlify → Forms will show submissions.
+                </p>
               </div>
-
-              <div class="divider"></div>
-              <p class="hint">
-                FreedomFi will never ask for seed phrases, private keys, or to connect wallets via DMs.
-              </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- SOLANA -->
-    <section id="solana">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Why Solana</h2>
-            <p>FreedomFi is built on Solana for speed, cost efficiency, and ecosystem depth — designed for global-scale community growth.</p>
+      <!-- CHART -->
+      <section class="section card" id="chart">
+        <div class="cardPad">
+          <h2>Chart</h2>
+          <p>When CA is live, the chart button + embed will unlock automatically.</p>
+          <div class="ctaRow">
+            <a class="pill" id="chartBtn" href="#" target="_blank" rel="noreferrer">Open Dexscreener</a>
           </div>
-        </div>
 
-        <div class="grid3">
-          <div class="card">
-            <div class="tag">⚡ Performance</div>
-            <h4>Fast finality</h4>
-            <p>Solana enables near-instant user experiences, which matters for high-volume tokens and real-time community markets.</p>
-          </div>
-          <div class="card">
-            <div class="tag">💸 Low fees</div>
-            <h4>Community-friendly</h4>
-            <p>Low transaction costs lower friction for new users and help community-driven ecosystems scale without fee fatigue.</p>
-          </div>
-          <div class="card">
-            <div class="tag">🧩 Ecosystem</div>
-            <h4>Deep infrastructure</h4>
-            <p>DeFi, analytics, explorers, and wallets on Solana allow transparent on-chain verification and fast integrations.</p>
-          </div>
-        </div>
-
-        <div class="grid2" style="margin-top:14px">
-          <div class="card">
-            <div class="tag">🔍 Transparency</div>
-            <h4>On-chain verification</h4>
-            <p>Holders, liquidity, transfers, and contract activity are trackable on-chain. FreedomFi leans into public data for trust.</p>
-          </div>
-          <div class="card">
-            <div class="tag">🧠 Security Culture</div>
-            <h4>Safer-by-process</h4>
-            <p>We publish the contract address at launch time, align verified links, and add proof references for audit/locks to reduce spoofing.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOKENOMICS -->
-    <section id="tokenomics">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Tokenomics</h2>
-            <p>Clear breakdown, simple structure. Adjust allocations to match your plan—this layout makes it feel “real” and trustworthy.</p>
-          </div>
-        </div>
-
-        <div class="split">
-          <div class="card">
-            <div class="tag">📌 Allocation Overview</div>
-            <div class="donutWrap">
-              <div class="donut" aria-hidden="true"></div>
+          <div class="embedWrap" style="margin-top:14px">
+            <div class="embedLock" id="embedLock">
+              Locked until launch (prevents fake contract spoofing).
             </div>
-            <p class="hint" style="margin:0">
-              Update these percentages once finalized. The important part is clarity + consistency across all channels.
-            </p>
+            <iframe id="dexFrame" title="Dexscreener chart"></iframe>
           </div>
 
-          <div class="card">
-            <div class="tag">🧾 Allocation Detail</div>
-            <div class="list" aria-label="Tokenomics list">
-              <div class="li"><span><b>Community</b><span class="k"> · growth + incentives</span></span><span>40%</span></div>
-              <div class="li"><span><b>Liquidity</b><span class="k"> · market stability</span></span><span>30%</span></div>
-              <div class="li"><span><b>Development</b><span class="k"> · build + tooling</span></span><span>15%</span></div>
-              <div class="li"><span><b>Marketing</b><span class="k"> · distribution + awareness</span></span><span>10%</span></div>
-              <div class="li"><span><b>Reserve</b><span class="k"> · strategic buffer</span></span><span>5%</span></div>
-            </div>
+          <p style="margin-top:12px;color:rgba(242,244,255,.60);font-size:13px">
+            Note: holders aren’t reliably available in-browser without an indexer. We keep this site safe and lightweight.
+          </p>
+        </div>
+      </section>
 
-            <div class="divider"></div>
-            <p class="hint">
-              Transparency note: tokenomics should match what’s verifiable on-chain post-launch.
-            </p>
+      <!-- TOKENOMICS -->
+      <section class="section card" id="tokenomics">
+        <div class="cardPad">
+          <h2>Tokenomics</h2>
+          <p style="margin-top:-4px">Clear, simple, transparent. Update details after launch.</p>
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat"><div class="label">Total Supply</div><div class="value" id="tokSupply">—</div></div>
+            <div class="stat"><div class="label">Taxes</div><div class="value">0 / 0 (typical Solana)</div></div>
+          </div>
+          <div class="note">After launch we publish proof links: CA, Solscan, liquidity, and authority status.</div>
+        </div>
+      </section>
+
+      <!-- WHY SOLANA -->
+      <section class="section card" id="solana">
+        <div class="cardPad">
+          <h2>Why Solana</h2>
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat"><div class="label">Fast</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Quick finality keeps markets responsive.</div></div>
+            <div class="stat"><div class="label">Low Fees</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Lower friction = more community participation.</div></div>
+            <div class="stat"><div class="label">Transparency</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">On-chain activity is public and verifiable.</div></div>
+          </div>
+          <div class="note"><b>Safety tip:</b> Always verify the mint address (CA). One wrong character = wrong token.</div>
+        </div>
+      </section>
+
+      <!-- HOW TO BUY -->
+      <section class="section card" id="howtobuy">
+        <div class="cardPad">
+          <h2>How to Buy</h2>
+          <div class="grid2">
+            <div class="stat"><div class="label">1) Get SOL</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Buy SOL and send it to your wallet.</div></div>
+            <div class="stat"><div class="label">2) Verify the CA</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Use the CA on this site + pinned Telegram. Never trust DMs.</div></div>
+          </div>
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat"><div class="label">3) Swap</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Use a Solana DEX UI and confirm token details.</div></div>
+            <div class="stat"><div class="label">4) Track</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Watch price/volume/liquidity in Live Stats and Dexscreener.</div></div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ROADMAP -->
-    <section id="roadmap">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Roadmap</h2>
-            <p>Real milestones. Clear phases. No fluff. Built to show maturity and intent.</p>
+      <!-- ROADMAP -->
+      <section class="section card" id="roadmap">
+        <div class="cardPad">
+          <h2>Roadmap</h2>
+          <div class="grid2">
+            <div class="stat"><div class="label">Phase 1</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Brand + community foundation.</div></div>
+            <div class="stat"><div class="label">Phase 2</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Launch + tracking + proof links.</div></div>
+          </div>
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat"><div class="label">Phase 3</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Listings outreach + partnerships.</div></div>
+            <div class="stat"><div class="label">Phase 4</div><div class="value" style="font-size:16px;font-weight:850;color:rgba(242,244,255,.85)">Ecosystem growth + longevity.</div></div>
           </div>
         </div>
+      </section>
 
-        <div class="grid2">
-          <div class="card">
-            <div class="tag">Phase I · Foundation</div>
-            <h4>Preparation & positioning</h4>
-            <p>Website relaunch · Vault open · Community expansion · Verified links + anti-scam framework.</p>
+      <!-- FAQ -->
+      <section class="section card" id="faq">
+        <div class="cardPad">
+          <h2>FAQ</h2>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">Where are the official links?<span class="chev">▾</span></button>
+            <div class="faqA">Official links are on this website and in the official Telegram: <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a>.</div>
           </div>
 
-          <div class="card">
-            <div class="tag">Phase II · Launch (March 5)</div>
-            <h4>Live markets</h4>
-            <p>Contract publication · Dex listing · Live chart + metrics enabled · Liquidity/lock references posted.</p>
+          <div class="faqItem">
+            <button class="faqQ" type="button">When will the CA be posted?<span class="chev">▾</span></button>
+            <div class="faqA">The CA is locked until launch. Any CA seen before launch is unverified.</div>
           </div>
 
-          <div class="card">
-            <div class="tag">Phase III · Expansion</div>
-            <h4>Utility & distribution</h4>
-            <p>Partnerships · visibility campaigns · community initiatives · ecosystem integrations.</p>
+          <div class="faqItem">
+            <button class="faqQ" type="button">How do I avoid scams?<span class="chev">▾</span></button>
+            <div class="faqA">We never DM first and never ask for seed phrases. Verify the mint address on this site + pinned Telegram.</div>
           </div>
 
-          <div class="card">
-            <div class="tag">Phase IV · Long-term</div>
-            <h4>Endurance</h4>
-            <p>Governance direction · additional utilities · sustained adoption strategy.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CHART -->
-    <section id="chart">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Live Chart</h2>
-            <p>Embedded Dexscreener chart will appear automatically once you paste the Pair/CA in the settings below.</p>
+          <div class="faqItem">
+            <button class="faqQ" type="button">Is FreedomFi affiliated with WLFI/USD1?<span class="chev">▾</span></button>
+            <div class="faqA">No. FreedomFi is its own community project and is not officially affiliated with WLFI or USD1.</div>
           </div>
         </div>
+      </section>
 
-        <div class="iframeWrap">
-          <div class="lock" id="chartLock">
-            <div class="inner">
-              <h3>Locked until launch</h3>
-              <p>
-                Chart and live stats will be enabled at <b>March 5 · 5:00 PM</b> alongside the verified contract address.
-                This reduces spoofing and protects the community.
-              </p>
-            </div>
-          </div>
-          <iframe id="dexFrame" title="Dexscreener chart" style="width:100%; height:520px; border:0; display:none"
-            loading="lazy" referrerpolicy="no-referrer"></iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>FAQ</h2>
-            <p>Simple answers. Clean structure. This is where trust gets built.</p>
+      <!-- COMMUNITY -->
+      <section class="section card" id="community">
+        <div class="cardPad">
+          <h2>Community</h2>
+          <p>Telegram is where we post pinned verification + launch updates first.</p>
+          <div class="ctaRow">
+            <a class="pill btnGold" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
+            <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
+            <a class="pill" href="#vault">Vault Access</a>
           </div>
         </div>
+      </section>
 
-        <div class="faq">
-          <details>
-            <summary><span>What is FreedomFi?</span><span class="chev" aria-hidden="true"></span></summary>
-            <p>FreedomFi is a Solana-native community asset built around transparency, verified communication, and long-term alignment.</p>
-          </details>
-
-          <details>
-            <summary><span>When does the contract address go live?</span><span class="chev" aria-hidden="true"></span></summary>
-            <p>The verified contract address will be published on <b>March 5 at 5:00 PM</b>. You’ll see it on this site + pinned in Telegram.</p>
-          </details>
-
-          <details>
-            <summary><span>Where will announcements be posted?</span><span class="chev" aria-hidden="true"></span></summary>
-            <p>Telegram is the primary hub: <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener" style="text-decoration:underline">t.me/FreedomFiOfficial</a>. Major updates should also be mirrored on the verified X profile.</p>
-          </details>
-
-          <details>
-            <summary><span>How can I avoid scams?</span><span class="chev" aria-hidden="true"></span></summary>
-            <p>Only use official links from this website + pinned Telegram messages. FreedomFi will never ask for seed phrases, private keys, or send “exclusive” DMs first.</p>
-          </details>
-
-          <details>
-            <summary><span>Will there be an audit and liquidity lock proof?</span><span class="chev" aria-hidden="true"></span></summary>
-            <p>Post-launch, this site will link any audit status and liquidity/lock proof sources directly (no screenshots). Placeholders are here so the structure stays consistent and public.</p>
-          </details>
-
-          <details>
-            <summary><span>Is this financial advice?</span><span class="chev" aria-hidden="true"></span></summary>
-            <p>No. FreedomFi content is informational only and not financial advice. Always do your own research and manage risk responsibly.</p>
-          </details>
-        </div>
-
-        <p class="hint" style="margin-top:12px">
-          Need the fastest help? Join Telegram: <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener" style="text-decoration:underline">t.me/FreedomFiOfficial</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- COMMUNITY -->
-    <section id="community">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Join The Movement</h2>
-            <p>FreedomFi grows through community conviction, verified information, and transparent execution.</p>
+      <footer class="wrap">
+        <div style="padding-top:28px">
+          <div style="margin-bottom:10px">
+            <b>Disclaimer:</b> This site is for informational/community purposes only and is not financial advice.
+            Crypto assets can be volatile and risky.
           </div>
+          <div>© <span id="year"></span> FreedomFi</div>
         </div>
+      </footer>
 
-        <div class="grid2">
-          <div class="card">
-            <div class="tag">💬 Telegram</div>
-            <h4>Official community hub</h4>
-            <p>Announcements, pinned verification, and community updates live here.</p>
-            <div style="margin-top:12px">
-              <a class="btn primary" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener">Join Telegram</a>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="tag">📣 Social Proof</div>
-            <h4>Verified socials only</h4>
-            <p>Never trust DMs. Use official links from this website and pinned posts.</p>
-            <div style="margin-top:12px">
-              <a class="btn" href="#vault">Secure Vault Access</a>
-              <a class="btn" href="#chart">View Chart</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <div class="foot">
-        <div>
-          <div style="display:flex; align-items:center; gap:10px">
-            <span class="logo" style="width:32px;height:32px;border-radius:10px"></span>
-            <div>
-              <b style="color:var(--text)">FreedomFi</b>
-              <div style="font-size:12px">Solana-native · Transparency-first</div>
-            </div>
-          </div>
-          <div class="fine">
-            FreedomFi does not provide financial advice. Crypto assets are volatile. Only use verified links from this website and official pinned announcements.
-          </div>
-        </div>
-
-        <div style="display:grid; gap:8px">
-          <a href="#vault">Vault</a>
-          <a href="#solana">Solana</a>
-          <a href="#tokenomics">Tokenomics</a>
-          <a href="#roadmap">Roadmap</a>
-          <a href="#faq">FAQ</a>
-        </div>
-
-        <div style="display:grid; gap:8px">
-          <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noopener">Telegram</a>
-          <a href="#" id="xLinkFoot" target="_blank" rel="noopener">X</a>
-          <!-- TODO: add Privacy/Terms pages if you want -->
-          <a href="#" aria-disabled="true">Privacy Policy (soon)</a>
-          <a href="#" aria-disabled="true">Terms (soon)</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    /**
-     * ========= CONFIG (UPDATE THESE) =========
-     */
-    const CONFIG = {
-      // TODO: paste your X link
-      X_URL: "https://x.com/",
+    const $ = (id) => document.getElementById(id);
 
-      // Launch date/time (America/Denver local)
-      // March 5, 2026 5:00 PM America/Denver
-      LAUNCH_ISO: "2026-03-05T17:00:00-07:00",
-
-      // TODO (March 5): paste contract address
-      CONTRACT_ADDRESS: "",
-
-      // TODO (March 5): paste Dexscreener pair URL or pair id
-      // Example embed: https://dexscreener.com/solana/<PAIR_ID>?embed=1&theme=dark&trades=0&info=1
-      DEX_EMBED_URL: "",
-
-      // Vault spots
-      VAULT_MAX: 2500,
-
-      // If you implement the Netlify function below, set this to "/.netlify/functions/vaultCount"
-      VAULT_COUNT_ENDPOINT: ""
-    };
-
-    // Link X in header/hero/footer/topbar
-    for (const id of ["xLinkTop","xLinkHero","xLinkFoot"]) {
-      const el = document.getElementById(id);
-      if (el) el.href = CONFIG.X_URL;
+    function fmtUSD(n){
+      if(!isFinite(n)) return "—";
+      return n >= 1 ? "$" + n.toLocaleString(undefined,{maximumFractionDigits: 6})
+                    : "$" + n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
+    }
+    function fmtCompact(n){
+      if(!isFinite(n)) return "—";
+      return n.toLocaleString(undefined,{notation:"compact", maximumFractionDigits:2});
     }
 
-    // Vault max
-    document.getElementById("vaultMax").textContent = CONFIG.VAULT_MAX.toLocaleString();
+    // Drawer
+    const menuBtn = $("menuBtn");
+    const drawerBack = $("drawerBack");
+    const drawer = $("drawer");
+    const drawerClose = $("drawerClose");
+
+    function openDrawer(){
+      drawer.classList.add("open");
+      drawerBack.classList.add("show");
+      menuBtn.setAttribute("aria-expanded","true");
+      document.documentElement.style.overflow = "hidden";
+    }
+    function closeDrawer(){
+      drawer.classList.remove("open");
+      drawerBack.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded","false");
+      document.documentElement.style.overflow = "";
+    }
+    menuBtn?.addEventListener("click", (e)=>{ e.preventDefault(); openDrawer(); });
+    drawerClose?.addEventListener("click", (e)=>{ e.preventDefault(); closeDrawer(); });
+    drawerBack?.addEventListener("click", closeDrawer);
+    drawer?.addEventListener("click", (e)=>{ const a = e.target.closest("a"); if(a) closeDrawer(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeDrawer(); });
 
     // Launch gating
-    const launchTime = new Date(CONFIG.LAUNCH_ISO).getTime();
-    const now = Date.now();
-    const isLive = now >= launchTime;
+    const LAUNCH_ISO = "2026-03-05T20:00:00-05:00";
+    const launchTs = Date.parse(LAUNCH_ISO);
+    const SOLSCAN_BASE = "https://solscan.io/token/";
 
-    const caBox = document.getElementById("caBox");
-    const copyBtn = document.getElementById("copyCA");
-    const launchStatus = document.getElementById("launchStatus");
+    // Paste your CA here after launch:
+    const CONTRACT_ADDRESS = ""; // <-- paste CA here later
+    const LP_LOCK_URL = "";      // <-- paste proof link later (optional)
+    const AUTHORITY_STATUS_TEXT = ""; // <-- paste later (e.g. "Mint revoked, Freeze revoked")
 
-    function setContractUI() {
-      if (isLive && CONFIG.CONTRACT_ADDRESS) {
-        caBox.textContent = CONFIG.CONTRACT_ADDRESS;
-        copyBtn.disabled = false;
-        launchStatus.textContent = "Live";
-        launchStatus.style.borderColor = "rgba(34,197,94,.45)";
-      } else {
-        caBox.textContent = "CA will be published at launch.";
-        copyBtn.disabled = true;
-        launchStatus.textContent = "Locked until March 5 · 5:00 PM";
-      }
+    function launchLive(){ return Date.now() >= launchTs; }
+
+    // Countdown
+    function renderCountdown(){
+      let diff = Math.max(0, launchTs - Date.now());
+      const totalSec = Math.floor(diff / 1000);
+      const days = Math.floor(totalSec / 86400);
+      const hrs  = Math.floor((totalSec % 86400) / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+
+      $("cdDays").textContent = String(days);
+      $("cdHours").textContent = String(hrs).padStart(2,"0");
+      $("cdMins").textContent = String(mins).padStart(2,"0");
+      $("cdSecs").textContent = String(secs).padStart(2,"0");
     }
+    renderCountdown();
+    setInterval(renderCountdown, 1000);
 
-    copyBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(CONFIG.CONTRACT_ADDRESS);
-        copyBtn.textContent = "Copied";
-        setTimeout(()=> copyBtn.textContent = "Copy", 1200);
-      } catch(e) {
-        alert("Copy failed. Please select and copy manually.");
-      }
+    // FAQ accordion
+    document.querySelectorAll(".faqItem").forEach(item=>{
+      item.querySelector(".faqQ")?.addEventListener("click", ()=> item.classList.toggle("open"));
     });
 
-    setContractUI();
+    // CA + chart gating
+    function applyGates(){
+      const caBox = $("caText");
+      const copyBtn = $("copyCA");
+      const chartBtn = $("chartBtn");
+      const solscan = $("solscanLink");
+      const lp = $("lpLockLink");
+      const auth = $("authStatus");
+      const dexFrame = $("dexFrame");
+      const embedLock = $("embedLock");
 
-    // Dexscreener embed
-    const dexFrame = document.getElementById("dexFrame");
-    const chartLock = document.getElementById("chartLock");
-
-    function setDexUI() {
-      if (isLive && CONFIG.DEX_EMBED_URL) {
-        dexFrame.src = CONFIG.DEX_EMBED_URL;
-        dexFrame.style.display = "block";
-        chartLock.style.display = "none";
-      }
-    }
-    setDexUI();
-
-    /**
-     * Vault counter:
-     * - If you set VAULT_COUNT_ENDPOINT, it will fetch the real number.
-     * - Otherwise it stays as "—" (no fake stats).
-     */
-    async function loadVaultCount(){
-      const countEl = document.getElementById("vaultCount");
-      const barEl = document.getElementById("vaultBar");
-
-      if (!CONFIG.VAULT_COUNT_ENDPOINT) {
-        countEl.textContent = "—";
-        barEl.style.width = "35%";
+      if(!launchLive() || !CONTRACT_ADDRESS){
+        if(caBox) caBox.textContent = "CA: (locked until launch)";
+        if(copyBtn) copyBtn.disabled = true;
+        if(chartBtn) chartBtn.href = "#";
+        if(solscan) solscan.textContent = "Locked";
+        if(lp) lp.textContent = "Soon";
+        if(auth) auth.textContent = "Soon";
+        if(dexFrame) dexFrame.style.display = "none";
+        if(embedLock) embedLock.style.display = "flex";
         return;
       }
 
-      try{
-        const r = await fetch(CONFIG.VAULT_COUNT_ENDPOINT, { cache: "no-store" });
-        const data = await r.json();
-        const n = Math.max(0, Math.min(CONFIG.VAULT_MAX, Number(data.count || 0)));
+      if(caBox) caBox.textContent = "CA: " + CONTRACT_ADDRESS;
+      if(copyBtn) copyBtn.disabled = false;
 
-        countEl.textContent = n.toLocaleString();
-        const pct = (n / CONFIG.VAULT_MAX) * 100;
-        barEl.style.width = Math.max(3, pct) + "%";
+      if(chartBtn) chartBtn.href = "https://dexscreener.com/solana/" + CONTRACT_ADDRESS;
+      if(solscan) solscan.innerHTML = `<a href="${SOLSCAN_BASE + CONTRACT_ADDRESS}" target="_blank" rel="noreferrer" style="text-decoration:underline">View on Solscan</a>`;
+      if(lp) lp.innerHTML = LP_LOCK_URL ? `<a href="${LP_LOCK_URL}" target="_blank" rel="noreferrer" style="text-decoration:underline">View lock proof</a>` : "To be published";
+      if(auth) auth.textContent = AUTHORITY_STATUS_TEXT || "To be published";
+
+      if(dexFrame){
+        dexFrame.src = "https://dexscreener.com/solana/" + CONTRACT_ADDRESS + "?embed=1&theme=dark";
+        dexFrame.style.display = "block";
+      }
+      if(embedLock) embedLock.style.display = "none";
+    }
+    applyGates();
+    setInterval(applyGates, 2000);
+
+    // Copy CA
+    $("copyCA")?.addEventListener("click", async ()=>{
+      const txt = ($("caText")?.textContent || "").replace(/^CA:\s*/,'').trim();
+      if(!txt || txt.toLowerCase().includes("locked")) return;
+      try{
+        await navigator.clipboard.writeText(txt);
+        $("copyCA").textContent = "Copied";
+        setTimeout(()=>$("copyCA").textContent="Copy", 900);
+      }catch{}
+    });
+
+    // Dexscreener stats
+    async function loadDex(){
+      if(!launchLive() || !CONTRACT_ADDRESS) return;
+      try{
+        const url = "https://api.dexscreener.com/latest/dex/tokens/" + CONTRACT_ADDRESS;
+        const res = await fetch(url, {cache:"no-store"});
+        const data = await res.json();
+        const pairs = data?.pairs || [];
+        if(!pairs.length) return;
+
+        pairs.sort((a,b)=> (Number(b.liquidity?.usd)||0) - (Number(a.liquidity?.usd)||0));
+        const p = pairs[0];
+
+        $("statPrice").textContent = fmtUSD(Number(p.priceUsd));
+        $("statVol").textContent   = "$" + fmtCompact(Number(p.volume?.h24));
+        $("statLiq").textContent   = "$" + fmtCompact(Number(p.liquidity?.usd));
+        $("statMcap").textContent  = "$" + fmtCompact(Number(p.marketCap));
+        $("statFdv").textContent   = "$" + fmtCompact(Number(p.fdv));
+        $("statHolders").textContent = "—";
+
+        const hint = $("statsHint");
+        if(hint) hint.textContent = "Live stats are pulled from Dexscreener. Always verify the CA before swapping.";
       }catch(e){
-        countEl.textContent = "—";
-        barEl.style.width = "35%";
+        console.warn("Dex load failed", e);
       }
     }
-    loadVaultCount();
+    loadDex();
+    setInterval(loadDex, 30000);
 
-    /**
-     * Optional: Live stats (market cap, liquidity, holders, volume).
-     * Most accurate approach is: after launch, pull from a trusted API endpoint you control.
-     * For now, leave as placeholders. You can wire this to Dexscreener API on March 5.
-     */
+    $("year").textContent = String(new Date().getFullYear());
   </script>
 </body>
 </html>
