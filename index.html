@@ -1058,8 +1058,7 @@
     window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeDrawer(); });
 
     // Launch gating
-    const LAUNCH_ISO = "2026-03-05T20:00:00-05:00";
-    const launchTs = Date.parse(LAUNCH_ISO);
+const LAUNCH_LIVE = false; // Change to true when launching
     const SOLSCAN_BASE = "https://solscan.io/token/";
 
     // Paste your CA here after launch:
@@ -1078,24 +1077,7 @@ const TOKENOMICS = {
   lockText: "Founder allocation locked (duration to be published at launch)"
 };
 
-    function launchLive(){ return Date.now() >= launchTs; }
-
-    // Countdown
-    function renderCountdown(){
-      let diff = Math.max(0, launchTs - Date.now());
-      const totalSec = Math.floor(diff / 1000);
-      const days = Math.floor(totalSec / 86400);
-      const hrs  = Math.floor((totalSec % 86400) / 3600);
-      const mins = Math.floor((totalSec % 3600) / 60);
-      const secs = totalSec % 60;
-
-      $("cdDays").textContent = String(days);
-      $("cdHours").textContent = String(hrs).padStart(2,"0");
-      $("cdMins").textContent = String(mins).padStart(2,"0");
-      $("cdSecs").textContent = String(secs).padStart(2,"0");
-    }
-    renderCountdown();
-    setInterval(renderCountdown, 1000);
+function launchLive(){ return LAUNCH_LIVE; }
 
     // FAQ accordion
     document.querySelectorAll(".faqItem").forEach(item=>{
