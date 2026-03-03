@@ -1068,15 +1068,15 @@
     const AUTHORITY_STATUS_TEXT = ""; // <-- paste later (e.g. "Mint revoked, Freeze revoked")
 
     // Tokenomics (fill now; can adjust later)
-    const TOKENOMICS = {
-      totalSupplyText: "—",            // e.g. "1,000,000,000"
-      communityText: "—",              // e.g. "60%"
-      ecosystemText: "—",              // e.g. "15%"
-      growthText: "—",                 // e.g. "10%"
-      founderText: "—",                // e.g. "10%"
-      reserveText: "—",                // e.g. "5%"
-      lockText: "—"                    // e.g. "Founder allocation locked 6 months"
-    };
+const TOKENOMICS = {
+  totalSupplyText: "1,000,000,000",
+  communityText: "60%",
+  ecosystemText: "15%",
+  growthText: "10%",
+  founderText: "10%",
+  reserveText: "5%",
+  lockText: "Founder allocation locked (duration to be published at launch)"
+};
 
     function launchLive(){ return Date.now() >= launchTs; }
 
