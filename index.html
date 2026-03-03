@@ -122,11 +122,13 @@
 
     /* NAV */
 .nav{
-  position:relative;   /* NOT fixed, NOT sticky */
-  z-index:10;
-
-  background:linear-gradient(180deg, rgba(0,0,0,.92), rgba(0,0,0,.75));
-  border-bottom:1px solid rgba(217,178,76,.22);
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(217,178,76,.25);
 }
 .navNotice{
   display:flex;
