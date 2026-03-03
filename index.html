@@ -90,13 +90,12 @@
     }
 
     /* TRUST STRIP */
-.trustStrip{
-  position:relative;
-  z-index:60;
-  background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.48));
-  border-bottom:1px solid rgba(217,178,76,.22);
-  backdrop-filter: blur(12px);
-}
+    .trustStrip{
+      position:sticky; top:0; z-index:60;
+      background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.48));
+      border-bottom:1px solid rgba(217,178,76,.22);
+      backdrop-filter: blur(12px);
+    }
     .trustInner{
       display:flex; align-items:center; justify-content:space-between;
       gap:10px;
@@ -122,7 +121,8 @@
     .trustLinks{display:flex; gap:10px; flex-wrap:wrap}
 
     /* NAV */
-    .nav{ position:sticky; top:0; z-index:50; ... }
+    .nav{
+      position:sticky; top:56px; z-index:50;
       background:linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.45));
       border-bottom:1px solid rgba(217,178,76,.22);
       backdrop-filter: blur(12px);
