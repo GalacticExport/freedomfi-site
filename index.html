@@ -808,6 +808,81 @@
       .cardPad{padding:18px}
       th, td{padding:10px 10px}
     }
+    .siteHeader{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(8,10,14,.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(242,244,255,.08);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+}
+
+.brandLogo{
+  width:34px;
+  height:34px;
+}
+
+.brandText{
+  font-weight:900;
+  font-size:20px;
+  color:white;
+}
+
+.headerActions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.ctaBtn{
+  padding:10px 14px;
+  font-weight:800;
+  border-radius:999px;
+  text-decoration:none;
+  color:white;
+  border:1px solid rgba(255,214,122,.4);
+  background:rgba(255,214,122,.08);
+}
+
+.menuBtn{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+}
+
+.menuIcon{
+  width:18px;
+  height:2px;
+  background:white;
+  display:block;
+  position:relative;
+}
+
+.menuIcon::before,
+.menuIcon::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  height:2px;
+  background:white;
+}
+
+.menuIcon::before{ top:-6px; }
+.menuIcon::after{ top:6px; }
   </style>
 </head>
 
@@ -866,38 +941,20 @@
   </aside>
 
   <!-- NAV -->
-  <header class="nav">
-    <div class="wrap">
-      <div class="navNotice">
-        <span class="dotMini"></span>
-        Anti-scam: We never DM first • Never ask seed phrases • Verify links only from this site + pinned Telegram
-      </div>
+  <header class="siteHeader">
+  <a class="brand" href="/">
+    <img class="brandLogo" src="./freedomfi-logo.png" alt="FreedomFi" />
+    <span class="brandText">FreedomFi</span>
+  </a>
 
-      <div class="navInner">
-        <a class="brand" href="#top" aria-label="Go to top">
-          <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
-          <div class="name">FreedomFi</div>
-        </a>
+  <div class="headerActions">
+    <a class="ctaBtn" href="#early-access">Get Early Access</a>
 
-        <div class="navRight">
-          <a class="pill hideMobile" href="#vault">Vault</a>
-          <a class="pill hideMobile" href="#leaderboard">Leaderboard</a>
-          <a class="pill hideMobile" href="#academy">Academy</a>
-          <a class="pill hideMobile" href="#verify">Verify</a>
-          <a class="pill hideMobile" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Telegram</a>
-          <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X</a>
-          <a class="pill btnGold" href="#waitlist">Get Early Access</a>
-
-          <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(242,244,255,.92)" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-
+    <button class="menuBtn" type="button">
+      <span class="menuIcon"></span>
+    </button>
+  </div>
+</header>
   <main id="top">
     <div class="wrap">
 
