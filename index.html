@@ -2341,7 +2341,7 @@ memeCanvas.height = 1080;
 
     function drawMeme(){
       const tpl = $("mg_template").value;
-      const text = ($("mg_text").value || "").trim();
+      const text = ($("mg_text").value || "").trim() || "Freedom is built — not promised.";
       const colors = [
   "rgba(217,178,76,0.90)",
   "rgba(129,140,248,0.90)",
