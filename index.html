@@ -884,6 +884,18 @@
 
 .menuIcon::before{ top:-6px; }
 .menuIcon::after{ top:6px; }
+ /* Fix header buttons not clickable */
+header {
+  position: relative;
+  z-index: 9999;
+}
+
+/* Prevent background layers from blocking clicks */
+.gridGlow,
+.bgMark,
+.film {
+  pointer-events: none;
+}
   </style>
 </head>
 
