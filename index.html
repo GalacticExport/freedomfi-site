@@ -185,11 +185,14 @@
       flex:0 0 auto;
     }
     .brand .name{
-white-space:nowrap;
-overflow:visible;
-text-overflow:clip;
-letter-spacing:.35px;
-max-width:none;
+      font-weight:900;
+      font-size:18px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      letter-spacing:.35px;
+      max-width:min(52vw, 520px);
+    }
     .navRight{display:flex; align-items:center; gap:10px; flex:0 0 auto}
 
     .pill{
@@ -838,6 +841,8 @@ max-width:none;
     <a class="drawerLink" href="#waitlist">Waitlist</a>
     <a class="drawerLink" href="#litepaper">Litepaper</a>
     <a class="drawerLink" href="#vault">Freedom Vault</a>
+    <a class="drawerLink" href="#meme">Meme Generator</a>
+    <a class="drawerLink" href="#leaderboard">Leaderboard</a>
     <a class="drawerLink" href="#academy">Freedom Academy</a>
     <a class="drawerLink" href="#verify">Verification</a>
     <a class="drawerLink" href="#stats">Live Stats</a>
@@ -920,6 +925,7 @@ max-width:none;
               <a class="pill btnGold" href="#waitlist">⚡ Join Waitlist</a>
               <button class="pill btnPrimary" id="openPaperBtn" type="button">📄 Read Litepaper</button>
               <a class="pill" href="#vault">🧪 Vault Simulator</a>
+              <a class="pill" href="#meme">🖼️ Meme Generator</a>
             </div>
 
             <div class="note" style="margin-top:14px">
