@@ -884,17 +884,33 @@
 
 .menuIcon::before{ top:-6px; }
 .menuIcon::after{ top:6px; }
- /* Fix header buttons not clickable */
-header {
-  position: relative;
-  z-index: 9999;
+/* --- CLICK FIX (STRONG) --- */
+
+/* Put all background FX behind everything */
+.gridGlow, .bgMark, .film {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
 }
 
-/* Prevent background layers from blocking clicks */
-.gridGlow,
-.bgMark,
-.film {
-  pointer-events: none;
+/* Make sure page content sits above backgrounds */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Force header above everything and clickable */
+header, .header, .siteHeader, .topbar, .navBar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure header children can receive taps */
+header *, .header *, .siteHeader *, .topbar *, .navBar * {
+  pointer-events: auto !important;
 }
   </style>
 </head>
