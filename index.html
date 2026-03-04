@@ -1733,7 +1733,24 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
 
   <script>
     const $ = (id) => document.getElementById(id);
+window.addEventListener("error", (e) => {
+  const msg = (e?.message || "Unknown error");
+  const where = e?.filename ? `${e.filename}:${e.lineno}:${e.colno}` : "";
+  document.body.innerHTML =
+    `<div style="padding:16px;font:14px/1.4 system-ui;background:#0b0d1f;color:#fff;">
+      <b>FreedomFi JS Error</b>
+      <pre style="white-space:pre-wrap;opacity:.85;margin:10px 0 0;">${msg}\n${where}</pre>
+    </div>`;
+});
 
+window.addEventListener("unhandledrejection", (e) => {
+  const msg = (e?.reason?.message || String(e?.reason || "Unhandled promise rejection"));
+  document.body.innerHTML =
+    `<div style="padding:16px;font:14px/1.4 system-ui;background:#0b0d1f;color:#fff;">
+      <b>FreedomFi Promise Error</b>
+      <pre style="white-space:pre-wrap;opacity:.85;margin:10px 0 0;">${msg}</pre>
+    </div>`;
+});
     function fmtUSD(n){
       if(!isFinite(n)) return "—";
       return n >= 1 ? "$" + n.toLocaleString(undefined,{maximumFractionDigits: 2})
