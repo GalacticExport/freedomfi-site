@@ -2472,7 +2472,10 @@ const accent = colors[Math.floor(Math.random()*colors.length)];
       ctx.stroke();
     }
 
-    $("mg_render")?.addEventListener("click", drawMeme);
+    $("mg_render")?.addEventListener("click", ()=>{
+  randomizeMemeStyle();
+  drawMeme();
+});
 
     $("mg_download")?.addEventListener("click", ()=>{
       drawMeme();
