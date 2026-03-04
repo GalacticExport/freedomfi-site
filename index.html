@@ -2342,6 +2342,14 @@ memeCanvas.height = 1080;
     function drawMeme(){
       const tpl = $("mg_template").value;
       const text = ($("mg_text").value || "").trim();
+      const colors = [
+  "rgba(217,178,76,0.90)",
+  "rgba(129,140,248,0.90)",
+  "rgba(255,255,255,0.85)",
+  "rgba(247,230,163,0.95)"
+];
+
+const accent = colors[Math.floor(Math.random()*colors.length)];
       const footer = ($("mg_footer").value || "").trim();
       const bg = $("mg_bg").value;
 
