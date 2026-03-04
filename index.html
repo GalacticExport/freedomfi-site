@@ -2875,5 +2875,37 @@ const lines = wrapText(text || "Freedom is built for those who claim it.", maxW)
       runVault();
     })();
   </script>
+    </script>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const drawer = document.getElementById("drawer");
+const drawerBack = document.getElementById("drawerBack");
+
+function openDrawer() {
+  drawerBack.classList.add("show");
+  drawer.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeDrawer() {
+  drawerBack.classList.remove("show");
+  drawer.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+menuBtn.addEventListener("click", openDrawer);
+
+drawerBack.addEventListener("click", (e) => {
+  if (e.target === drawerBack) closeDrawer();
+});
+
+document.querySelectorAll("#drawer a").forEach(link => {
+  link.addEventListener("click", closeDrawer);
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
