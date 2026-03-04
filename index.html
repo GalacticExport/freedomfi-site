@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>FreedomFi — Built for the Free</title>
-  <meta name="description" content="FreedomFi is a clean, serious Solana-native brand inspired by financial freedom. Verify the CA, view the chart, track stats, and join the movement." />
-  <meta name="theme-color" content="#07070a" />
+  <title>FreedomFi — Financial Infrastructure on Solana</title>
+  <meta name="description" content="FreedomFi is building Solana-native financial infrastructure. Join the viral waitlist, earn priority access with referrals, and verify official links safely." />
+  <meta name="theme-color" content="#06060b" />
 
   <link rel="icon" href="./freedomfi-logo.png" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="FreedomFi — Built for the Free" />
-  <meta property="og:description" content="Solana-native. Verify the CA, view the chart, track stats, and join the movement." />
+  <meta property="og:title" content="FreedomFi — Financial Infrastructure on Solana" />
+  <meta property="og:description" content="Join the viral waitlist. Move up with referrals. Verify official links safely." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freedomfiofficial.com/" />
   <meta property="og:image" content="https://freedomfiofficial.com/freedomfi-banner.png" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="FreedomFi — Built for the Free" />
-  <meta name="twitter:description" content="Solana-native. Verify the CA, view the chart, track stats, and join the movement." />
+  <meta name="twitter:title" content="FreedomFi — Financial Infrastructure on Solana" />
+  <meta name="twitter:description" content="Join the viral waitlist. Move up with referrals. Verify official links safely." />
   <meta name="twitter:image" content="https://freedomfiofficial.com/freedomfi-banner.png" />
 
   <!-- Futuristic bold font -->
@@ -30,21 +30,29 @@
   <style>
     :root{
       --bg:#05060a;
-      --bg2:#0a0b12;
+      --bg2:#070816;
+      --bg3:#0b0d1f;
+
       --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.04);
       --line:rgba(255,255,255,.10);
+
       --text:#f2f4ff;
-      --muted:rgba(242,244,255,.72);
+      --muted:rgba(242,244,255,.70);
+      --muted2:rgba(242,244,255,.55);
 
       --gold1:#f7e6a3;
       --gold2:#d9b24c;
       --gold3:#a97b20;
 
       --radius:18px;
-      --shadow:0 18px 60px rgba(0,0,0,.50);
+      --shadow:0 22px 70px rgba(0,0,0,.55);
       --max:1120px;
-
       --easeOut:cubic-bezier(.2,.9,.2,1);
+
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --danger:#fb7185;
     }
 
     *{box-sizing:border-box}
@@ -54,9 +62,10 @@
       color:var(--text);
       font-family:"Orbitron", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
-        radial-gradient(1200px 800px at 20% 0%, rgba(217,178,76,.16), transparent 55%),
-        radial-gradient(1200px 900px at 80% 10%, rgba(247,230,163,.12), transparent 55%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
+        radial-gradient(1200px 900px at 15% 0%, rgba(217,178,76,.12), transparent 55%),
+        radial-gradient(1100px 900px at 85% 10%, rgba(129,140,248,.10), transparent 58%),
+        radial-gradient(900px 700px at 60% 95%, rgba(247,230,163,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2) 45%, var(--bg3));
       overflow-x:hidden;
       letter-spacing:.15px;
     }
@@ -64,16 +73,40 @@
     a{color:inherit;text-decoration:none}
     .wrap{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.035));
+      background:linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.030));
       border:1px solid rgba(255,255,255,.10);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .cardSoft{
+      background:linear-gradient(180deg, rgba(255,255,255,.050), rgba(255,255,255,.020));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      box-shadow:none;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
     .cardPad{padding:22px}
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace}
 
-    /* Background film */
+    /* Background ornaments */
+    .gridGlow{
+      position:fixed; inset:0;
+      background:
+        radial-gradient(1200px 900px at 50% 30%, rgba(217,178,76,.08), transparent 60%),
+        radial-gradient(900px 700px at 20% 75%, rgba(129,140,248,.10), transparent 60%),
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: auto, auto, 56px 56px, 56px 56px;
+      opacity:.13;
+      pointer-events:none;
+      z-index:-3;
+      filter: blur(.1px);
+    }
     .bgMark{
       position:fixed; inset:0;
       background:
@@ -82,7 +115,7 @@
       background-repeat:no-repeat;
       background-position:center;
       background-size: cover;
-      opacity:.10;
+      opacity:.08;
       pointer-events:none;
       z-index:-2;
     }
@@ -91,27 +124,24 @@
       background:
         radial-gradient(900px 700px at 25% 10%, rgba(0,0,0,.55), rgba(0,0,0,.0) 70%),
         radial-gradient(900px 700px at 75% 10%, rgba(0,0,0,.50), rgba(0,0,0,.0) 70%),
-        radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,.55), rgba(0,0,0,.0) 70%);
+        radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,.60), rgba(0,0,0,.0) 70%);
       pointer-events:none;
       z-index:-1;
     }
 
-    /* ONE sticky header only (no double-sticky) */
+    /* NAV */
     header.nav{
       position:sticky;
       top:0;
       z-index:999;
-      background:linear-gradient(180deg, rgba(0,0,0,.88), rgba(0,0,0,.58));
-      border-bottom:1px solid rgba(217,178,76,.25);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background:linear-gradient(180deg, rgba(0,0,0,.86), rgba(0,0,0,.52));
+      border-bottom:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       padding-top: env(safe-area-inset-top);
     }
-
     .navNotice{
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display:flex; align-items:center; gap:10px;
       padding:8px 0 8px;
       color:rgba(242,244,255,.80);
       font-weight:800;
@@ -126,19 +156,13 @@
       box-shadow:0 0 14px rgba(245,158,11,.50);
       flex:0 0 auto;
     }
-
     .navInner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 0;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 0;
     }
-
     .brand{
       display:flex; align-items:center; gap:10px;
-      min-width:0;
-      max-width:60%;
+      min-width:0; max-width:65%;
     }
     .brand img{
       width:34px; height:34px;
@@ -154,8 +178,8 @@
       text-overflow:ellipsis;
       letter-spacing:.35px;
     }
-
     .navRight{display:flex; align-items:center; gap:10px; flex:0 0 auto}
+
     .pill{
       display:inline-flex; align-items:center; justify-content:center;
       padding:10px 14px;
@@ -173,6 +197,11 @@
       border:1px solid rgba(217,178,76,.55);
       background:linear-gradient(180deg, rgba(247,230,163,.18), rgba(217,178,76,.10));
       box-shadow: 0 12px 30px rgba(217,178,76,.12);
+    }
+    .btnPrimary{
+      border:1px solid rgba(129,140,248,.45);
+      background:linear-gradient(180deg, rgba(129,140,248,.18), rgba(129,140,248,.07));
+      box-shadow: 0 12px 30px rgba(129,140,248,.12);
     }
 
     .hideMobile{display:inline-flex}
@@ -247,21 +276,54 @@
 
     /* HERO */
     main{padding:18px 0 90px}
-    .top{
+    .hero{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
       gap:18px;
       align-items:stretch;
       margin-top:14px;
     }
-    .banner{
+    .heroVisual{
       border-radius:22px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.03);
       box-shadow:var(--shadow);
+      position:relative;
+      min-height:320px;
     }
-    .banner img{display:block; width:100%; height:auto}
+    .heroVisual img{display:block; width:100%; height:auto}
+    .heroVisual .badgeFloat{
+      position:absolute; left:14px; bottom:14px;
+      display:flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.34);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-weight:900;
+      color:rgba(242,244,255,.92);
+      box-shadow:0 14px 40px rgba(0,0,0,.45);
+    }
+    .pulseDot{
+      width:10px;height:10px;border-radius:999px;
+      background:rgba(52,211,153,.95);
+      box-shadow:0 0 18px rgba(52,211,153,.35);
+      position:relative;
+    }
+    .pulseDot::after{
+      content:"";
+      position:absolute; inset:-10px;
+      border-radius:999px;
+      border:1px solid rgba(52,211,153,.35);
+      animation:pulse 1.8s infinite;
+    }
+    @keyframes pulse{
+      0%{transform:scale(.65); opacity:.0}
+      15%{opacity:.55}
+      100%{transform:scale(1.2); opacity:0}
+    }
 
     .kicker{
       display:inline-flex; gap:10px; align-items:center;
@@ -275,8 +337,8 @@
       margin-bottom:14px;
     }
     h1{
-      font-size:56px;
-      line-height:1.02;
+      font-size:54px;
+      line-height:1.03;
       margin:0 0 10px;
       letter-spacing:.6px;
     }
@@ -293,7 +355,7 @@
     .ctaRow .pill{padding:12px 18px}
 
     /* Sections */
-    .section{margin-top:0 }
+    .section{margin-top:16px }
     .section h2{
       margin:0 0 12px;
       font-size:22px;
@@ -302,6 +364,7 @@
     }
     .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
 
     .stat{
       padding:14px 14px;
@@ -317,7 +380,51 @@
     }
     .stat .value{font-size:18px; font-weight:950; margin-top:6px}
 
-    /* CA box */
+    /* Waitlist */
+    .waitTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .tag{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:rgba(217,178,76,.10);
+      color:rgba(247,230,163,.95);
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .tagBlue{
+      border:1px solid rgba(129,140,248,.45);
+      background:rgba(129,140,248,.10);
+      color:rgba(224,231,255,.95);
+    }
+    .progress{
+      height:12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.20);
+      overflow:hidden;
+    }
+    .progress > div{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, rgba(247,230,163,.55), rgba(129,140,248,.40));
+      box-shadow:0 0 22px rgba(217,178,76,.18);
+      transition: width .45s var(--easeOut);
+    }
+    .note{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:rgba(242,244,255,.82);
+      font-weight:750;
+      letter-spacing:.1px;
+      font-family:"Orbitron", sans-serif;
+    }
+    .pillSmall{padding:9px 12px; font-weight:850}
     .codeRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .code{
       flex:1 1 320px;
@@ -325,7 +432,6 @@
       border-radius:14px;
       border:1px solid rgba(255,255,255,.12);
       background:rgba(0,0,0,.25);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
       color:rgba(242,244,255,.92);
       overflow:auto;
       white-space:nowrap;
@@ -333,6 +439,7 @@
     }
     .copyBtn{cursor:pointer}
     .copyBtn:disabled{opacity:.55; cursor:not-allowed}
+    .shareRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
 
     /* Embed */
     .embedWrap{
@@ -355,32 +462,7 @@
     }
     iframe{width:100%; height:520px; border:0; display:none}
 
-    /* Vault */
-    .vaultHeader{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:12px;
-    }
-    .tag{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:8px 12px; border-radius:999px;
-      border:1px solid rgba(217,178,76,.35);
-      background:rgba(217,178,76,.10);
-      color:rgba(247,230,163,.95);
-      font-weight:900;
-      white-space:nowrap;
-    }
-    .vaultGrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    .vaultMiniGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
-    .timeBox{
-      padding:12px 12px;
-      border-radius:16px;
-      border:1px solid rgba(217,178,76,.25);
-      background:rgba(0,0,0,.18);
-      text-align:center;
-    }
-    .timeBox .num{font-weight:950; font-size:20px}
-    .timeBox .lbl{color:rgba(242,244,255,.65); font-size:11px; font-weight:850; margin-top:4px; letter-spacing:.25px}
-
+    /* Form */
     .field{display:flex; flex-direction:column; gap:8px; margin:10px 0}
     label{font-weight:850; color:rgba(242,244,255,.82); letter-spacing:.2px}
     input, select{
@@ -407,17 +489,16 @@
       color:rgba(242,244,255,.95);
       font-family:"Orbitron", sans-serif;
       letter-spacing:.25px;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
     }
-    .note{
-      margin-top:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-      color:rgba(242,244,255,.82);
-      font-weight:750;
-      letter-spacing:.1px;
-      font-family:"Orbitron", sans-serif;
+    .submitBtn:hover{transform:translateY(-1px); background:rgba(217,178,76,.20)}
+    .success{
+      border:1px solid rgba(52,211,153,.35);
+      background:rgba(52,211,153,.08);
+    }
+    .danger{
+      border:1px solid rgba(251,113,133,.35);
+      background:rgba(251,113,133,.08);
     }
 
     /* FAQ */
@@ -459,7 +540,7 @@
     .chev{transition: transform .18s var(--easeOut)}
     .faqItem.open .chev{transform:rotate(180deg)}
 
-    /* Roadmap / Tokenomics polish */
+    /* Roadmap/Tokenomics */
     .phase{
       padding:16px 16px;
       border-radius:16px;
@@ -514,19 +595,19 @@
 
     /* Responsive */
     @media (max-width: 980px){
-      .top{grid-template-columns:1fr;}
-      h1{font-size:48px}
-      .brand{max-width:70%}
+      .hero{grid-template-columns:1fr;}
+      h1{font-size:46px}
+      .brand{max-width:75%}
       .split{grid-template-columns:1fr}
+      .grid4{grid-template-columns:repeat(2,1fr)}
     }
     @media (max-width: 640px){
       .hideMobile{display:none}
-      .brand{max-width:68%}
-      h1{font-size:42px}
+      .brand{max-width:70%}
+      h1{font-size:40px}
       .grid2{grid-template-columns:1fr}
       .grid3{grid-template-columns:1fr}
-      .vaultGrid{grid-template-columns:1fr}
-      .vaultMiniGrid{grid-template-columns:repeat(2,1fr)}
+      .grid4{grid-template-columns:1fr}
       .navNotice{font-size:10px; padding:7px 0}
       .navInner{padding:9px 0}
     }
@@ -534,6 +615,7 @@
 </head>
 
 <body>
+  <div class="gridGlow" aria-hidden="true"></div>
   <div class="bgMark" aria-hidden="true"></div>
   <div class="film" aria-hidden="true"></div>
 
@@ -549,31 +631,30 @@
     </div>
 
     <small>Navigate</small>
+    <a class="drawerLink" href="#waitlist">Waitlist</a>
+    <a class="drawerLink" href="#how">How it works</a>
+    <a class="drawerLink" href="#rewards">Rewards</a>
     <a class="drawerLink" href="#verify">Verification</a>
     <a class="drawerLink" href="#stats">Live Stats</a>
-    <a class="drawerLink" href="#vault">Vault</a>
     <a class="drawerLink" href="#chart">Chart</a>
     <a class="drawerLink" href="#roadmap">Roadmap</a>
     <a class="drawerLink" href="#tokenomics">Tokenomics</a>
-    <a class="drawerLink" href="#founder">Founder</a>
-    <a class="drawerLink" href="#solana">Why Solana</a>
-    <a class="drawerLink" href="#howtobuy">How to Buy</a>
     <a class="drawerLink" href="#faq">FAQ</a>
     <a class="drawerLink" href="#community">Community</a>
 
     <div style="height:10px"></div>
     <small>Actions</small>
-    <a class="drawerLink" id="drawerBuy" href="#buy">Buy</a>
+    <a class="drawerLink" href="#waitlist">Join Waitlist</a>
     <a class="drawerLink" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
     <a class="drawerLink" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
   </aside>
 
-  <!-- NAV (single sticky header) -->
+  <!-- NAV -->
   <header class="nav">
     <div class="wrap">
       <div class="navNotice">
         <span class="dotMini"></span>
-        Anti-scam: We never DM first • Never ask seed phrases • Verify links here
+        Anti-scam: We never DM first • Never ask seed phrases • Verify links only from this site + pinned Telegram
       </div>
 
       <div class="navInner">
@@ -583,11 +664,12 @@
         </a>
 
         <div class="navRight">
+          <a class="pill hideMobile" href="#waitlist">Waitlist</a>
+          <a class="pill hideMobile" href="#verify">Verify</a>
           <a class="pill hideMobile" href="#roadmap">Roadmap</a>
-          <a class="pill hideMobile" href="#tokenomics">Tokenomics</a>
           <a class="pill hideMobile" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Telegram</a>
           <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X</a>
-          <a class="pill btnGold" id="buyTop" href="#buy">Buy</a>
+          <a class="pill btnGold" href="#waitlist">Get Early Access</a>
 
           <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -603,49 +685,249 @@
     <div class="wrap">
 
       <!-- HERO -->
-      <div class="top">
-        <div class="banner">
-          <img src="./freedomfi-banner.png" alt="FreedomFi banner" />
-        </div>
-
-        <section class="card">
+      <section class="hero">
+        <div class="card">
           <div class="cardPad">
-            <div class="kicker">🦅 Built for the free • Solana-native</div>
-            <h1>FreedomFi</h1>
+            <div class="kicker">🦅 Solana-native • Built for financial freedom</div>
+            <h1>Financial Infrastructure,<br/>Built to Last.</h1>
             <p>
-              A clean, serious Solana-native brand inspired by financial freedom.
-              Verify the CA, view live stats, and join the community before launch.
+              FreedomFi is a structured Solana-native project focused on transparency, verification, and long-term execution.
+              Join the waitlist and move up with referrals.
             </p>
-            <div class="ctaRow">
-              <a class="pill btnGold" href="#vault">🔒 Vault Access</a>
+
+            <div class="grid3" style="margin-top:14px">
+              <div class="stat">
+                <div class="label">Network</div>
+                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Solana</div>
+              </div>
+              <div class="stat">
+                <div class="label">Launch</div>
+                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">TBD</div>
+              </div>
+              <div class="stat">
+                <div class="label">Status</div>
+                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Waitlist Open</div>
+              </div>
+            </div>
+
+            <div class="ctaRow" style="margin-top:14px">
+              <a class="pill btnGold" href="#waitlist">⚡ Join Waitlist</a>
+              <a class="pill btnPrimary" href="#how">How it Works</a>
+              <a class="pill" href="#verify">Verification Center</a>
               <a class="pill" href="#roadmap">Public Roadmap</a>
-              <a class="pill" href="#tokenomics">Tokenomics</a>
-              <a class="pill" href="#chart">View Chart</a>
-              <a class="pill" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
-              <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
+            </div>
+
+            <div class="note" style="margin-top:14px">
+              <b>Security:</b> FreedomFi will never DM you first, never request seed phrases, and never send a CA pre-launch.
+              Only trust links published on this site + pinned in the official Telegram.
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+
+        <div class="heroVisual">
+          <img src="./freedomfi-banner.png" alt="FreedomFi banner" />
+          <div class="badgeFloat" aria-label="Waitlist status">
+            <span class="pulseDot" aria-hidden="true"></span>
+            <span>Waitlist live • Referral access enabled</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- WAITLIST + REFERRALS -->
+      <section class="section card" id="waitlist">
+        <div class="cardPad">
+          <div class="waitTop">
+            <div>
+              <h2 style="margin:0 0 6px">Viral Waitlist</h2>
+              <p style="margin:0" class="muted">Join early access. Invite friends. Move up the list. Unlock rewards.</p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <div class="tag tagBlue" id="waitStatusTag">Waitlist Open</div>
+              <div class="tag" id="waitSpotsTag">Spots: <span id="spotsText">0 / 5000</span></div>
+            </div>
+          </div>
+
+          <div class="progress" aria-label="Waitlist progress">
+            <div id="spotsBar"></div>
+          </div>
+
+          <div class="grid2" style="margin-top:14px">
+            <!-- Left: Join form -->
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 6px; font-size:18px">Secure Your Position</h3>
+                <p style="margin:0 0 12px" class="muted">Instant position + referral link after signup.</p>
+
+                <!-- Netlify form (AJAX submit keeps you on-page) -->
+                <form id="waitlistForm" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="waitlist" />
+                  <p style="display:none">
+                    <label>Don’t fill this out: <input name="bot-field" /></label>
+                  </p>
+
+                  <div class="field">
+                    <label for="wl_email">Email</label>
+                    <input id="wl_email" name="email" type="email" placeholder="you@email.com" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="wl_wallet">Solana Wallet (optional)</label>
+                    <input id="wl_wallet" name="wallet" type="text" placeholder="Paste wallet address" />
+                  </div>
+
+                  <div class="field">
+                    <label for="wl_ref">Referral code (optional)</label>
+                    <input id="wl_ref" name="ref" type="text" placeholder="FRDM-XXXX" />
+                  </div>
+
+                  <button class="submitBtn" id="wl_submit" type="submit">⚡ Join Waitlist</button>
+
+                  <div id="wl_msg" class="note" style="display:none; margin-top:12px"></div>
+
+                  <p style="margin-top:12px; color:rgba(242,244,255,.60); font-size:12px">
+                    Tip: Netlify → Forms will show submissions. (This page uses an on-page submit so users get their referral link instantly.)
+                  </p>
+                </form>
+              </div>
+            </div>
+
+            <!-- Right: Position + referral link -->
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 6px; font-size:18px">Your Waitlist Dashboard</h3>
+                <p style="margin:0 0 12px" class="muted">This is stored on your device (local). Leaderboard becomes global when you add a backend.</p>
+
+                <div class="grid3">
+                  <div class="stat">
+                    <div class="label">Your Position</div>
+                    <div class="value" id="posText">—</div>
+                  </div>
+                  <div class="stat">
+                    <div class="label">Your Referrals</div>
+                    <div class="value" id="refCountText">—</div>
+                  </div>
+                  <div class="stat">
+                    <div class="label">Tier</div>
+                    <div class="value" id="tierText" style="font-size:14px">—</div>
+                  </div>
+                </div>
+
+                <div style="height:10px"></div>
+
+                <div class="muted2" style="font-weight:900; font-size:12px; letter-spacing:.35px; margin:10px 0 8px">
+                  Your referral link
+                </div>
+
+                <div class="codeRow">
+                  <div class="code mono" id="refLinkText">—</div>
+                  <button class="pill pillSmall copyBtn" id="copyRef" disabled>Copy</button>
+                </div>
+
+                <div class="shareRow">
+                  <a class="pill pillSmall btnPrimary" id="shareX" href="#" target="_blank" rel="noreferrer">Share on X</a>
+                  <a class="pill pillSmall" id="shareTG" href="#" target="_blank" rel="noreferrer">Share to Telegram</a>
+                  <button class="pill pillSmall" id="addReferralBtn" type="button" title="Demo only (local)">+ Add referral (demo)</button>
+                </div>
+
+                <div class="note" style="margin-top:12px">
+                  <b>How it works:</b> Every referral increases your priority. Top positions unlock early access + bonus allocations.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="section card" id="how">
+        <div class="cardPad">
+          <h2>How It Works</h2>
+          <p class="muted" style="margin-top:-4px">A simple system that turns the waitlist into a growth engine.</p>
+
+          <div class="grid3" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">1) Join</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">
+                Get a position and referral link instantly.
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">2) Invite</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">
+                Share your link on X/Telegram to move up.
+              </div>
+            </div>
+            <div class="stat">
+              <div class="label">3) Unlock</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">
+                Top tiers get priority access and bonuses.
+              </div>
+            </div>
+          </div>
+
+          <div class="note"><b>Anti-bot:</b> Email verification and wallet verification can be added later for stronger abuse prevention.</div>
+        </div>
+      </section>
+
+      <!-- REWARDS / TIERS -->
+      <section class="section card" id="rewards">
+        <div class="cardPad">
+          <h2>Rewards Tiers</h2>
+          <p class="muted" style="margin-top:-4px">Designed to encourage referrals and reward the earliest builders.</p>
+
+          <div class="grid4" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Bronze</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">0–2 referrals</div>
+              <div class="mutedSmall">Access updates + launch alert.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Silver</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">3–9 referrals</div>
+              <div class="mutedSmall">Priority access tier.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Gold</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">10–24 referrals</div>
+              <div class="mutedSmall">Whitelist / early link.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Founder Tier</div>
+              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">25+ referrals</div>
+              <div class="mutedSmall">Top-tier bonuses (details at launch).</div>
+            </div>
+          </div>
+
+          <div class="note">
+            <b>Note:</b> Reward definitions can be finalized at launch to match security and distribution constraints.
+          </div>
+        </div>
+      </section>
 
       <!-- VERIFICATION -->
       <section class="section card" id="verify">
         <div class="cardPad">
           <h2>Verification Center</h2>
-          <p style="margin-top:-4px">If it isn’t listed here or pinned in the official Telegram, it’s not official.</p>
+          <p class="muted" style="margin-top:-4px">If it isn’t listed here or pinned in the official Telegram, it’s not official.</p>
 
           <div class="grid3" style="margin-top:12px">
             <div class="stat">
               <div class="label">Official Website</div>
-              <div class="value" style="font-size:14px"><a href="https://freedomfiofficial.com/" style="text-decoration:underline">freedomfiofficial.com</a></div>
+              <div class="value" style="font-size:14px">
+                <a href="https://freedomfiofficial.com/" style="text-decoration:underline">freedomfiofficial.com</a>
+              </div>
             </div>
             <div class="stat">
               <div class="label">Official Telegram</div>
-              <div class="value" style="font-size:14px"><a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a></div>
+              <div class="value" style="font-size:14px">
+                <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a>
+              </div>
             </div>
             <div class="stat">
               <div class="label">Official X</div>
-              <div class="value" style="font-size:14px"><a href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer" style="text-decoration:underline">@FreedomFiCoin</a></div>
+              <div class="value" style="font-size:14px">
+                <a href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer" style="text-decoration:underline">@FreedomFiCoin</a>
+              </div>
             </div>
           </div>
 
@@ -672,7 +954,7 @@
       <section class="section card" id="stats">
         <div class="cardPad">
           <h2>Live Stats</h2>
-          <p id="statsHint" style="margin-top:-4px">CA unlocks at launch. Stats and chart populate after you paste the CA.</p>
+          <p id="statsHint" class="muted" style="margin-top:-4px">CA unlocks at launch. Stats and chart populate after you paste the CA.</p>
 
           <div class="grid3" style="margin-top:12px">
             <div class="stat"><div class="label">Price</div><div class="value" id="statPrice">—</div></div>
@@ -689,89 +971,10 @@
           <div class="section" id="buy">
             <h2 style="margin-top:18px">Contract Address (CA)</h2>
             <div class="codeRow">
-              <div class="code" id="caText">CA: (locked until launch)</div>
+              <div class="code mono" id="caText">CA: (locked until launch)</div>
               <button class="pill copyBtn" id="copyCA" disabled title="Locked until launch">Copy</button>
             </div>
-            <p style="margin-top:10px">Always verify the CA from this site + pinned Telegram before swapping.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- VAULT -->
-      <section class="section card" id="vault">
-        <div class="cardPad">
-          <div class="vaultHeader">
-            <div>
-              <h2 style="margin:0 0 6px">FreedomFi Vault Access</h2>
-              <p style="margin:0">Whitelist + launch alert + early access link</p>
-            </div>
-            <div class="tag">Pre-Launch</div>
-          </div>
-
-          <div class="vaultGrid">
-            <div class="card" style="box-shadow:none">
-              <div class="cardPad">
-                <div class="grid2">
-                  <div class="stat"><div class="label">Status</div><div class="value">🟡 Accepting entries</div></div>
-                  <div class="stat"><div class="label">Launch (EST)</div><div class="value">TBD</div></div>
-                </div>
-
-                <div style="height:6px"></div>
-
-<div class="label" style="color:rgba(242,244,255,.65);font-weight:900;margin:10px 0 10px">
-  Security Notice
-</div>
-
-<div class="note">
-                  This is a <b>pre-launch vault (no payment)</b>. We will never ask for seed phrases or private keys.
-                  Only trust links from this site + the official Telegram.
-                </div>
-              </div>
-            </div>
-
-            <div class="card" style="box-shadow:none">
-              <div class="cardPad">
-                <h3 style="margin:0 0 6px; font-size:18px">Get Vault Access</h3>
-                <p style="margin:0 0 12px">Join the list — we’ll send the official launch link when CA is live.</p>
-
-                <form name="vault" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                  <input type="hidden" name="form-name" value="vault" />
-                  <p style="display:none">
-                    <label>Don’t fill this out: <input name="bot-field" /></label>
-                  </p>
-
-                  <div class="field">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" placeholder="you@email.com" required />
-                  </div>
-
-                  <div class="field">
-                    <label for="wallet">Solana Wallet (optional)</label>
-                    <input id="wallet" name="wallet" type="text" placeholder="Paste wallet address" />
-                  </div>
-
-                  <div class="field">
-                    <label for="tier">Tier (display only)</label>
-                    <select id="tier" name="tier">
-                      <option>Bronze</option>
-                      <option>Silver</option>
-                      <option>Gold</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="ref">Referral code (optional)</label>
-                    <input id="ref" name="ref" type="text" placeholder="FRDM-XXXX" />
-                  </div>
-
-                  <button class="submitBtn" type="submit">🔒 Secure My Spot</button>
-                </form>
-
-                <p style="margin-top:12px; color:rgba(242,244,255,.60); font-size:12px">
-                  Tip: after deploy, Netlify → Forms will show submissions.
-                </p>
-              </div>
-            </div>
+            <p class="muted" style="margin-top:10px">Always verify the CA from this site + pinned Telegram before swapping.</p>
           </div>
         </div>
       </section>
@@ -780,7 +983,7 @@
       <section class="section card" id="chart">
         <div class="cardPad">
           <h2>Chart</h2>
-          <p>When CA is live, the chart button + embed will unlock automatically.</p>
+          <p class="muted">When CA is live, the chart button + embed will unlock automatically.</p>
           <div class="ctaRow">
             <a class="pill" id="chartBtn" href="#" target="_blank" rel="noreferrer">Open Dexscreener</a>
           </div>
@@ -792,29 +995,29 @@
             <iframe id="dexFrame" title="Dexscreener chart"></iframe>
           </div>
 
-          <p style="margin-top:12px;color:rgba(242,244,255,.60);font-size:12px">
+          <p class="muted2" style="margin-top:12px;font-size:12px">
             Note: holders aren’t reliably available in-browser without an indexer. We keep this site safe and lightweight.
           </p>
         </div>
       </section>
 
-      <!-- ROADMAP (UPGRADED) -->
+      <!-- ROADMAP -->
       <section class="section card" id="roadmap">
         <div class="cardPad">
           <h2>Public Roadmap</h2>
-          <p style="margin-top:-4px">Direction over noise. Execution over hype.</p>
+          <p class="muted" style="margin-top:-4px">Direction over noise. Execution over hype.</p>
 
           <div class="split" style="margin-top:12px">
             <div class="phase">
               <div class="phaseTop">
                 <div class="phaseTitle">Phase I — Foundation</div>
-                <div class="phaseBadge">Pre-Launch</div>
+                <div class="phaseBadge">Now</div>
               </div>
               <ul class="clean">
-                <li>Brand system + verification center</li>
-                <li>Vault access + launch alert pipeline</li>
-                <li>Contract deployment plan + safety checklist</li>
-                <li>Community growth with anti-scam standards</li>
+                <li>Viral waitlist + referral engine</li>
+                <li>Verification center + anti-scam standards</li>
+                <li>Security checklist + deployment plan</li>
+                <li>Community growth with structure</li>
               </ul>
               <div class="mutedSmall">Goal: build trust + clean infrastructure before attention spikes.</div>
             </div>
@@ -822,7 +1025,7 @@
             <div class="phase">
               <div class="phaseTop">
                 <div class="phaseTitle">Phase II — Launch</div>
-                <div class="phaseBadge">Launch Window</div>
+                <div class="phaseBadge">TBD</div>
               </div>
               <ul class="clean">
                 <li>CA published here + pinned Telegram</li>
@@ -843,7 +1046,7 @@
               <ul class="clean">
                 <li>Transparency dashboard upgrades</li>
                 <li>Strategic ecosystem collaborations</li>
-                <li>Listings outreach (methodical + selective)</li>
+                <li>Listings outreach (selective + methodical)</li>
                 <li>Content + community scale systems</li>
               </ul>
               <div class="mutedSmall">Goal: grow without sacrificing structure.</div>
@@ -851,14 +1054,14 @@
 
             <div class="phase">
               <div class="phaseTop">
-                <div class="phaseTitle">Phase IV — Positioning</div>
-                <div class="phaseBadge">Long-Term</div>
+                <div class="phaseTitle">Phase IV — Long-Term</div>
+                <div class="phaseBadge">Durability</div>
               </div>
               <ul class="clean">
+                <li>Product direction (to be announced)</li>
                 <li>Brand durability + cycle resilience</li>
-                <li>Governance / community initiatives (if needed)</li>
+                <li>Governance initiatives (if needed)</li>
                 <li>Partnerships aligned with Solana culture</li>
-                <li>Long-term product direction (to be announced)</li>
               </ul>
               <div class="mutedSmall">Goal: become a Solana-native brand that lasts.</div>
             </div>
@@ -870,11 +1073,11 @@
         </div>
       </section>
 
-      <!-- TOKENOMICS (UPGRADED) -->
+      <!-- TOKENOMICS -->
       <section class="section card" id="tokenomics">
         <div class="cardPad">
           <h2>Tokenomics</h2>
-          <p style="margin-top:-4px">Clear, simple, transparent. Final values can be updated at launch for accuracy.</p>
+          <p class="muted" style="margin-top:-4px">Clear, simple, transparent. Final values can be updated at launch for accuracy.</p>
 
           <div class="grid2" style="margin-top:12px">
             <div class="stat"><div class="label">Network</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Solana</div></div>
@@ -906,68 +1109,15 @@
         </div>
       </section>
 
-      <!-- FOUNDER (NEW) -->
-      <section class="section card" id="founder">
-        <div class="cardPad">
-          <h2>Founder</h2>
-          <p style="margin-top:-4px">Leadership, accountability, and a long-term approach.</p>
-
-          <div class="grid2" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Name</div>
-              <div class="value">Jordan White</div>
-            </div>
-            <div class="stat">
-              <div class="label">Role</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Founder • FreedomFi</div>
-            </div>
-          </div>
-
-          <div class="note" style="margin-top:12px">
-            FreedomFi is being built as a structured, Solana-native brand focused on transparency, verification, and durable community growth.
-            Founder socials are intentionally not linked here to keep communication centralized through official project channels.
-          </div>
-
-          <div class="ctaRow" style="margin-top:14px">
-            <a class="pill btnGold" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Official Telegram</a>
-            <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Official X</a>
-            <a class="pill" href="#verify">Verify Links</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- WHY SOLANA -->
-      <section class="section card" id="solana">
-        <div class="cardPad">
-          <h2>Why Solana</h2>
-          <div class="grid3" style="margin-top:12px">
-            <div class="stat"><div class="label">Fast</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Quick finality keeps markets responsive.</div></div>
-            <div class="stat"><div class="label">Low Fees</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Lower friction = more community participation.</div></div>
-            <div class="stat"><div class="label">Transparency</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">On-chain activity is public and verifiable.</div></div>
-          </div>
-          <div class="note"><b>Safety tip:</b> Always verify the mint address (CA). One wrong character = wrong token.</div>
-        </div>
-      </section>
-
-      <!-- HOW TO BUY -->
-      <section class="section card" id="howtobuy">
-        <div class="cardPad">
-          <h2>How to Buy</h2>
-          <div class="grid2">
-            <div class="stat"><div class="label">1) Get SOL</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Buy SOL and send it to your wallet.</div></div>
-            <div class="stat"><div class="label">2) Verify the CA</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Use the CA on this site + pinned Telegram. Never trust DMs.</div></div>
-          </div>
-          <div class="grid2" style="margin-top:12px">
-            <div class="stat"><div class="label">3) Swap</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Use a Solana DEX UI and confirm token details.</div></div>
-            <div class="stat"><div class="label">4) Track</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Watch price/volume/liquidity in Live Stats and Dexscreener.</div></div>
-          </div>
-        </div>
-      </section>
-
       <!-- FAQ -->
       <section class="section card" id="faq">
         <div class="cardPad">
           <h2>FAQ</h2>
+
+          <div class="faqItem">
+            <button class="faqQ" type="button">How does the waitlist position work?<span class="chev">▾</span></button>
+            <div class="faqA">After you join, you get a position and referral link. Referrals increase priority. This page shows a local demo dashboard; a global leaderboard is enabled when you add a backend.</div>
+          </div>
 
           <div class="faqItem">
             <button class="faqQ" type="button">Where are the official links?<span class="chev">▾</span></button>
@@ -986,7 +1136,7 @@
 
           <div class="faqItem">
             <button class="faqQ" type="button">Is FreedomFi affiliated with WLFI/USD1?<span class="chev">▾</span></button>
-            <div class="faqA">No. FreedomFi is its own community project and is not officially affiliated with WLFI or USD1.</div>
+            <div class="faqA">No. FreedomFi is its own project and is not officially affiliated with WLFI or USD1.</div>
           </div>
         </div>
       </section>
@@ -995,11 +1145,11 @@
       <section class="section card" id="community">
         <div class="cardPad">
           <h2>Community</h2>
-          <p>Telegram is where we post pinned verification + launch updates first.</p>
+          <p class="muted">Telegram is where we post pinned verification + launch updates first.</p>
           <div class="ctaRow">
             <a class="pill btnGold" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
             <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
-            <a class="pill" href="#vault">Vault Access</a>
+            <a class="pill btnPrimary" href="#waitlist">Join Waitlist</a>
           </div>
         </div>
       </section>
@@ -1054,8 +1204,13 @@
     drawer?.addEventListener("click", (e)=>{ const a = e.target.closest("a"); if(a) closeDrawer(); });
     window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeDrawer(); });
 
+    // FAQ accordion
+    document.querySelectorAll(".faqItem").forEach(item=>{
+      item.querySelector(".faqQ")?.addEventListener("click", ()=> item.classList.toggle("open"));
+    });
+
     // Launch gating
-const LAUNCH_LIVE = false; // Change to true when launching
+    const LAUNCH_LIVE = false; // Change to true when launching
     const SOLSCAN_BASE = "https://solscan.io/token/";
 
     // Paste your CA here after launch:
@@ -1064,22 +1219,17 @@ const LAUNCH_LIVE = false; // Change to true when launching
     const AUTHORITY_STATUS_TEXT = ""; // <-- paste later (e.g. "Mint revoked, Freeze revoked")
 
     // Tokenomics (fill now; can adjust later)
-const TOKENOMICS = {
-  totalSupplyText: "1,000,000,000",
-  communityText: "60%",
-  ecosystemText: "15%",
-  growthText: "10%",
-  founderText: "10%",
-  reserveText: "5%",
-  lockText: "Founder allocation locked (duration to be published at launch)"
-};
+    const TOKENOMICS = {
+      totalSupplyText: "1,000,000,000",
+      communityText: "60%",
+      ecosystemText: "15%",
+      growthText: "10%",
+      founderText: "10%",
+      reserveText: "5%",
+      lockText: "Founder allocation locked (duration to be published at launch)"
+    };
 
-function launchLive(){ return LAUNCH_LIVE; }
-
-    // FAQ accordion
-    document.querySelectorAll(".faqItem").forEach(item=>{
-      item.querySelector(".faqQ")?.addEventListener("click", ()=> item.classList.toggle("open"));
-    });
+    function launchLive(){ return LAUNCH_LIVE; }
 
     // Fill tokenomics
     function applyTokenomics(){
@@ -1172,6 +1322,183 @@ function launchLive(){ return LAUNCH_LIVE; }
     }
     loadDex();
     setInterval(loadDex, 30000);
+
+    // -------------------------
+    // Viral waitlist (front-end)
+    // -------------------------
+
+    // Settings you can tune:
+    const WAITLIST_CAP = 5000;
+
+    // This is a lightweight *front-end demo*.
+    // To make it truly viral + global (shared leaderboard), add a backend.
+    // For now, we:
+    // - assign a local "position"
+    // - generate a local referral code/link
+    // - track a local referral count
+    const LS_KEY = "freedomfi_waitlist_v1";
+
+    function randCode(){
+      const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      let out = "FRDM-";
+      for(let i=0;i<6;i++) out += chars[Math.floor(Math.random()*chars.length)];
+      return out;
+    }
+
+    function getState(){
+      try{ return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); }
+      catch{ return {}; }
+    }
+    function setState(next){
+      localStorage.setItem(LS_KEY, JSON.stringify(next || {}));
+    }
+
+    function tierFromRefs(n){
+      if(n >= 25) return "Founder Tier";
+      if(n >= 10) return "Gold";
+      if(n >= 3) return "Silver";
+      return "Bronze";
+    }
+
+    function buildRefLink(code){
+      const base = location.origin + location.pathname.replace(/index\.html$/,'');
+      return base + "?ref=" + encodeURIComponent(code);
+    }
+
+    function updateDashboard(){
+      const st = getState();
+      const pos = st.position;
+      const refs = st.referrals ?? 0;
+      const code = st.code;
+
+      $("posText").textContent = pos ? ("#" + pos.toLocaleString()) : "—";
+      $("refCountText").textContent = (pos ? String(refs) : "—");
+      $("tierText").textContent = (pos ? tierFromRefs(refs) : "—");
+
+      const link = (pos && code) ? buildRefLink(code) : "—";
+      $("refLinkText").textContent = link;
+
+      $("copyRef").disabled = !(pos && code);
+
+      // Share links
+      const shareText = encodeURIComponent("I joined the FreedomFi early access waitlist. Move up with referrals. Join here:");
+      const shareUrl = encodeURIComponent(link === "—" ? (location.origin + location.pathname) : link);
+      $("shareX").href = "https://twitter.com/intent/tweet?text=" + shareText + "%20" + shareUrl;
+      $("shareTG").href = "https://t.me/share/url?url=" + shareUrl + "&text=" + shareText;
+
+      // Spots UI (demo: derive spots from a local counter if present)
+      const spots = Math.min(WAITLIST_CAP, Number(st.totalSpots || 0));
+      $("spotsText").textContent = spots.toLocaleString() + " / " + WAITLIST_CAP.toLocaleString();
+      const pct = Math.max(0, Math.min(100, (spots / WAITLIST_CAP) * 100));
+      $("spotsBar").style.width = pct.toFixed(2) + "%";
+    }
+
+    // Read ?ref= on arrival and prefill the form
+    (function seedRefFromQuery(){
+      const url = new URL(location.href);
+      const qref = url.searchParams.get("ref");
+      if(qref && $("wl_ref")){
+        $("wl_ref").value = qref.trim();
+      }
+    })();
+
+    // Copy referral link
+    $("copyRef")?.addEventListener("click", async ()=>{
+      const txt = ($("refLinkText")?.textContent || "").trim();
+      if(!txt || txt === "—") return;
+      try{
+        await navigator.clipboard.writeText(txt);
+        $("copyRef").textContent = "Copied";
+        setTimeout(()=>$("copyRef").textContent="Copy", 900);
+      }catch{}
+    });
+
+    // Demo-only referral increment
+    $("addReferralBtn")?.addEventListener("click", ()=>{
+      const st = getState();
+      if(!st.position) return;
+      st.referrals = (st.referrals || 0) + 1;
+      // Optional: move up as referrals grow (demo)
+      const jump = st.referrals >= 25 ? 25 : st.referrals >= 10 ? 12 : st.referrals >= 3 ? 6 : 2;
+      st.position = Math.max(1, (st.position || 1) - jump);
+      setState(st);
+      updateDashboard();
+    });
+
+    // Netlify AJAX form submit (keeps you on-page + shows referral link)
+    function encodeForm(data){
+      return Object.keys(data).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
+    }
+
+    $("waitlistForm")?.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const btn = $("wl_submit");
+      const msg = $("wl_msg");
+
+      const email = $("wl_email")?.value?.trim();
+      if(!email){
+        msg.style.display = "block";
+        msg.className = "note danger";
+        msg.textContent = "Please enter a valid email.";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      // Create/update local waitlist state
+      const st = getState();
+      if(!st.code) st.code = randCode();
+      if(!st.position){
+        // Use a seeded pseudo-position (demo)
+        const base = 1800 + Math.floor(Math.random()*2200); // 1800–3999
+        st.position = base;
+      }
+      st.email = email;
+      st.wallet = $("wl_wallet")?.value?.trim() || "";
+      st.enteredWithRef = $("wl_ref")?.value?.trim() || "";
+      st.referrals = st.referrals || 0;
+
+      // Update demo spots
+      st.totalSpots = Math.min(WAITLIST_CAP, (st.totalSpots || 0) + 1);
+
+      setState(st);
+      updateDashboard();
+
+      // Submit to Netlify Forms in the background so you still capture submissions
+      try{
+        const payload = {
+          "form-name": "waitlist",
+          "email": st.email,
+          "wallet": st.wallet,
+          "ref": st.enteredWithRef,
+          "local_code": st.code
+        };
+
+        await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encodeForm(payload)
+        });
+
+        msg.style.display = "block";
+        msg.className = "note success";
+        msg.innerHTML =
+          "<b>You're in.</b> Your position is <b>#"+ st.position.toLocaleString() +
+          "</b>. Copy your referral link and invite friends to move up.";
+      }catch(err){
+        msg.style.display = "block";
+        msg.className = "note danger";
+        msg.textContent = "Saved locally, but background submit failed. If you’re not on Netlify yet, that’s normal.";
+        console.warn(err);
+      }finally{
+        btn.disabled = false;
+        btn.textContent = "⚡ Join Waitlist";
+      }
+    });
+
+    // Initialize dashboard on load
+    updateDashboard();
 
     $("year").textContent = String(new Date().getFullYear());
   </script>
