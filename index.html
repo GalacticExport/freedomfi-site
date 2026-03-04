@@ -2412,10 +2412,10 @@ const accent = colors[Math.floor(Math.random()*colors.length)];
       ctx.fillText(sub, 64, 176);
 
       // main text
-      const maxW = w - 120;
-      const fontMain = "900 52px Orbitron, sans-serif";
-      const lines = wrapText(text || "Freedom is built — not promised.", maxW, fontMain);
-      const lineH = 62;
+const maxW = w - 120;
+const fontMain = "900 52px Orbitron, sans-serif";
+ctx.font = fontMain;
+const lines = wrapText(text || "Freedom is built for those who claim it.", maxW);
       const startY = 260;
 
       ctx.fillStyle = "rgba(242,244,255,0.96)";
