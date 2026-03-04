@@ -184,19 +184,20 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.45);
       flex:0 0 auto;
     }
-    .brand .name{
+.brand .name{
   font-weight:900;
   font-size:18px;
   white-space:nowrap;
-  overflow:visible;
-  text-overflow:clip;
-  letter-spacing:.35px;
-  max-width:none;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:42vw;          /* <- prevents it from bullying the right side */
+  letter-spacing:.12em;    /* optional: reduce from .35 if you want */
 }
-.navRight{
+.nav{
   display:flex;
   align-items:center;
-  flex-wrap:wrap;
+  justify-content:space-between;
+  flex-wrap:nowrap;        /* <- change this from wrap to nowrap */
 }
     .brand{
   flex-shrink:0;
