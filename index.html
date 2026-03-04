@@ -47,7 +47,8 @@
 
       --radius:18px;
       --shadow:0 22px 70px rgba(0,0,0,.55);
-      --max:1500px;
+      --max:1200px; /* desktop max width (clean + centered) */
+      --pad:16px;   /* consistent side padding */
       --easeOut:cubic-bezier(.2,.9,.2,1);
 
       --ok:#34d399;
@@ -71,12 +72,23 @@
     }
 
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* One container. Never nest this. */
     .wrap{
-  width:100%;
-  max-width:var(--max);
-  margin:0 auto;
-  padding:0 16px;
-}
+      width:100%;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 var(--pad);
+    }
+
+    /* Safety guard: if any .wrap accidentally gets nested, it won't shrink again */
+    .wrap .wrap{
+      max-width:100%;
+      padding-left:0;
+      padding-right:0;
+    }
+
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.030));
       border:1px solid rgba(255,255,255,.10);
@@ -167,7 +179,7 @@
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      min-width:0; max-width:65%;
+      min-width:0;
     }
     .brand img{
       width:34px; height:34px;
@@ -182,6 +194,7 @@
       overflow:hidden;
       text-overflow:ellipsis;
       letter-spacing:.35px;
+      max-width:min(52vw, 520px);
     }
     .navRight{display:flex; align-items:center; gap:10px; flex:0 0 auto}
 
@@ -280,7 +293,7 @@
     .drawerLink:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
 
     /* HERO */
-    main{padding:18px 0 90px}
+    main{padding:18px 0 70px}
     .hero{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -297,7 +310,6 @@
       position:relative;
       min-height:320px;
     }
-    .heroVisual img{display:block; width:100%; height:auto}
     .heroVisual .badgeFloat{
       position:absolute; left:14px; bottom:14px;
       display:flex; gap:10px; align-items:center;
@@ -360,7 +372,7 @@
     .ctaRow .pill{padding:12px 18px}
 
     /* Sections */
-    .section{margin-top:16px }
+    .section{margin-top:16px}
     .section h2{
       margin:0 0 12px;
       font-size:22px;
@@ -595,26 +607,31 @@
       gap:16px;
     }
 
-    footer{padding:40px 0 60px; color:rgba(242,244,255,.55); font-size:12px; letter-spacing:.1px}
+    footer{
+      padding:34px 0 60px;
+      color:rgba(242,244,255,.55);
+      font-size:12px;
+      letter-spacing:.1px
+    }
     footer a{text-decoration:underline; text-decoration-color:rgba(217,178,76,.35)}
 
     /* Responsive */
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;}
       h1{font-size:46px}
-      .brand{max-width:75%}
       .split{grid-template-columns:1fr}
       .grid4{grid-template-columns:repeat(2,1fr)}
     }
     @media (max-width: 640px){
+      :root{ --pad:16px; }
       .hideMobile{display:none}
-      .brand{max-width:70%}
       h1{font-size:40px}
       .grid2{grid-template-columns:1fr}
       .grid3{grid-template-columns:1fr}
       .grid4{grid-template-columns:1fr}
       .navNotice{font-size:10px; padding:7px 0}
       .navInner{padding:9px 0}
+      .cardPad{padding:18px}
     }
   </style>
 </head>
@@ -788,7 +805,6 @@
                   <button class="submitBtn" id="wl_submit" type="submit">⚡ Join Waitlist</button>
 
                   <div id="wl_msg" class="note" style="display:none; margin-top:12px"></div>
-
                 </form>
               </div>
             </div>
@@ -797,7 +813,7 @@
             <div class="cardSoft">
               <div class="cardPad">
                 <h3 style="margin:0 0 6px; font-size:18px">Your Waitlist Dashboard</h3>
-                <p style="margin:0 0 12px" class="muted">This is stored on your device (local). Leaderboard becomes global when you add a backend.</p>
+                <p style="margin:0 0 12px" class="muted">Stored locally on your device. Add a backend later for global ranks.</p>
 
                 <div class="grid3">
                   <div class="stat">
@@ -866,6 +882,8 @@
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
       <!-- REWARDS / TIERS -->
       <section class="section card" id="rewards">
@@ -895,6 +913,8 @@
               <div class="mutedSmall">Top-tier bonuses (details at launch).</div>
             </div>
           </div>
+        </div>
+      </section>
 
       <!-- VERIFICATION -->
       <section class="section card" id="verify">
@@ -1146,7 +1166,7 @@
         </div>
       </section>
 
-      <footer class="wrap">
+      <footer>
         <div style="padding-top:28px">
           <div style="margin-bottom:10px">
             <b>Disclaimer:</b> This site is for informational/community purposes only and is not financial advice.
@@ -1319,15 +1339,7 @@
     // Viral waitlist (front-end)
     // -------------------------
 
-    // Settings you can tune:
     const WAITLIST_CAP = 5000;
-
-    // This is a lightweight *front-end demo*.
-    // To make it truly viral + global (shared leaderboard), add a backend.
-    // For now, we:
-    // - assign a local "position"
-    // - generate a local referral code/link
-    // - track a local referral count
     const LS_KEY = "freedomfi_waitlist_v1";
 
     function randCode(){
@@ -1372,13 +1384,11 @@
 
       $("copyRef").disabled = !(pos && code);
 
-      // Share links
       const shareText = encodeURIComponent("I joined the FreedomFi early access waitlist. Move up with referrals. Join here:");
       const shareUrl = encodeURIComponent(link === "—" ? (location.origin + location.pathname) : link);
       $("shareX").href = "https://twitter.com/intent/tweet?text=" + shareText + "%20" + shareUrl;
       $("shareTG").href = "https://t.me/share/url?url=" + shareUrl + "&text=" + shareText;
 
-      // Spots UI (demo: derive spots from a local counter if present)
       const spots = Math.min(WAITLIST_CAP, Number(st.totalSpots || 0));
       $("spotsText").textContent = spots.toLocaleString() + " / " + WAITLIST_CAP.toLocaleString();
       const pct = Math.max(0, Math.min(100, (spots / WAITLIST_CAP) * 100));
@@ -1410,14 +1420,13 @@
       const st = getState();
       if(!st.position) return;
       st.referrals = (st.referrals || 0) + 1;
-      // Optional: move up as referrals grow (demo)
       const jump = st.referrals >= 25 ? 25 : st.referrals >= 10 ? 12 : st.referrals >= 3 ? 6 : 2;
       st.position = Math.max(1, (st.position || 1) - jump);
       setState(st);
       updateDashboard();
     });
 
-    // Netlify AJAX form submit (keeps you on-page + shows referral link)
+    // Netlify AJAX form submit
     function encodeForm(data){
       return Object.keys(data).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
     }
@@ -1438,12 +1447,10 @@
       btn.disabled = true;
       btn.textContent = "Submitting…";
 
-      // Create/update local waitlist state
       const st = getState();
       if(!st.code) st.code = randCode();
       if(!st.position){
-        // Use a seeded pseudo-position (demo)
-        const base = 1800 + Math.floor(Math.random()*2200); // 1800–3999
+        const base = 1800 + Math.floor(Math.random()*2200);
         st.position = base;
       }
       st.email = email;
@@ -1451,13 +1458,11 @@
       st.enteredWithRef = $("wl_ref")?.value?.trim() || "";
       st.referrals = st.referrals || 0;
 
-      // Update demo spots
       st.totalSpots = Math.min(WAITLIST_CAP, (st.totalSpots || 0) + 1);
 
       setState(st);
       updateDashboard();
 
-      // Submit to Netlify Forms in the background so you still capture submissions
       try{
         const payload = {
           "form-name": "waitlist",
@@ -1489,9 +1494,7 @@
       }
     });
 
-    // Initialize dashboard on load
     updateDashboard();
-
     $("year").textContent = String(new Date().getFullYear());
   </script>
 </body>
