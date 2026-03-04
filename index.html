@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>FreedomFi — Financial Infrastructure on Solana</title>
-  <meta name="description" content="FreedomFi is building Solana-native financial infrastructure. Join the viral waitlist, earn priority access with referrals, and verify official links safely." />
+  <meta name="description" content="FreedomFi is building Solana-native financial infrastructure. Join the waitlist, simulate your Freedom Vault tier, generate memes, earn badges, and learn security." />
   <meta name="theme-color" content="#06060b" />
 
   <link rel="icon" href="./freedomfi-logo.png" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="FreedomFi — Financial Infrastructure on Solana" />
-  <meta property="og:description" content="Join the viral waitlist. Move up with referrals. Verify official links safely." />
+  <meta property="og:description" content="Join the waitlist. Simulate vault tiers. Earn Freedom Fighter badges. Verify links safely." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freedomfiofficial.com/" />
   <meta property="og:image" content="https://freedomfiofficial.com/freedomfi-banner.png" />
@@ -19,7 +19,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="FreedomFi — Financial Infrastructure on Solana" />
-  <meta name="twitter:description" content="Join the viral waitlist. Move up with referrals. Verify official links safely." />
+  <meta name="twitter:description" content="Join the waitlist. Simulate vault tiers. Earn Freedom Fighter badges. Verify links safely." />
   <meta name="twitter:image" content="https://freedomfiofficial.com/freedomfi-banner.png" />
 
   <!-- Futuristic bold font -->
@@ -47,13 +47,17 @@
 
       --radius:18px;
       --shadow:0 22px 70px rgba(0,0,0,.55);
-      --max:1200px; /* desktop max width (clean + centered) */
-      --pad:16px;   /* consistent side padding */
+      --max:1200px;
+      --pad:16px;
       --easeOut:cubic-bezier(.2,.9,.2,1);
 
       --ok:#34d399;
       --warn:#fbbf24;
       --danger:#fb7185;
+
+      --blue1:#818cf8;
+      --blue2:#60a5fa;
+      --purple:#a78bfa;
     }
 
     *{box-sizing:border-box}
@@ -74,20 +78,13 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* One container. Never nest this. */
     .wrap{
       width:100%;
       max-width:var(--max);
       margin:0 auto;
       padding:0 var(--pad);
     }
-
-    /* Safety guard: if any .wrap accidentally gets nested, it won't shrink again */
-    .wrap .wrap{
-      max-width:100%;
-      padding-left:0;
-      padding-right:0;
-    }
+    .wrap .wrap{max-width:100%;padding-left:0;padding-right:0}
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.030));
@@ -209,6 +206,7 @@
       transition: transform .18s var(--easeOut), background .18s var(--easeOut), box-shadow .18s var(--easeOut);
       user-select:none;
       white-space:nowrap;
+      cursor:pointer;
     }
     .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
     .btnGold{
@@ -220,6 +218,11 @@
       border:1px solid rgba(129,140,248,.45);
       background:linear-gradient(180deg, rgba(129,140,248,.18), rgba(129,140,248,.07));
       box-shadow: 0 12px 30px rgba(129,140,248,.12);
+    }
+    .btnDanger{
+      border:1px solid rgba(251,113,133,.40);
+      background:linear-gradient(180deg, rgba(251,113,133,.12), rgba(0,0,0,.08));
+      box-shadow: 0 12px 30px rgba(251,113,133,.10);
     }
 
     .hideMobile{display:inline-flex}
@@ -397,11 +400,7 @@
     }
     .stat .value{font-size:18px; font-weight:950; margin-top:6px}
 
-    /* Waitlist */
-    .waitTop{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:12px;
-    }
+    /* Components */
     .tag{
       display:inline-flex; align-items:center; justify-content:center;
       padding:8px 12px; border-radius:999px;
@@ -416,20 +415,17 @@
       background:rgba(129,140,248,.10);
       color:rgba(224,231,255,.95);
     }
-    .progress{
-      height:12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.20);
-      overflow:hidden;
+    .tagGreen{
+      border:1px solid rgba(52,211,153,.45);
+      background:rgba(52,211,153,.10);
+      color:rgba(220,252,231,.95);
     }
-    .progress > div{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, rgba(247,230,163,.55), rgba(129,140,248,.40));
-      box-shadow:0 0 22px rgba(217,178,76,.18);
-      transition: width .45s var(--easeOut);
+    .tagRed{
+      border:1px solid rgba(251,113,133,.45);
+      background:rgba(251,113,133,.10);
+      color:rgba(255,228,230,.95);
     }
+
     .note{
       margin-top:10px;
       padding:12px 14px;
@@ -458,31 +454,10 @@
     .copyBtn:disabled{opacity:.55; cursor:not-allowed}
     .shareRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
 
-    /* Embed */
-    .embedWrap{
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.22);
-      overflow:hidden;
-      position:relative;
-      min-height:420px;
-    }
-    .embedLock{
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      background:rgba(0,0,0,.35);
-      padding:16px;
-      text-align:center;
-      color:rgba(242,244,255,.75);
-      font-weight:850;
-      letter-spacing:.2px;
-    }
-    iframe{width:100%; height:520px; border:0; display:none}
-
     /* Form */
     .field{display:flex; flex-direction:column; gap:8px; margin:10px 0}
     label{font-weight:850; color:rgba(242,244,255,.82); letter-spacing:.2px}
-    input, select{
+    input, select, textarea{
       padding:12px 12px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.12);
@@ -493,8 +468,9 @@
       font-family:"Orbitron", sans-serif;
       font-weight:700;
       letter-spacing:.12px;
+      resize:vertical;
     }
-    input::placeholder{color:rgba(242,244,255,.45)}
+    input::placeholder, textarea::placeholder{color:rgba(242,244,255,.45)}
     .submitBtn{
       width:100%;
       border-radius:14px;
@@ -607,13 +583,203 @@
       gap:16px;
     }
 
-    footer{
-      padding:34px 0 60px;
-      color:rgba(242,244,255,.55);
-      font-size:12px;
-      letter-spacing:.1px
+    /* Embed */
+    .embedWrap{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      overflow:hidden;
+      position:relative;
+      min-height:420px;
     }
-    footer a{text-decoration:underline; text-decoration-color:rgba(217,178,76,.35)}
+    .embedLock{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.35);
+      padding:16px;
+      text-align:center;
+      color:rgba(242,244,255,.75);
+      font-weight:850;
+      letter-spacing:.2px;
+    }
+    iframe{width:100%; height:520px; border:0; display:none}
+
+    /* NEW: Mini tabs */
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin:10px 0 0;
+    }
+    .tabBtn{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      font-weight:900;
+      font-size:12px;
+      cursor:pointer;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .tabBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
+    .tabBtn.active{
+      border:1px solid rgba(217,178,76,.45);
+      background:rgba(217,178,76,.12);
+      color:rgba(247,230,163,.95);
+    }
+
+    /* NEW: Modal */
+    .modalBack{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.64);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s var(--easeOut);
+      z-index:2000;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .modalBack.show{opacity:1; pointer-events:auto}
+    .modal{
+      width:min(980px, 96vw);
+      max-height:min(84vh, 880px);
+      overflow:auto;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(10,11,18,.96), rgba(5,6,10,.92));
+      box-shadow: 0 30px 90px rgba(0,0,0,.65);
+      padding:16px;
+    }
+    .modalHeader{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      position:sticky; top:0;
+      background:linear-gradient(180deg, rgba(10,11,18,.98), rgba(10,11,18,.85));
+      padding:10px 8px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      z-index:1;
+    }
+    .modalTitle{
+      display:flex; align-items:center; gap:10px;
+      font-weight:950;
+      letter-spacing:.35px;
+    }
+    .modalTitle img{width:28px;height:28px;border-radius:10px}
+    .modalClose{
+      width:44px;height:44px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      font-family:"Orbitron", sans-serif;
+      font-weight:900;
+    }
+    .paper{
+      padding:12px 6px 6px;
+    }
+    .paper h3{
+      margin:14px 0 8px;
+      font-size:18px;
+      font-weight:950;
+      letter-spacing:.3px;
+    }
+    .paper p, .paper li{
+      color:rgba(242,244,255,.78);
+      font-weight:650;
+      font-size:13px;
+      line-height:1.8;
+      letter-spacing:.08px;
+      font-family:"Orbitron", sans-serif;
+    }
+    .paper ul{margin:6px 0 10px; padding-left:18px}
+
+    /* NEW: Leaderboard */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+    }
+    th, td{
+      padding:12px 12px;
+      text-align:left;
+      font-size:12px;
+      font-weight:850;
+      color:rgba(242,244,255,.85);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    th{
+      font-size:11px;
+      color:rgba(242,244,255,.70);
+      letter-spacing:.25px;
+      background:rgba(0,0,0,.20);
+    }
+    tr:last-child td{border-bottom:none}
+    .rankPill{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.24);
+      font-weight:950;
+      font-size:11px;
+      min-width:42px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(217,178,76,.35);
+      background:rgba(217,178,76,.10);
+      color:rgba(247,230,163,.95);
+      font-weight:950;
+      font-size:11px;
+      letter-spacing:.18px;
+      white-space:nowrap;
+    }
+    .badgeBlue{
+      border:1px solid rgba(129,140,248,.45);
+      background:rgba(129,140,248,.10);
+      color:rgba(224,231,255,.95);
+    }
+    .badgeGreen{
+      border:1px solid rgba(52,211,153,.45);
+      background:rgba(52,211,153,.10);
+      color:rgba(220,252,231,.95);
+    }
+    .badgeRed{
+      border:1px solid rgba(251,113,133,.45);
+      background:rgba(251,113,133,.10);
+      color:rgba(255,228,230,.95);
+    }
+
+    /* NEW: Meme generator */
+    .memeWrap{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      padding:14px;
+    }
+    canvas{
+      width:100%;
+      height:auto;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);
+      display:block;
+    }
+    .tiny{
+      font-size:11px;
+      font-weight:800;
+      color:rgba(242,244,255,.60);
+      letter-spacing:.15px;
+      line-height:1.5;
+    }
 
     /* Responsive */
     @media (max-width: 980px){
@@ -632,6 +798,7 @@
       .navNotice{font-size:10px; padding:7px 0}
       .navInner{padding:9px 0}
       .cardPad{padding:18px}
+      th, td{padding:10px 10px}
     }
   </style>
 </head>
@@ -640,6 +807,24 @@
   <div class="gridGlow" aria-hidden="true"></div>
   <div class="bgMark" aria-hidden="true"></div>
   <div class="film" aria-hidden="true"></div>
+
+  <!-- Litepaper Modal -->
+  <div class="modalBack" id="paperBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="FreedomFi Litepaper">
+      <div class="modalHeader">
+        <div class="modalTitle">
+          <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
+          <span>FreedomFi Litepaper (v0.1)</span>
+          <span class="tag tagBlue" id="paperVersionTag">Draft</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center">
+          <button class="pill pillSmall btnPrimary" id="dlPaperTxt" type="button">Download .txt</button>
+          <button class="modalClose" id="paperClose" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="paper" id="paperBody"></div>
+    </div>
+  </div>
 
   <!-- Drawer overlay + panel -->
   <div class="drawerBack" id="drawerBack" aria-hidden="true"></div>
@@ -654,8 +839,11 @@
 
     <small>Navigate</small>
     <a class="drawerLink" href="#waitlist">Waitlist</a>
-    <a class="drawerLink" href="#how">How it works</a>
-    <a class="drawerLink" href="#rewards">Rewards</a>
+    <a class="drawerLink" href="#litepaper">Litepaper</a>
+    <a class="drawerLink" href="#vault">Freedom Vault</a>
+    <a class="drawerLink" href="#meme">Meme Generator</a>
+    <a class="drawerLink" href="#leaderboard">Leaderboard</a>
+    <a class="drawerLink" href="#academy">Freedom Academy</a>
     <a class="drawerLink" href="#verify">Verification</a>
     <a class="drawerLink" href="#stats">Live Stats</a>
     <a class="drawerLink" href="#chart">Chart</a>
@@ -686,9 +874,10 @@
         </a>
 
         <div class="navRight">
-          <a class="pill hideMobile" href="#waitlist">Waitlist</a>
+          <a class="pill hideMobile" href="#vault">Vault</a>
+          <a class="pill hideMobile" href="#leaderboard">Leaderboard</a>
+          <a class="pill hideMobile" href="#academy">Academy</a>
           <a class="pill hideMobile" href="#verify">Verify</a>
-          <a class="pill hideMobile" href="#roadmap">Roadmap</a>
           <a class="pill hideMobile" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Telegram</a>
           <a class="pill hideMobile" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">X</a>
           <a class="pill btnGold" href="#waitlist">Get Early Access</a>
@@ -714,7 +903,7 @@
             <h1>Financial Infrastructure,<br/>Built to Last.</h1>
             <p>
               FreedomFi is a structured Solana-native project focused on transparency, verification, and long-term execution.
-              Join the waitlist and move up with referrals.
+              Join the waitlist, simulate your Freedom Vault tier, earn badges, and learn security the fun way.
             </p>
 
             <div class="grid3" style="margin-top:14px">
@@ -728,15 +917,15 @@
               </div>
               <div class="stat">
                 <div class="label">Status</div>
-                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Waitlist Open</div>
+                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Vault Tools Live</div>
               </div>
             </div>
 
             <div class="ctaRow" style="margin-top:14px">
               <a class="pill btnGold" href="#waitlist">⚡ Join Waitlist</a>
-              <a class="pill btnPrimary" href="#how">How it Works</a>
-              <a class="pill" href="#verify">Verification Center</a>
-              <a class="pill" href="#roadmap">Public Roadmap</a>
+              <button class="pill btnPrimary" id="openPaperBtn" type="button">📄 Read Litepaper</button>
+              <a class="pill" href="#vault">🧪 Vault Simulator</a>
+              <a class="pill" href="#meme">🖼️ Meme Generator</a>
             </div>
 
             <div class="note" style="margin-top:14px">
@@ -750,7 +939,7 @@
           <img src="./freedomfi-banner.png" alt="FreedomFi banner" />
           <div class="badgeFloat" aria-label="Waitlist status">
             <span class="pulseDot" aria-hidden="true"></span>
-            <span>Waitlist live • Referral access enabled</span>
+            <span>Tools live • Waitlist open • Anti-scam hardened</span>
           </div>
         </div>
       </section>
@@ -758,13 +947,14 @@
       <!-- WAITLIST + REFERRALS -->
       <section class="section card" id="waitlist">
         <div class="cardPad">
-          <div class="waitTop">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
             <div>
               <h2 style="margin:0 0 6px">Viral Waitlist</h2>
-              <p style="margin:0" class="muted">Join early access. Invite friends. Move up the list. Unlock rewards.</p>
+              <p style="margin:0" class="muted">Join early access. Invite friends. Move up. Earn Freedom Fighter badges.</p>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap">
               <div class="tag tagBlue" id="waitStatusTag">Waitlist Open</div>
+              <div class="tag tagGreen" id="walletStatusTag">Wallets Supported</div>
             </div>
           </div>
 
@@ -775,7 +965,6 @@
                 <h3 style="margin:0 0 6px; font-size:18px">Secure Your Position</h3>
                 <p style="margin:0 0 12px" class="muted">Instant position + referral link after signup.</p>
 
-                <!-- Netlify form (AJAX submit keeps you on-page) -->
                 <form id="waitlistForm" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                   <input type="hidden" name="form-name" value="waitlist" />
                   <p style="display:none">
@@ -794,7 +983,7 @@
 
                   <div class="field">
                     <label for="wl_ref">Referral code (optional)</label>
-                    <input id="wl_ref" name="ref" type="text" placeholder="FRDM-XXXX" />
+                    <input id="wl_ref" name="ref" type="text" placeholder="FRDM-XXXXXX" />
                   </div>
 
                   <button class="submitBtn" id="wl_submit" type="submit">⚡ Join Waitlist</button>
@@ -804,11 +993,11 @@
               </div>
             </div>
 
-            <!-- Right: Position + referral link -->
+            <!-- Right: Dashboard -->
             <div class="cardSoft">
               <div class="cardPad">
-                <h3 style="margin:0 0 6px; font-size:18px">Your Waitlist Dashboard</h3>
-                <p style="margin:0 0 12px" class="muted">Stored locally on your device. Add a backend later for global ranks.</p>
+                <h3 style="margin:0 0 6px; font-size:18px">Your Dashboard</h3>
+                <p style="margin:0 0 12px" class="muted">Saved on-device. Add a backend later for global ranks.</p>
 
                 <div class="grid3">
                   <div class="stat">
@@ -833,7 +1022,7 @@
 
                 <div class="codeRow">
                   <div class="code mono" id="refLinkText">—</div>
-                  <button class="pill pillSmall copyBtn" id="copyRef" disabled>Copy</button>
+                  <button class="pill pillSmall copyBtn" id="copyRef" disabled type="button">Copy</button>
                 </div>
 
                 <div class="shareRow">
@@ -843,7 +1032,335 @@
                 </div>
 
                 <div class="note" style="margin-top:12px">
-                  <b>How it works:</b> Every referral increases your priority. Top positions unlock early access + bonus allocations.
+                  <b>How it works:</b> Referrals increase priority. Top tiers unlock early access + hypothetical vault bonuses.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px">
+            <b>Upgrade path:</b> When you’re ready for a global leaderboard + real referrals, connect this to a backend (Supabase/Firebase/Netlify Functions).
+            The UI is already built for it.
+          </div>
+        </div>
+      </section>
+
+      <!-- LITEPAPER SECTION -->
+      <section class="section card" id="litepaper">
+        <div class="cardPad">
+          <h2>Litepaper</h2>
+          <p class="muted" style="margin-top:-4px">A clean, readable summary of the mission, system design, and execution plan.</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Version</div>
+              <div class="value" style="font-size:14px">v0.1 (Draft)</div>
+              <div class="mutedSmall">We update this as milestones are completed.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Focus</div>
+              <div class="value" style="font-size:14px">Security • Verification • Infrastructure</div>
+              <div class="mutedSmall">Direction over noise. Execution over hype.</div>
+            </div>
+          </div>
+
+          <div class="ctaRow" style="margin-top:12px">
+            <button class="pill btnPrimary" id="openPaperBtn2" type="button">📄 Open Litepaper Reader</button>
+            <button class="pill" id="dlPaperTxt2" type="button">Download .txt</button>
+          </div>
+
+          <div class="note">
+            <b>Pro tip:</b> Post screenshots of the Litepaper sections (Vision / Security) on X later. It signals legitimacy instantly.
+          </div>
+        </div>
+      </section>
+
+      <!-- FREEDOM VAULT -->
+      <section class="section card" id="vault">
+        <div class="cardPad">
+          <h2>Freedom Vault Simulator</h2>
+          <p class="muted" style="margin-top:-4px">Estimate your projected tier, hypothetical bonuses, and priority score.</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Inputs</h3>
+
+                <div class="field">
+                  <label for="vs_amount">Hypothetical Allocation ($)</label>
+                  <input id="vs_amount" type="number" min="0" step="1" placeholder="100" value="100">
+                </div>
+
+                <div class="field">
+                  <label for="vs_refs">Referrals</label>
+                  <input id="vs_refs" type="number" min="0" step="1" placeholder="0" value="0">
+                </div>
+
+                <div class="field">
+                  <label for="vs_hold">Holding Period (days)</label>
+                  <select id="vs_hold">
+                    <option value="7">7 days</option>
+                    <option value="14">14 days</option>
+                    <option value="30" selected>30 days</option>
+                    <option value="60">60 days</option>
+                    <option value="90">90 days</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="vs_risk">Style</label>
+                  <select id="vs_risk">
+                    <option value="conservative">Conservative</option>
+                    <option value="balanced" selected>Balanced</option>
+                    <option value="aggressive">Aggressive</option>
+                  </select>
+                </div>
+
+                <div class="ctaRow" style="margin-top:10px">
+                  <button class="pill btnPrimary" id="vs_run" type="button">Run Simulation</button>
+                  <button class="pill" id="vs_use_my_refs" type="button">Use My Referrals</button>
+                </div>
+
+                <div class="note tiny" style="margin-top:12px">
+                  This is a <b>simulator</b> (hypothetical) for fun and clarity. Final bonus mechanics are published at launch for accuracy.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Results</h3>
+
+                <div class="grid3">
+                  <div class="stat">
+                    <div class="label">Projected Tier</div>
+                    <div class="value" id="vs_tier" style="font-size:14px">—</div>
+                  </div>
+                  <div class="stat">
+                    <div class="label">Hypothetical Bonus</div>
+                    <div class="value" id="vs_bonus" style="font-size:14px">—</div>
+                  </div>
+                  <div class="stat">
+                    <div class="label">Priority Score</div>
+                    <div class="value" id="vs_score">—</div>
+                  </div>
+                </div>
+
+                <div class="note" style="margin-top:12px">
+                  <b>Projected effective allocation:</b>
+                  <span id="vs_effective" style="font-weight:950">—</span>
+                  <div class="tiny" style="margin-top:6px">Effective = Allocation × (1 + bonus%).</div>
+                </div>
+
+                <div class="note" style="margin-top:12px">
+                  <b>Next tier goal:</b>
+                  <span id="vs_next" style="font-weight:950">—</span>
+                </div>
+
+                <div class="ctaRow" style="margin-top:12px">
+                  <button class="pill btnGold" id="vs_copy" type="button">Copy Result</button>
+                  <button class="pill" id="vs_share" type="button">Share</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid4" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Bronze</div>
+              <div class="value" style="font-size:14px">0–2 refs</div>
+              <div class="mutedSmall">Baseline access.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Silver</div>
+              <div class="value" style="font-size:14px">3–9 refs</div>
+              <div class="mutedSmall">Priority boost.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Gold</div>
+              <div class="value" style="font-size:14px">10–24 refs</div>
+              <div class="mutedSmall">Stronger boost.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Founder</div>
+              <div class="value" style="font-size:14px">25+ refs</div>
+              <div class="mutedSmall">Top-tier perks.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEME GENERATOR -->
+      <section class="section card" id="meme">
+        <div class="cardPad">
+          <h2>FreedomFi Meme / Quote Generator</h2>
+          <p class="muted" style="margin-top:-4px">Make branded memes fast. Download as PNG. Share anywhere.</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Create</h3>
+
+                <div class="field">
+                  <label for="mg_template">Template</label>
+                  <select id="mg_template">
+                    <option value="quote" selected>Quote Card</option>
+                    <option value="warning">Anti-Scam Warning</option>
+                    <option value="hype">Mystery / Hype</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="mg_text">Text</label>
+                  <textarea id="mg_text" rows="4" placeholder="Type your message...">Freedom is built — not promised.</textarea>
+                </div>
+
+                <div class="field">
+                  <label for="mg_footer">Footer (optional)</label>
+                  <input id="mg_footer" type="text" placeholder="@FreedomFiCoin • Solana" value="@FreedomFiCoin • Solana">
+                </div>
+
+                <div class="field">
+                  <label for="mg_bg">Background</label>
+                  <select id="mg_bg">
+                    <option value="gold">Gold Grid</option>
+                    <option value="blue" selected>Blue Nebula</option>
+                    <option value="dark">Dark Steel</option>
+                  </select>
+                </div>
+
+                <div class="ctaRow" style="margin-top:10px">
+                  <button class="pill btnPrimary" id="mg_render" type="button">Render</button>
+                  <button class="pill btnGold" id="mg_download" type="button">Download PNG</button>
+                  <button class="pill" id="mg_share" type="button">Share</button>
+                </div>
+
+                <div class="note tiny" style="margin-top:12px">
+                  Tip: Short lines + strong punch = best engagement.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Preview</h3>
+                <div class="memeWrap">
+                  <canvas id="memeCanvas" width="1200" height="630" aria-label="Meme preview"></canvas>
+                </div>
+                <div class="tiny" style="margin-top:10px">
+                  If you see a blank preview, click <b>Render</b>. Image uses your local logo file: <span class="mono">./freedomfi-logo.png</span>.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:12px">
+            <b>Fast post idea:</b> Generate 3 memes, schedule them 6–8 hours apart when you resume posting.
+          </div>
+        </div>
+      </section>
+
+      <!-- LEADERBOARD -->
+      <section class="section card" id="leaderboard">
+        <div class="cardPad">
+          <h2>Referral Leaderboard</h2>
+          <p class="muted" style="margin-top:-4px">A clean, legit-looking board with Freedom Fighter badges. (Demo now, backend-ready later.)</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Your Badge</div>
+              <div class="value" id="lb_my_badge" style="font-size:14px">—</div>
+              <div class="mutedSmall">Earn badges through referrals + academy quizzes.</div>
+            </div>
+            <div class="stat">
+              <div class="label">Leaderboard Mode</div>
+              <div class="value" style="font-size:14px">Local Demo</div>
+              <div class="mutedSmall">Connect backend to make this global.</div>
+            </div>
+          </div>
+
+          <div class="ctaRow" style="margin-top:12px">
+            <button class="pill btnPrimary" id="lb_refresh" type="button">Refresh</button>
+            <button class="pill" id="lb_seed" type="button">Seed Demo Data</button>
+            <button class="pill btnDanger" id="lb_clear" type="button">Clear Demo Data</button>
+          </div>
+
+          <div style="margin-top:14px; overflow:auto">
+            <table aria-label="Referral leaderboard">
+              <thead>
+                <tr>
+                  <th style="width:90px">Rank</th>
+                  <th>Freedom Fighter</th>
+                  <th style="width:120px">Referrals</th>
+                  <th style="width:160px">Badge</th>
+                </tr>
+              </thead>
+              <tbody id="lb_rows"></tbody>
+            </table>
+          </div>
+
+          <div class="note tiny" style="margin-top:12px">
+            Backend hook: Replace demo data with your DB rows (name/handle/wallet/referrals). UI already supports it.
+          </div>
+        </div>
+      </section>
+
+      <!-- WALLET VAULT -->
+      <section class="section card" id="wallets">
+        <div class="cardPad">
+          <h2>Wallet Vault</h2>
+          <p class="muted" style="margin-top:-4px">Add wallets for tracking, proof, and future access. Connect if your wallet supports browser injection.</p>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Connect / Add</h3>
+
+                <div class="ctaRow">
+                  <button class="pill btnPrimary" id="connectWalletBtn" type="button">🔌 Connect Wallet</button>
+                  <button class="pill" id="disconnectWalletBtn" type="button">Disconnect</button>
+                </div>
+
+                <div class="note" id="walletMsg" style="margin-top:12px">
+                  <b>Status:</b> <span id="walletStatus">Not connected</span>
+                  <div class="tiny" style="margin-top:6px">
+                    Works with injected wallets (commonly Phantom / Solflare / Backpack). For mobile wallets, you can paste the address below.
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="wv_label">Label</label>
+                  <input id="wv_label" type="text" placeholder="Main / Cold / Trading" value="Main">
+                </div>
+
+                <div class="field">
+                  <label for="wv_addr">Wallet Address</label>
+                  <input id="wv_addr" type="text" placeholder="Paste Solana address (base58)">
+                </div>
+
+                <div class="ctaRow" style="margin-top:10px">
+                  <button class="pill btnGold" id="wv_add" type="button">Add Wallet</button>
+                  <button class="pill" id="wv_export" type="button">Export CSV</button>
+                </div>
+
+                <div class="note tiny" style="margin-top:12px">
+                  Privacy: stored locally on your device. Backend optional later.
+                </div>
+              </div>
+            </div>
+
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Saved Wallets</h3>
+                <div id="wv_list"></div>
+
+                <div class="ctaRow" style="margin-top:12px">
+                  <button class="pill btnDanger" id="wv_clear" type="button">Clear Wallets</button>
+                </div>
+
+                <div class="note tiny" style="margin-top:12px">
+                  “Every major wallet”: without a build system, the best universal approach is injected wallet connect + manual add.
+                  If you want true WalletConnect + all mobile wallets, we can convert this to a small Vite build later.
                 </div>
               </div>
             </div>
@@ -851,61 +1368,113 @@
         </div>
       </section>
 
-      <!-- HOW IT WORKS -->
-      <section class="section card" id="how">
+      <!-- FREEDOM ACADEMY -->
+      <section class="section card" id="academy">
         <div class="cardPad">
-          <h2>How It Works</h2>
-          <p class="muted" style="margin-top:-4px">A simple system that turns the waitlist into a growth engine.</p>
+          <h2>Freedom Academy</h2>
+          <p class="muted" style="margin-top:-4px">Security education that’s actually fun. Learn fast. Earn badges.</p>
 
           <div class="grid3" style="margin-top:12px">
             <div class="stat">
-              <div class="label">1) Join</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">
-                Get a position and referral link instantly.
-              </div>
+              <div class="label">Academy Badge</div>
+              <div class="value" id="ac_badge" style="font-size:14px">—</div>
+              <div class="mutedSmall">Earned from quiz score.</div>
             </div>
             <div class="stat">
-              <div class="label">2) Invite</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">
-                Share your link on X/Telegram to move up.
-              </div>
+              <div class="label">Best Score</div>
+              <div class="value" id="ac_best">—</div>
+              <div class="mutedSmall">Stored locally.</div>
             </div>
             <div class="stat">
-              <div class="label">3) Unlock</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">
-                Top tiers get priority access and bonuses.
+              <div class="label">Mission</div>
+              <div class="value" style="font-size:14px">Reduce Scams</div>
+              <div class="mutedSmall">Make safety a culture.</div>
+            </div>
+          </div>
+
+          <div class="grid2" style="margin-top:12px">
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">How to Spot Scams (Quick Hits)</h3>
+                <ul class="clean">
+                  <li>Any DM with a “CA” before launch is fake.</li>
+                  <li>Seed phrase requests = instant scam.</li>
+                  <li>Fake “support” accounts mimic usernames.</li>
+                  <li>Links with weird domains or extra characters are traps.</li>
+                  <li>Pressure tactics: “act now” = red flag.</li>
+                </ul>
+                <div class="note"><b>Rule:</b> Verify links only from this site + pinned Telegram.</div>
+              </div>
+            </div>
+
+            <div class="cardSoft">
+              <div class="cardPad">
+                <h3 style="margin:0 0 8px; font-size:18px">Wallet Security Basics</h3>
+                <ul class="clean">
+                  <li>Use a hardware wallet for long-term holdings.</li>
+                  <li>Create a “burner wallet” for new apps.</li>
+                  <li>Never sign random transactions you don’t understand.</li>
+                  <li>Bookmark official sites. Don’t click paid ads.</li>
+                  <li>Revoke approvals periodically (where supported).</li>
+                </ul>
+                <div class="note"><b>Habit:</b> Double-check addresses before sending.</div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- REWARDS / TIERS -->
-      <section class="section card" id="rewards">
-        <div class="cardPad">
-          <h2>Rewards Tiers</h2>
-          <p class="muted" style="margin-top:-4px">Designed to encourage referrals and reward the earliest builders.</p>
+          <div class="cardSoft" style="margin-top:12px">
+            <div class="cardPad">
+              <h3 style="margin:0 0 8px; font-size:18px">Freedom Quiz</h3>
+              <p class="muted" style="margin:0 0 12px">Answer fast. Score high. Earn a badge.</p>
 
-          <div class="grid4" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Bronze</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">0–2 referrals</div>
-              <div class="mutedSmall">Access updates + launch alert.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Silver</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">3–9 referrals</div>
-              <div class="mutedSmall">Priority access tier.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Gold</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">10–24 referrals</div>
-              <div class="mutedSmall">Whitelist / early link.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Founder Tier</div>
-              <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">25+ referrals</div>
-              <div class="mutedSmall">Top-tier bonuses (details at launch).</div>
+              <div class="grid2">
+                <div class="stat">
+                  <div class="label">Q1</div>
+                  <div class="value" style="font-size:14px">If someone DMs you a contract address pre-launch…</div>
+                  <div class="tabs">
+                    <button class="tabBtn" data-q="1" data-a="0" type="button">It’s legit</button>
+                    <button class="tabBtn" data-q="1" data-a="1" type="button">It’s a scam</button>
+                    <button class="tabBtn" data-q="1" data-a="2" type="button">Unsure</button>
+                  </div>
+                </div>
+
+                <div class="stat">
+                  <div class="label">Q2</div>
+                  <div class="value" style="font-size:14px">Best practice for new dApps?</div>
+                  <div class="tabs">
+                    <button class="tabBtn" data-q="2" data-a="0" type="button">Use main wallet</button>
+                    <button class="tabBtn" data-q="2" data-a="1" type="button">Use burner wallet</button>
+                    <button class="tabBtn" data-q="2" data-a="2" type="button">Share seed phrase</button>
+                  </div>
+                </div>
+
+                <div class="stat">
+                  <div class="label">Q3</div>
+                  <div class="value" style="font-size:14px">What’s the safest source for official links?</div>
+                  <div class="tabs">
+                    <button class="tabBtn" data-q="3" data-a="0" type="button">Random replies</button>
+                    <button class="tabBtn" data-q="3" data-a="1" type="button">This site + pinned TG</button>
+                    <button class="tabBtn" data-q="3" data-a="2" type="button">Paid ads</button>
+                  </div>
+                </div>
+
+                <div class="stat">
+                  <div class="label">Q4</div>
+                  <div class="value" style="font-size:14px">A site URL is slightly misspelled. You should…</div>
+                  <div class="tabs">
+                    <button class="tabBtn" data-q="4" data-a="0" type="button">Proceed anyway</button>
+                    <button class="tabBtn" data-q="4" data-a="1" type="button">Close it</button>
+                    <button class="tabBtn" data-q="4" data-a="2" type="button">Enter seed phrase</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ctaRow" style="margin-top:12px">
+                <button class="pill btnPrimary" id="ac_grade" type="button">Grade Quiz</button>
+                <button class="pill" id="ac_reset" type="button">Reset</button>
+              </div>
+
+              <div class="note" id="ac_msg" style="display:none; margin-top:12px"></div>
             </div>
           </div>
         </div>
@@ -979,7 +1548,7 @@
             <h2 style="margin-top:18px">Contract Address (CA)</h2>
             <div class="codeRow">
               <div class="code mono" id="caText">CA: (locked until launch)</div>
-              <button class="pill copyBtn" id="copyCA" disabled title="Locked until launch">Copy</button>
+              <button class="pill copyBtn" id="copyCA" disabled title="Locked until launch" type="button">Copy</button>
             </div>
             <p class="muted" style="margin-top:10px">Always verify the CA from this site + pinned Telegram before swapping.</p>
           </div>
@@ -1022,9 +1591,9 @@
               </div>
               <ul class="clean">
                 <li>Viral waitlist + referral engine</li>
-                <li>Verification center + anti-scam standards</li>
-                <li>Security checklist + deployment plan</li>
-                <li>Community growth with structure</li>
+                <li>Litepaper + security education</li>
+                <li>Freedom Vault simulator + tools</li>
+                <li>Meme generator + community content</li>
               </ul>
               <div class="mutedSmall">Goal: build trust + clean infrastructure before attention spikes.</div>
             </div>
@@ -1051,10 +1620,10 @@
                 <div class="phaseBadge">Post-Launch</div>
               </div>
               <ul class="clean">
+                <li>Global leaderboard + badges</li>
                 <li>Transparency dashboard upgrades</li>
-                <li>Strategic ecosystem collaborations</li>
-                <li>Listings outreach (selective + methodical)</li>
-                <li>Content + community scale systems</li>
+                <li>Selective ecosystem collaborations</li>
+                <li>Listings outreach (methodical)</li>
               </ul>
               <div class="mutedSmall">Goal: grow without sacrificing structure.</div>
             </div>
@@ -1065,8 +1634,8 @@
                 <div class="phaseBadge">Durability</div>
               </div>
               <ul class="clean">
-                <li>Product direction (to be announced)</li>
-                <li>Brand durability + cycle resilience</li>
+                <li>Product direction (TBA)</li>
+                <li>Cycle resilience + brand durability</li>
                 <li>Governance initiatives (if needed)</li>
                 <li>Partnerships aligned with Solana culture</li>
               </ul>
@@ -1075,7 +1644,7 @@
           </div>
 
           <div class="note" style="margin-top:14px">
-            <b>Note:</b> Roadmap items are subject to market conditions and security considerations. We prioritize safety and verification.
+            <b>Note:</b> Roadmap items are subject to security considerations. We prioritize safety and verification.
           </div>
         </div>
       </section>
@@ -1127,6 +1696,11 @@
           </div>
 
           <div class="faqItem">
+            <button class="faqQ" type="button">What is the Freedom Vault?<span class="chev">▾</span></button>
+            <div class="faqA">The Freedom Vault is an early-access concept: tiers based on referrals and participation. The simulator is hypothetical and meant for clarity. Final mechanics are published at launch.</div>
+          </div>
+
+          <div class="faqItem">
             <button class="faqQ" type="button">Where are the official links?<span class="chev">▾</span></button>
             <div class="faqA">Official links are on this website and in the official Telegram: <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a>.</div>
           </div>
@@ -1134,11 +1708,6 @@
           <div class="faqItem">
             <button class="faqQ" type="button">When will the CA be posted?<span class="chev">▾</span></button>
             <div class="faqA">The CA is locked until launch. Any CA seen before launch is unverified.</div>
-          </div>
-
-          <div class="faqItem">
-            <button class="faqQ" type="button">How do I avoid scams?<span class="chev">▾</span></button>
-            <div class="faqA">We never DM first and never ask for seed phrases. Verify the mint address on this site + pinned Telegram.</div>
           </div>
 
           <div class="faqItem">
@@ -1157,6 +1726,10 @@
             <a class="pill btnGold" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
             <a class="pill" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
             <a class="pill btnPrimary" href="#waitlist">Join Waitlist</a>
+          </div>
+
+          <div class="note" style="margin-top:12px">
+            <b>Community standard:</b> No DMing members. No fake partnerships. No paid mod offers. Instant bans for scammers.
           </div>
         </div>
       </section>
@@ -1179,7 +1752,7 @@
 
     function fmtUSD(n){
       if(!isFinite(n)) return "—";
-      return n >= 1 ? "$" + n.toLocaleString(undefined,{maximumFractionDigits: 6})
+      return n >= 1 ? "$" + n.toLocaleString(undefined,{maximumFractionDigits: 2})
                     : "$" + n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
     }
     function fmtCompact(n){
@@ -1209,14 +1782,16 @@
     drawerClose?.addEventListener("click", (e)=>{ e.preventDefault(); closeDrawer(); });
     drawerBack?.addEventListener("click", closeDrawer);
     drawer?.addEventListener("click", (e)=>{ const a = e.target.closest("a"); if(a) closeDrawer(); });
-    window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeDrawer(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key==="Escape"){ closeDrawer(); closePaper(); } });
 
     // FAQ accordion
     document.querySelectorAll(".faqItem").forEach(item=>{
       item.querySelector(".faqQ")?.addEventListener("click", ()=> item.classList.toggle("open"));
     });
 
+    // -------------------------
     // Launch gating
+    // -------------------------
     const LAUNCH_LIVE = false; // Change to true when launching
     const SOLSCAN_BASE = "https://solscan.io/token/";
 
@@ -1333,9 +1908,11 @@
     // -------------------------
     // Viral waitlist (front-end)
     // -------------------------
-
     const WAITLIST_CAP = 5000;
-    const LS_KEY = "freedomfi_waitlist_v1";
+    const LS_KEY = "freedomfi_waitlist_v2";
+    const LB_KEY = "freedomfi_leaderboard_v1";
+    const WV_KEY = "freedomfi_walletvault_v1";
+    const AC_KEY = "freedomfi_academy_v1";
 
     function randCode(){
       const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
@@ -1384,10 +1961,8 @@
       $("shareX").href = "https://twitter.com/intent/tweet?text=" + shareText + "%20" + shareUrl;
       $("shareTG").href = "https://t.me/share/url?url=" + shareUrl + "&text=" + shareText;
 
-      const spots = Math.min(WAITLIST_CAP, Number(st.totalSpots || 0));
-      $("spotsText").textContent = spots.toLocaleString() + " / " + WAITLIST_CAP.toLocaleString();
-      const pct = Math.max(0, Math.min(100, (spots / WAITLIST_CAP) * 100));
-      $("spotsBar").style.width = pct.toFixed(2) + "%";
+      // badge for leaderboard / academy
+      $("lb_my_badge").innerHTML = badgeForUser(refs, getAcademyBest().bestScore).outerHTML;
     }
 
     // Read ?ref= on arrival and prefill the form
@@ -1418,7 +1993,10 @@
       const jump = st.referrals >= 25 ? 25 : st.referrals >= 10 ? 12 : st.referrals >= 3 ? 6 : 2;
       st.position = Math.max(1, (st.position || 1) - jump);
       setState(st);
+      // also update demo leaderboard row for "You"
+      upsertLeaderboardSelf();
       updateDashboard();
+      renderLeaderboard();
     });
 
     // Netlify AJAX form submit
@@ -1453,10 +2031,10 @@
       st.enteredWithRef = $("wl_ref")?.value?.trim() || "";
       st.referrals = st.referrals || 0;
 
-      st.totalSpots = Math.min(WAITLIST_CAP, (st.totalSpots || 0) + 1);
-
       setState(st);
+      upsertLeaderboardSelf();
       updateDashboard();
+      renderLeaderboard();
 
       try{
         const payload = {
@@ -1489,8 +2067,825 @@
       }
     });
 
-    updateDashboard();
-    $("year").textContent = String(new Date().getFullYear());
+    // -------------------------
+    // Litepaper modal
+    // -------------------------
+    const paperBack = $("paperBack");
+    const paperClose = $("paperClose");
+    const openPaperBtn = $("openPaperBtn");
+    const openPaperBtn2 = $("openPaperBtn2");
+    const dlPaperTxt = $("dlPaperTxt");
+    const dlPaperTxt2 = $("dlPaperTxt2");
+    const paperBody = $("paperBody");
+
+    const LITEPAPER = {
+      version: "v0.1",
+      status: "Draft",
+      title: "FreedomFi Litepaper",
+      sections: [
+        {
+          h: "1. Vision",
+          p: [
+            "FreedomFi is building Solana-native financial infrastructure with a security-first culture.",
+            "We prioritize verifiable information, anti-scam standards, and long-term execution."
+          ]
+        },
+        {
+          h: "2. Problem",
+          p: [
+            "The highest risk in crypto is not volatility — it’s deception.",
+            "Most users lose funds from scams, spoofed contracts, and fake links.",
+            "FreedomFi’s first product surface is trust: verification, education, and participation mechanics that reward real community building."
+          ]
+        },
+        {
+          h: "3. System Overview",
+          p: [
+            "• Viral Waitlist: referral engine that measures participation.",
+            "• Freedom Vault: tiered access concept based on referrals and engagement (finalized at launch).",
+            "• Leaderboard + Badges: culture-building incentives that reward contribution.",
+            "• Freedom Academy: security education with quizzes that increase community readiness."
+          ]
+        },
+        {
+          h: "4. Security Standards",
+          p: [
+            "• Never DM first.",
+            "• Never request seed phrases.",
+            "• Contract address published only on this site + pinned Telegram.",
+            "• Launch gating to reduce spoofing.",
+            "• Clear proofs post-launch: Solscan, liquidity lock, mint/freeze authority status."
+          ]
+        },
+        {
+          h: "5. Roadmap",
+          p: [
+            "Phase I: tools, waitlist, education, verification standards.",
+            "Phase II: launch gating lifted; proof links published; live stats enabled.",
+            "Phase III+: expansion into stronger transparency tooling and ecosystem integrations."
+          ]
+        },
+        {
+          h: "6. Token",
+          p: [
+            "Network: Solana",
+            "Supply: 1,000,000,000",
+            "Taxes: 0/0 (typical Solana)",
+            "Allocations are published with proof at launch."
+          ]
+        },
+        {
+          h: "7. Notes",
+          p: [
+            "This is a living document. We update it as milestones are completed.",
+            "We will not trade security for hype."
+          ]
+        }
+      ]
+    };
+
+    function paperToHTML(){
+      const parts = [];
+      parts.push(`<div class="note" style="margin-top:0"><b>${LITEPAPER.title}</b> — ${LITEPAPER.version} • ${LITEPAPER.status}</div>`);
+      for(const s of LITEPAPER.sections){
+        parts.push(`<h3>${escapeHtml(s.h)}</h3>`);
+        if(s.p?.length){
+          parts.push("<ul>");
+          for(const line of s.p){
+            parts.push(`<li>${escapeHtml(line)}</li>`);
+          }
+          parts.push("</ul>");
+        }
+      }
+      return parts.join("");
+    }
+    function paperToTXT(){
+      const lines = [];
+      lines.push(`${LITEPAPER.title} — ${LITEPAPER.version} (${LITEPAPER.status})`);
+      lines.push("");
+      for(const s of LITEPAPER.sections){
+        lines.push(s.h);
+        for(const line of (s.p || [])){
+          lines.push(`- ${line}`);
+        }
+        lines.push("");
+      }
+      return lines.join("\n");
+    }
+
+    function openPaper(){
+      paperBody.innerHTML = paperToHTML();
+      paperBack.classList.add("show");
+      document.documentElement.style.overflow = "hidden";
+    }
+    function closePaper(){
+      paperBack.classList.remove("show");
+      document.documentElement.style.overflow = "";
+    }
+    openPaperBtn?.addEventListener("click", openPaper);
+    openPaperBtn2?.addEventListener("click", openPaper);
+    paperClose?.addEventListener("click", closePaper);
+    paperBack?.addEventListener("click", (e)=>{ if(e.target === paperBack) closePaper(); });
+
+    function downloadText(filename, text){
+      const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
+    }
+    dlPaperTxt?.addEventListener("click", ()=> downloadText("FreedomFi-Litepaper-v0.1.txt", paperToTXT()));
+    dlPaperTxt2?.addEventListener("click", ()=> downloadText("FreedomFi-Litepaper-v0.1.txt", paperToTXT()));
+
+    // -------------------------
+    // Freedom Vault Simulator
+    // -------------------------
+    function vaultBonusPct(refs, holdDays, style){
+      // base tier bonus from referrals
+      let tierBonus = 0;
+      if(refs >= 25) tierBonus = 0.18;
+      else if(refs >= 10) tierBonus = 0.12;
+      else if(refs >= 3) tierBonus = 0.07;
+      else tierBonus = 0.03;
+
+      // holding multiplier
+      let holdBonus = 0;
+      if(holdDays >= 90) holdBonus = 0.06;
+      else if(holdDays >= 60) holdBonus = 0.04;
+      else if(holdDays >= 30) holdBonus = 0.025;
+      else if(holdDays >= 14) holdBonus = 0.015;
+      else holdBonus = 0.01;
+
+      // style adjustment
+      let styleAdj = 0;
+      if(style === "conservative") styleAdj = -0.01;
+      if(style === "aggressive") styleAdj = +0.01;
+
+      const total = Math.max(0, tierBonus + holdBonus + styleAdj);
+      return total; // 0.xx
+    }
+
+    function nextTierGoal(refs){
+      if(refs >= 25) return "Top tier achieved.";
+      if(refs >= 10) return `Need ${25 - refs} more referrals to reach Founder Tier.`;
+      if(refs >= 3) return `Need ${10 - refs} more referrals to reach Gold.`;
+      return `Need ${3 - refs} more referrals to reach Silver.`;
+    }
+
+    function priorityScore(refs, holdDays, amt){
+      // A simple fun scoring that feels “real”:
+      // referrals dominate, holding helps, amount helps, capped for sanity
+      const score = Math.min(9999,
+        Math.round(refs*220 + holdDays*3 + Math.sqrt(Math.max(0, amt))*25)
+      );
+      return score;
+    }
+
+    function runVault(){
+      const st = getState();
+      const amt = Number($("vs_amount").value || 0);
+      const refs = Number($("vs_refs").value || 0);
+      const hold = Number($("vs_hold").value || 30);
+      const style = $("vs_risk").value || "balanced";
+
+      const tier = tierFromRefs(refs);
+      const bonus = vaultBonusPct(refs, hold, style);
+      const score = priorityScore(refs, hold, amt);
+      const eff = amt * (1 + bonus);
+
+      $("vs_tier").textContent = tier;
+      $("vs_bonus").textContent = (bonus*100).toFixed(1) + "%";
+      $("vs_score").textContent = String(score);
+      $("vs_effective").textContent = fmtUSD(eff);
+      $("vs_next").textContent = nextTierGoal(refs);
+
+      // store last sim
+      st.lastVaultSim = {amt, refs, hold, style, tier, bonus, score, eff, at: Date.now()};
+      setState(st);
+    }
+
+    $("vs_run")?.addEventListener("click", runVault);
+    $("vs_use_my_refs")?.addEventListener("click", ()=>{
+      const st = getState();
+      const refs = Number(st.referrals || 0);
+      $("vs_refs").value = String(refs);
+      runVault();
+    });
+
+    $("vs_copy")?.addEventListener("click", async ()=>{
+      const line = `Freedom Vault (sim): Tier=${$("vs_tier").textContent}, Bonus=${$("vs_bonus").textContent}, Priority=${$("vs_score").textContent}`;
+      try{
+        await navigator.clipboard.writeText(line);
+        $("vs_copy").textContent = "Copied";
+        setTimeout(()=>$("vs_copy").textContent="Copy Result", 900);
+      }catch{}
+    });
+
+    $("vs_share")?.addEventListener("click", async ()=>{
+      const text = `Freedom Vault (sim): Tier ${$("vs_tier").textContent} • Bonus ${$("vs_bonus").textContent} • Priority ${$("vs_score").textContent}`;
+      const url = location.origin + location.pathname + "#vault";
+      if(navigator.share){
+        try{ await navigator.share({title:"FreedomFi Vault", text, url}); }catch{}
+      }else{
+        window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(text + " " + url), "_blank");
+      }
+    });
+
+    // -------------------------
+    // Meme generator (Canvas)
+    // -------------------------
+    const memeCanvas = $("memeCanvas");
+    const ctx = memeCanvas.getContext("2d");
+    const logoImg = new Image();
+    logoImg.src = "./freedomfi-logo.png";
+
+    function drawBackground(mode){
+      const w = memeCanvas.width, h = memeCanvas.height;
+      ctx.clearRect(0,0,w,h);
+
+      // base
+      const g = ctx.createLinearGradient(0,0,w,h);
+      if(mode === "gold"){
+        g.addColorStop(0, "rgba(10,10,18,1)");
+        g.addColorStop(1, "rgba(40,28,10,1)");
+      }else if(mode === "dark"){
+        g.addColorStop(0, "rgba(8,10,16,1)");
+        g.addColorStop(1, "rgba(3,4,8,1)");
+      }else{
+        g.addColorStop(0, "rgba(8,10,16,1)");
+        g.addColorStop(1, "rgba(10,10,28,1)");
+      }
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,w,h);
+
+      // glow blobs
+      function blob(x,y,r, color){
+        const rg = ctx.createRadialGradient(x,y,0,x,y,r);
+        rg.addColorStop(0, color);
+        rg.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = rg;
+        ctx.beginPath();
+        ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fill();
+      }
+      if(mode === "gold"){
+        blob(w*0.25,h*0.2, 260, "rgba(217,178,76,0.22)");
+        blob(w*0.8,h*0.3, 300, "rgba(129,140,248,0.14)");
+      }else if(mode === "dark"){
+        blob(w*0.2,h*0.25, 260, "rgba(255,255,255,0.08)");
+        blob(w*0.78,h*0.32, 300, "rgba(129,140,248,0.10)");
+      }else{
+        blob(w*0.25,h*0.2, 260, "rgba(129,140,248,0.20)");
+        blob(w*0.8,h*0.35, 330, "rgba(217,178,76,0.16)");
+      }
+
+      // subtle grid
+      ctx.save();
+      ctx.globalAlpha = 0.10;
+      ctx.strokeStyle = "rgba(255,255,255,0.25)";
+      for(let x=0; x<w; x+=60){
+        ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
+      }
+      for(let y=0; y<h; y+=60){
+        ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke();
+      }
+      ctx.restore();
+
+      // vignette
+      const v = ctx.createRadialGradient(w*0.5,h*0.5, 120, w*0.5,h*0.5, 900);
+      v.addColorStop(0, "rgba(0,0,0,0)");
+      v.addColorStop(1, "rgba(0,0,0,0.65)");
+      ctx.fillStyle = v;
+      ctx.fillRect(0,0,w,h);
+    }
+
+    function wrapText(text, maxWidth, font){
+      ctx.font = font;
+      const words = (text || "").split(/\s+/).filter(Boolean);
+      const lines = [];
+      let line = "";
+      for(const word of words){
+        const test = line ? (line + " " + word) : word;
+        if(ctx.measureText(test).width <= maxWidth){
+          line = test;
+        }else{
+          if(line) lines.push(line);
+          line = word;
+        }
+      }
+      if(line) lines.push(line);
+      return lines;
+    }
+
+    function drawMeme(){
+      const tpl = $("mg_template").value;
+      const text = ($("mg_text").value || "").trim();
+      const footer = ($("mg_footer").value || "").trim();
+      const bg = $("mg_bg").value;
+
+      drawBackground(bg);
+
+      const w = memeCanvas.width, h = memeCanvas.height;
+
+      // header chip
+      ctx.save();
+      ctx.globalAlpha = 0.95;
+      roundRect(40, 40, 360, 56, 18, "rgba(0,0,0,0.35)", "rgba(255,255,255,0.18)");
+      ctx.drawImage(logoImg, 56, 52, 32, 32);
+      ctx.fillStyle = "rgba(242,244,255,0.95)";
+      ctx.font = "900 20px Orbitron, sans-serif";
+      ctx.fillText("FreedomFi", 100, 76);
+      ctx.restore();
+
+      // template styling
+      let title = "QUOTE";
+      let accent = "rgba(217,178,76,0.85)";
+      let sub = "Built for the Free • Solana-native";
+
+      if(tpl === "warning"){
+        title = "SECURITY NOTICE";
+        accent = "rgba(251,113,133,0.85)";
+        sub = "Verify links only from official sources";
+      }else if(tpl === "hype"){
+        title = "TRANSMISSION";
+        accent = "rgba(129,140,248,0.85)";
+        sub = "Infrastructure moves quietly";
+      }
+
+      // accent line
+      ctx.save();
+      ctx.globalAlpha = 0.95;
+      ctx.fillStyle = accent;
+      ctx.fillRect(40, 120, 8, h - 200);
+      ctx.restore();
+
+      // title
+      ctx.fillStyle = "rgba(242,244,255,0.92)";
+      ctx.font = "900 22px Orbitron, sans-serif";
+      ctx.fillText(title, 64, 150);
+
+      ctx.fillStyle = "rgba(242,244,255,0.68)";
+      ctx.font = "800 14px Orbitron, sans-serif";
+      ctx.fillText(sub, 64, 176);
+
+      // main text
+      const maxW = w - 120;
+      const fontMain = "900 52px Orbitron, sans-serif";
+      const lines = wrapText(text || "Freedom is built — not promised.", maxW, fontMain);
+      const lineH = 62;
+      const startY = 260;
+
+      ctx.fillStyle = "rgba(242,244,255,0.96)";
+      ctx.font = fontMain;
+      let y = startY;
+      for(const ln of lines.slice(0,6)){
+        ctx.fillText(ln, 64, y);
+        y += lineH;
+      }
+
+      // footer
+      if(footer){
+        ctx.fillStyle = "rgba(242,244,255,0.72)";
+        ctx.font = "800 18px Orbitron, sans-serif";
+        ctx.fillText(footer, 64, h - 66);
+      }
+
+      // watermark
+      ctx.save();
+      ctx.globalAlpha = 0.18;
+      ctx.translate(w - 160, h - 120);
+      ctx.rotate(-0.08);
+      ctx.drawImage(logoImg, 0, 0, 96, 96);
+      ctx.restore();
+
+      // border
+      ctx.save();
+      ctx.globalAlpha = 0.35;
+      ctx.strokeStyle = "rgba(255,255,255,0.30)";
+      ctx.lineWidth = 2;
+      roundedStroke(18, 18, w-36, h-36, 22);
+      ctx.restore();
+    }
+
+    function roundRect(x,y,w,h,r, fill, stroke){
+      ctx.beginPath();
+      ctx.moveTo(x+r,y);
+      ctx.arcTo(x+w,y,x+w,y+h,r);
+      ctx.arcTo(x+w,y+h,x,y+h,r);
+      ctx.arcTo(x,y+h,x,y,r);
+      ctx.arcTo(x,y,x+w,y,r);
+      ctx.closePath();
+      if(fill){ ctx.fillStyle = fill; ctx.fill(); }
+      if(stroke){ ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); }
+    }
+    function roundedStroke(x,y,w,h,r){
+      ctx.beginPath();
+      ctx.moveTo(x+r,y);
+      ctx.arcTo(x+w,y,x+w,y+h,r);
+      ctx.arcTo(x+w,y+h,x,y+h,r);
+      ctx.arcTo(x,y+h,x,y,r);
+      ctx.arcTo(x,y,x+w,y,r);
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    $("mg_render")?.addEventListener("click", drawMeme);
+
+    $("mg_download")?.addEventListener("click", ()=>{
+      drawMeme();
+      memeCanvas.toBlob((blob)=>{
+        if(!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "FreedomFi-meme.png";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url), 500);
+      }, "image/png");
+    });
+
+    $("mg_share")?.addEventListener("click", async ()=>{
+      drawMeme();
+      if(!navigator.share){
+        window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent("FreedomFi") + "&url=" + encodeURIComponent(location.origin + location.pathname), "_blank");
+        return;
+      }
+      memeCanvas.toBlob(async (blob)=>{
+        if(!blob) return;
+        const file = new File([blob], "FreedomFi-meme.png", {type:"image/png"});
+        try{
+          await navigator.share({title:"FreedomFi Meme", text:"FreedomFi", files:[file]});
+        }catch{}
+      }, "image/png");
+    });
+
+    // draw after logo loads
+    logoImg.onload = ()=> drawMeme();
+
+    // -------------------------
+    // Leaderboard (demo + ready)
+    // -------------------------
+    function getLB(){
+      try{ return JSON.parse(localStorage.getItem(LB_KEY) || "[]"); }catch{ return []; }
+    }
+    function setLB(rows){
+      localStorage.setItem(LB_KEY, JSON.stringify(rows || []));
+    }
+
+    function badgeForUser(refs, academyBest){
+      // refs badge baseline
+      let b = {text:"Freedom Cadet", cls:"badgeBlue"};
+      if(refs >= 25) b = {text:"Freedom Commander", cls:"badge"};
+      else if(refs >= 10) b = {text:"Freedom Captain", cls:"badge"};
+      else if(refs >= 3) b = {text:"Freedom Recruit", cls:"badgeGreen"};
+
+      // academy overlay
+      if(academyBest >= 4) b = {text:"Security Sentinel", cls:"badgeGreen"};
+      if(academyBest >= 3 && refs >= 10) b = {text:"Elite Freedom Fighter", cls:"badge"};
+
+      const el = document.createElement("span");
+      el.className = "badge " + (b.cls || "");
+      el.textContent = "🏅 " + b.text;
+      return el;
+    }
+
+    function upsertLeaderboardSelf(){
+      const st = getState();
+      if(!st.code) return;
+      const lb = getLB();
+      const idx = lb.findIndex(r => r.id === st.code);
+      const row = {
+        id: st.code,
+        name: "You",
+        handle: "@FreedomFighter",
+        refs: Number(st.referrals || 0),
+      };
+      if(idx >= 0) lb[idx] = {...lb[idx], ...row};
+      else lb.push(row);
+      setLB(lb);
+    }
+
+    function seedDemoLeaderboard(){
+      const demo = [
+        {id:"FRDM-DEMO01", name:"Apex", handle:"@ApexSol", refs:31},
+        {id:"FRDM-DEMO02", name:"Nova", handle:"@NovaFi", refs:18},
+        {id:"FRDM-DEMO03", name:"Ranger", handle:"@RangerSOL", refs:12},
+        {id:"FRDM-DEMO04", name:"Cipher", handle:"@CipherNode", refs:7},
+        {id:"FRDM-DEMO05", name:"Echo", handle:"@EchoChain", refs:4},
+      ];
+      const lb = getLB();
+      const merged = [...lb];
+      for(const r of demo){
+        if(!merged.find(x=>x.id===r.id)) merged.push(r);
+      }
+      setLB(merged);
+      upsertLeaderboardSelf();
+      renderLeaderboard();
+    }
+
+    function renderLeaderboard(){
+      const tb = $("lb_rows");
+      if(!tb) return;
+      const lb = getLB().slice().sort((a,b)=> (Number(b.refs)||0) - (Number(a.refs)||0));
+
+      tb.innerHTML = "";
+      const best = getAcademyBest();
+
+      lb.forEach((r, i)=>{
+        const tr = document.createElement("tr");
+
+        const tdRank = document.createElement("td");
+        tdRank.innerHTML = `<span class="rankPill">#${i+1}</span>`;
+        tr.appendChild(tdRank);
+
+        const tdName = document.createElement("td");
+        tdName.innerHTML = `<div style="font-weight:950">${escapeHtml(r.name || "—")}</div><div class="tiny">${escapeHtml(r.handle || "")}</div>`;
+        tr.appendChild(tdName);
+
+        const tdRefs = document.createElement("td");
+        tdRefs.textContent = String(r.refs ?? 0);
+        tr.appendChild(tdRefs);
+
+        const tdBadge = document.createElement("td");
+        const badge = badgeForUser(Number(r.refs||0), best.bestScore);
+        // personalize "You"
+        if(r.name === "You"){
+          badge.className = badge.className + " badgeBlue";
+        }
+        tdBadge.appendChild(badge);
+        tr.appendChild(tdBadge);
+
+        tb.appendChild(tr);
+      });
+
+      // my badge indicator
+      const st = getState();
+      const myRefs = Number(st.referrals || 0);
+      const myBadge = badgeForUser(myRefs, best.bestScore);
+      $("lb_my_badge").innerHTML = myBadge.outerHTML;
+    }
+
+    $("lb_refresh")?.addEventListener("click", ()=>{ upsertLeaderboardSelf(); renderLeaderboard(); });
+    $("lb_seed")?.addEventListener("click", seedDemoLeaderboard);
+    $("lb_clear")?.addEventListener("click", ()=>{ localStorage.removeItem(LB_KEY); renderLeaderboard(); });
+
+    // -------------------------
+    // Wallet Vault (local) + injected connect
+    // -------------------------
+    function getWalletVault(){
+      try{ return JSON.parse(localStorage.getItem(WV_KEY) || "[]"); }catch{ return []; }
+    }
+    function setWalletVault(rows){
+      localStorage.setItem(WV_KEY, JSON.stringify(rows || []));
+    }
+
+    function isLikelySolAddress(s){
+      // lightweight validation: base58 charset and reasonable length (NOT full on-curve check)
+      if(!s) return false;
+      const t = String(s).trim();
+      if(t.length < 32 || t.length > 44) return false;
+      if(!/^[1-9A-HJ-NP-Za-km-z]+$/.test(t)) return false;
+      return true;
+    }
+
+    function renderWalletVault(){
+      const list = $("wv_list");
+      if(!list) return;
+      const rows = getWalletVault();
+      if(!rows.length){
+        list.innerHTML = `<div class="note tiny" style="margin-top:0">No wallets saved yet.</div>`;
+        return;
+      }
+      list.innerHTML = "";
+      rows.forEach((r, idx)=>{
+        const box = document.createElement("div");
+        box.className = "note";
+        box.style.marginTop = idx ? "10px" : "0";
+        box.innerHTML = `
+          <div style="display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap">
+            <div>
+              <div style="font-weight:950">${escapeHtml(r.label || "Wallet")}</div>
+              <div class="mono" style="margin-top:6px; font-size:12px; color:rgba(242,244,255,.82)">${escapeHtml(r.addr)}</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="pill pillSmall" data-copy="${escapeHtml(r.addr)}" type="button">Copy</button>
+              <button class="pill pillSmall btnDanger" data-del="${idx}" type="button">Remove</button>
+            </div>
+          </div>
+        `;
+        list.appendChild(box);
+      });
+
+      list.querySelectorAll("[data-copy]").forEach(btn=>{
+        btn.addEventListener("click", async ()=>{
+          try{ await navigator.clipboard.writeText(btn.getAttribute("data-copy")); btn.textContent="Copied"; setTimeout(()=>btn.textContent="Copy", 900);}catch{}
+        });
+      });
+      list.querySelectorAll("[data-del]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const i = Number(btn.getAttribute("data-del"));
+          const rows = getWalletVault();
+          rows.splice(i,1);
+          setWalletVault(rows);
+          renderWalletVault();
+        });
+      });
+    }
+
+    $("wv_add")?.addEventListener("click", ()=>{
+      const label = ($("wv_label").value || "Wallet").trim();
+      const addr = ($("wv_addr").value || "").trim();
+      if(!isLikelySolAddress(addr)){
+        $("walletMsg").className = "note danger";
+        $("walletStatus").textContent = "Invalid address (check characters/length).";
+        return;
+      }
+      const rows = getWalletVault();
+      if(rows.find(r => r.addr === addr)){
+        $("walletMsg").className = "note";
+        $("walletStatus").textContent = "Already saved.";
+        return;
+      }
+      rows.push({label, addr, addedAt: Date.now()});
+      setWalletVault(rows);
+      $("wv_addr").value = "";
+      $("walletMsg").className = "note success";
+      $("walletStatus").textContent = "Saved locally.";
+      renderWalletVault();
+    });
+
+    $("wv_clear")?.addEventListener("click", ()=>{
+      localStorage.removeItem(WV_KEY);
+      renderWalletVault();
+      $("walletMsg").className = "note";
+      $("walletStatus").textContent = "Cleared.";
+    });
+
+    $("wv_export")?.addEventListener("click", ()=>{
+      const rows = getWalletVault();
+      const lines = ["label,address,addedAt"];
+      for(const r of rows){
+        lines.push(`"${(r.label||"").replaceAll('"','""')}","${r.addr}","${new Date(r.addedAt||Date.now()).toISOString()}"`);
+      }
+      downloadText("FreedomFi-wallets.csv", lines.join("\n"));
+    });
+
+    // injected wallet connect (Phantom/Solflare/Backpack typically expose window.solana)
+    let connectedPubkey = null;
+
+    function getProvider(){
+      // Phantom & many wallets
+      if(window?.solana?.isPhantom) return window.solana;
+      // Solflare often uses window.solflare
+      if(window?.solflare) return window.solflare;
+      // Backpack might use window.backpack?.solana (varies)
+      if(window?.backpack?.solana) return window.backpack.solana;
+      // Generic fallback
+      if(window?.solana) return window.solana;
+      return null;
+    }
+
+    $("connectWalletBtn")?.addEventListener("click", async ()=>{
+      const provider = getProvider();
+      if(!provider || !provider.connect){
+        $("walletMsg").className = "note danger";
+        $("walletStatus").textContent = "No injected wallet detected (use Phantom/Solflare/Backpack or paste address).";
+        return;
+      }
+      try{
+        const res = await provider.connect();
+        const pubkey = res?.publicKey?.toString?.() || provider?.publicKey?.toString?.();
+        if(pubkey){
+          connectedPubkey = pubkey;
+          $("walletMsg").className = "note success";
+          $("walletStatus").textContent = "Connected: " + pubkey.slice(0,4) + "…" + pubkey.slice(-4);
+          $("wv_addr").value = pubkey;
+        }else{
+          $("walletMsg").className = "note danger";
+          $("walletStatus").textContent = "Connected, but could not read public key.";
+        }
+      }catch(e){
+        $("walletMsg").className = "note danger";
+        $("walletStatus").textContent = "Connection cancelled or failed.";
+      }
+    });
+
+    $("disconnectWalletBtn")?.addEventListener("click", async ()=>{
+      const provider = getProvider();
+      try{
+        if(provider?.disconnect) await provider.disconnect();
+      }catch{}
+      connectedPubkey = null;
+      $("walletMsg").className = "note";
+      $("walletStatus").textContent = "Not connected";
+    });
+
+    // -------------------------
+    // Freedom Academy
+    // -------------------------
+    function getAcademyBest(){
+      try{
+        const d = JSON.parse(localStorage.getItem(AC_KEY) || "{}");
+        return {bestScore: Number(d.bestScore || 0)};
+      }catch{
+        return {bestScore:0};
+      }
+    }
+    function setAcademyBest(score){
+      const d = getAcademyBest();
+      const best = Math.max(d.bestScore || 0, score);
+      localStorage.setItem(AC_KEY, JSON.stringify({bestScore: best}));
+      return best;
+    }
+
+    function badgeFromScore(score){
+      if(score >= 4) return `<span class="badge badgeGreen">🛡️ Security Sentinel</span>`;
+      if(score >= 3) return `<span class="badge badgeBlue">🎯 Security Scout</span>`;
+      if(score >= 2) return `<span class="badge">🧠 Security Learner</span>`;
+      return `<span class="badge badgeRed">⚠️ Needs Training</span>`;
+    }
+
+    const answers = {1:1, 2:1, 3:1, 4:1};
+    const picks = {};
+
+    document.querySelectorAll(".tabBtn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const q = Number(btn.getAttribute("data-q"));
+        const a = Number(btn.getAttribute("data-a"));
+        picks[q] = a;
+
+        // set active style within same question
+        const group = btn.parentElement;
+        group.querySelectorAll(".tabBtn").forEach(b=> b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+
+    function updateAcademyUI(){
+      const best = getAcademyBest();
+      $("ac_best").textContent = best.bestScore ? (best.bestScore + " / 4") : "—";
+      $("ac_badge").innerHTML = best.bestScore ? badgeFromScore(best.bestScore) : "—";
+      // also refresh leaderboard badge view
+      const st = getState();
+      $("lb_my_badge").innerHTML = badgeForUser(Number(st.referrals||0), best.bestScore).outerHTML;
+    }
+
+    $("ac_grade")?.addEventListener("click", ()=>{
+      let score = 0;
+      for(const q of [1,2,3,4]){
+        if(picks[q] === answers[q]) score++;
+      }
+      const best = setAcademyBest(score);
+      const msg = $("ac_msg");
+      msg.style.display = "block";
+      msg.className = "note " + (score >= 3 ? "success" : score >= 2 ? "" : "danger");
+      msg.innerHTML = `<b>Score:</b> ${score}/4 • <b>Best:</b> ${best}/4<br/><span class="tiny">Badge: ${badgeFromScore(best)}</span>`;
+      updateAcademyUI();
+      renderLeaderboard();
+    });
+
+    $("ac_reset")?.addEventListener("click", ()=>{
+      for(const q of [1,2,3,4]){
+        delete picks[q];
+      }
+      document.querySelectorAll(".tabs").forEach(g=>{
+        g.querySelectorAll(".tabBtn").forEach(b=> b.classList.remove("active"));
+      });
+      const msg = $("ac_msg");
+      msg.style.display = "none";
+      msg.textContent = "";
+    });
+
+    // -------------------------
+    // Utilities
+    // -------------------------
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // init
+    (function init(){
+      $("year").textContent = String(new Date().getFullYear());
+      updateDashboard();
+      renderLeaderboard();
+      renderWalletVault();
+      updateAcademyUI();
+      // prime sim with your saved refs if exists
+      const st = getState();
+      if(st?.referrals != null) $("vs_refs").value = String(st.referrals || 0);
+      runVault();
+    })();
   </script>
 </body>
 </html>
