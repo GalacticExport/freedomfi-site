@@ -2260,7 +2260,24 @@
 
     memeCanvas.width = 1080;
 memeCanvas.height = 1080;
-    
+    function randomizeMemeStyle(){
+  const colors = [
+    "rgba(217,178,76,0.90)",
+    "rgba(129,140,248,0.90)",
+    "rgba(255,255,255,0.85)",
+    "rgba(247,230,163,0.95)"
+  ];
+
+  const layouts = ["center","left","bottom"];
+
+  window.mgStyle = {
+    accent: colors[Math.floor(Math.random()*colors.length)],
+    layout: layouts[Math.floor(Math.random()*layouts.length)],
+    border: Math.floor(Math.random()*5)+2
+  };
+}
+
+randomizeMemeStyle();
     function drawBackground(mode){
       const w = memeCanvas.width, h = memeCanvas.height;
       ctx.clearRect(0,0,w,h);
