@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>FreedomFi — Financial Infrastructure on Solana</title>
-  <meta name="description" content="FreedomFi is building Solana-native financial infrastructure. Join the waitlist, simulate your Freedom Vault tier, generate memes, earn badges, and learn security." />
+  <meta name="description" content="FreedomFi is building Solana-native financial infrastructure. Join the waitlist, simulate your Freedom Vault tier, earn badges, and learn security." />
   <meta name="theme-color" content="#06060b" />
 
   <link rel="icon" href="./freedomfi-logo.png" />
@@ -43,7 +43,6 @@
 
       --gold1:#f7e6a3;
       --gold2:#d9b24c;
-      --gold3:#a97b20;
 
       --radius:18px;
       --shadow:0 22px 70px rgba(0,0,0,.55);
@@ -84,7 +83,6 @@
       margin:0 auto;
       padding:0 var(--pad);
     }
-    .wrap .wrap{max-width:100%;padding-left:0;padding-right:0}
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.030));
@@ -107,7 +105,7 @@
     .muted2{color:var(--muted2)}
     .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace}
 
-    /* Background ornaments */
+    /* Background ornaments (non-clickable) */
     .gridGlow{
       position:fixed; inset:0;
       background:
@@ -118,8 +116,7 @@
       background-size: auto, auto, 56px 56px, 56px 56px;
       opacity:.13;
       pointer-events:none;
-      z-index:-3;
-      filter: blur(.1px);
+      z-index:0;
     }
     .bgMark{
       position:fixed; inset:0;
@@ -131,7 +128,7 @@
       background-size: cover;
       opacity:.08;
       pointer-events:none;
-      z-index:-2;
+      z-index:0;
     }
     .film{
       position:fixed; inset:-40px;
@@ -140,111 +137,75 @@
         radial-gradient(900px 700px at 75% 10%, rgba(0,0,0,.50), rgba(0,0,0,.0) 70%),
         radial-gradient(900px 700px at 50% 90%, rgba(0,0,0,.60), rgba(0,0,0,.0) 70%);
       pointer-events:none;
-      z-index:-1;
+      z-index:0;
     }
 
-    /* NAV */
-    header.nav{
+    /* Always keep content above backgrounds */
+    main, header, footer, .drawerBack, .drawer, .modalBack { position:relative; z-index:2; }
+
+    /* Header */
+    header.siteHeader{
       position:sticky;
       top:0;
-      z-index:999;
-      background:linear-gradient(180deg, rgba(0,0,0,.86), rgba(0,0,0,.52));
-      border-bottom:1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding-top: env(safe-area-inset-top);
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 16px;
+      background: rgba(8,10,14,.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(242,244,255,.08);
+      padding-top: calc(14px + env(safe-area-inset-top));
     }
-    .navNotice{
-      display:flex; align-items:center; gap:10px;
-      padding:8px 0 8px;
-      color:rgba(242,244,255,.80);
-      font-weight:800;
-      font-size:11px;
-      letter-spacing:.2px;
-      line-height:1.2;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .dotMini{
-      width:8px;height:8px;border-radius:999px;
-      background:rgba(245,158,11,.95);
-      box-shadow:0 0 14px rgba(245,158,11,.50);
-      flex:0 0 auto;
-    }
-    .navInner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:10px 0;
-    }
+
     .brand{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       min-width:0;
     }
-    .brand img{
-      width:34px; height:34px;
-      border-radius:12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+    .brandLogo{width:34px;height:34px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+    .brandText{
+      font-weight:900;
+      font-size:18px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:55vw;
+      letter-spacing:.12em;
+    }
+    .headerActions{
+      display:flex;
+      align-items:center;
+      gap:10px;
       flex:0 0 auto;
     }
-.brand .name{
-  font-weight:900;
-  font-size:18px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:42vw;          /* <- prevents it from bullying the right side */
-  letter-spacing:.12em;    /* optional: reduce from .35 if you want */
-}
-.nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:nowrap;        /* <- change this from wrap to nowrap */
-}
-    .brand{
-  flex-shrink:0;
-}
-
-    .pill{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 14px;
+    .ctaBtn{
+      padding:8px 12px;
+      font-size:12px;
+      font-weight:900;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
-      color:rgba(242,244,255,.92);
-      font-weight:800;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut), box-shadow .18s var(--easeOut);
-      user-select:none;
+      color:white;
+      border:1px solid rgba(255,214,122,.35);
+      background:rgba(255,214,122,.08);
       white-space:nowrap;
+    }
+    .menuBtn{
+      width:42px;height:42px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.05);
+      display:inline-flex;align-items:center;justify-content:center;
       cursor:pointer;
     }
-    .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
-    .btnGold{
-      border:1px solid rgba(217,178,76,.55);
-      background:linear-gradient(180deg, rgba(247,230,163,.18), rgba(217,178,76,.10));
-      box-shadow: 0 12px 30px rgba(217,178,76,.12);
+    .menuIcon{width:18px;height:2px;background:white;display:block;position:relative}
+    .menuIcon::before,.menuIcon::after{
+      content:"";position:absolute;left:0;right:0;height:2px;background:white
     }
-    .btnPrimary{
-      border:1px solid rgba(129,140,248,.45);
-      background:linear-gradient(180deg, rgba(129,140,248,.18), rgba(129,140,248,.07));
-      box-shadow: 0 12px 30px rgba(129,140,248,.12);
-    }
-    .btnDanger{
-      border:1px solid rgba(251,113,133,.40);
-      background:linear-gradient(180deg, rgba(251,113,133,.12), rgba(0,0,0,.08));
-      box-shadow: 0 12px 30px rgba(251,113,133,.10);
-    }
-
-    .hideMobile{display:inline-flex}
-    .hamburger{
-      width:44px; height:44px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
-      display:inline-flex; align-items:center; justify-content:center;
-      cursor:pointer;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
-    }
-    .hamburger:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
-    .hamburger svg{opacity:.95}
+    .menuIcon::before{ top:-6px; }
+    .menuIcon::after{ top:6px; }
 
     /* Drawer */
     .drawerBack{
@@ -287,10 +248,9 @@
       color:rgba(242,244,255,.92);
       cursor:pointer;
       display:flex;align-items:center;justify-content:center;
-      font-family:"Orbitron", sans-serif;
       font-weight:900;
     }
-    .drawer small{color:rgba(242,244,255,.60); font-weight:800; letter-spacing:.2px}
+    .drawer small{color:rgba(242,244,255,.60); font-weight:900; letter-spacing:.2px}
     .drawerLink{
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 14px;
@@ -298,12 +258,12 @@
       border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.05);
       margin:10px 0;
-      font-weight:850;
+      font-weight:900;
       transition: transform .18s var(--easeOut), background .18s var(--easeOut);
     }
     .drawerLink:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
 
-    /* HERO */
+    /* Main */
     main{padding:18px 0 70px}
     .hero{
       display:grid;
@@ -321,7 +281,8 @@
       position:relative;
       min-height:320px;
     }
-    .heroVisual .badgeFloat{
+    .heroVisual img{width:100%;height:100%;object-fit:cover}
+    .badgeFloat{
       position:absolute; left:14px; bottom:14px;
       display:flex; gap:10px; align-items:center;
       padding:10px 12px;
@@ -375,21 +336,44 @@
       font-size:16px;
       line-height:1.65;
       margin:0 0 18px;
-      font-family:"Orbitron", sans-serif;
       font-weight:600;
       letter-spacing:.12px;
     }
-    .ctaRow{display:flex; gap:12px; flex-wrap:wrap}
-    .ctaRow .pill{padding:12px 18px}
 
-    /* Sections */
-    .section{margin-top:16px}
-    .section h2{
-      margin:0 0 12px;
-      font-size:22px;
-      letter-spacing:.45px;
+    .pill{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(242,244,255,.92);
       font-weight:900;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+      user-select:none;
+      white-space:nowrap;
+      cursor:pointer;
     }
+    .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+    .btnGold{
+      border:1px solid rgba(217,178,76,.55);
+      background:linear-gradient(180deg, rgba(247,230,163,.18), rgba(217,178,76,.10));
+      box-shadow: 0 12px 30px rgba(217,178,76,.12);
+    }
+    .btnPrimary{
+      border:1px solid rgba(129,140,248,.45);
+      background:linear-gradient(180deg, rgba(129,140,248,.18), rgba(129,140,248,.07));
+      box-shadow: 0 12px 30px rgba(129,140,248,.12);
+    }
+    .btnDanger{
+      border:1px solid rgba(251,113,133,.40);
+      background:linear-gradient(180deg, rgba(251,113,133,.12), rgba(0,0,0,.08));
+      box-shadow: 0 12px 30px rgba(251,113,133,.10);
+    }
+
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap}
+
+    .section{margin-top:16px}
+    .section h2{margin:0 0 12px;font-size:22px;letter-spacing:.45px;font-weight:900}
     .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
     .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
@@ -400,39 +384,8 @@
       border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.05);
     }
-    .stat .label{
-      color:rgba(242,244,255,.65);
-      font-weight:850;
-      font-size:12px;
-      letter-spacing:.35px
-    }
-    .stat .value{font-size:18px; font-weight:950; margin-top:6px}
-
-    /* Components */
-    .tag{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:8px 12px; border-radius:999px;
-      border:1px solid rgba(217,178,76,.35);
-      background:rgba(217,178,76,.10);
-      color:rgba(247,230,163,.95);
-      font-weight:900;
-      white-space:nowrap;
-    }
-    .tagBlue{
-      border:1px solid rgba(129,140,248,.45);
-      background:rgba(129,140,248,.10);
-      color:rgba(224,231,255,.95);
-    }
-    .tagGreen{
-      border:1px solid rgba(52,211,153,.45);
-      background:rgba(52,211,153,.10);
-      color:rgba(220,252,231,.95);
-    }
-    .tagRed{
-      border:1px solid rgba(251,113,133,.45);
-      background:rgba(251,113,133,.10);
-      color:rgba(255,228,230,.95);
-    }
+    .stat .label{color:rgba(242,244,255,.65);font-weight:900;font-size:12px;letter-spacing:.35px}
+    .stat .value{font-size:18px;font-weight:950;margin-top:6px}
 
     .note{
       margin-top:10px;
@@ -441,30 +394,15 @@
       border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.04);
       color:rgba(242,244,255,.82);
-      font-weight:750;
+      font-weight:800;
       letter-spacing:.1px;
-      font-family:"Orbitron", sans-serif;
     }
-    .pillSmall{padding:9px 12px; font-weight:850}
-    .codeRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .code{
-      flex:1 1 320px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.25);
-      color:rgba(242,244,255,.92);
-      overflow:auto;
-      white-space:nowrap;
-      letter-spacing:.2px;
-    }
-    .copyBtn{cursor:pointer}
-    .copyBtn:disabled{opacity:.55; cursor:not-allowed}
-    .shareRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .success{border:1px solid rgba(52,211,153,.35); background:rgba(52,211,153,.08)}
+    .danger{border:1px solid rgba(251,113,133,.35); background:rgba(251,113,133,.08)}
+    .tiny{font-size:11px;font-weight:800;color:rgba(242,244,255,.60);letter-spacing:.15px;line-height:1.5}
 
-    /* Form */
     .field{display:flex; flex-direction:column; gap:8px; margin:10px 0}
-    label{font-weight:850; color:rgba(242,244,255,.82); letter-spacing:.2px}
+    label{font-weight:900; color:rgba(242,244,255,.82); letter-spacing:.2px}
     input, select, textarea{
       padding:12px 12px;
       border-radius:14px;
@@ -474,7 +412,7 @@
       outline:none;
       font-size:14px;
       font-family:"Orbitron", sans-serif;
-      font-weight:700;
+      font-weight:800;
       letter-spacing:.12px;
       resize:vertical;
     }
@@ -493,13 +431,18 @@
       transition: transform .18s var(--easeOut), background .18s var(--easeOut);
     }
     .submitBtn:hover{transform:translateY(-1px); background:rgba(217,178,76,.20)}
-    .success{
-      border:1px solid rgba(52,211,153,.35);
-      background:rgba(52,211,153,.08);
-    }
-    .danger{
-      border:1px solid rgba(251,113,133,.35);
-      background:rgba(251,113,133,.08);
+
+    .codeRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .code{
+      flex:1 1 320px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.25);
+      color:rgba(242,244,255,.92);
+      overflow:auto;
+      white-space:nowrap;
+      letter-spacing:.2px;
     }
 
     /* FAQ */
@@ -532,64 +475,13 @@
       color:rgba(242,244,255,.76);
       line-height:1.65;
       display:none;
-      font-family:"Orbitron", sans-serif;
-      font-weight:600;
+      font-weight:700;
       font-size:13px;
       letter-spacing:.1px;
     }
     .faqItem.open .faqA{display:block}
     .chev{transition: transform .18s var(--easeOut)}
     .faqItem.open .chev{transform:rotate(180deg)}
-
-    /* Roadmap/Tokenomics */
-    .phase{
-      padding:16px 16px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.05);
-    }
-    .phaseTop{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .phaseTitle{
-      font-weight:950;
-      letter-spacing:.35px;
-      font-size:16px;
-      display:flex; align-items:center; gap:10px;
-    }
-    .phaseBadge{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(217,178,76,.35);
-      background:rgba(217,178,76,.10);
-      color:rgba(247,230,163,.95);
-      font-weight:950;
-      font-size:11px;
-      letter-spacing:.25px;
-      white-space:nowrap;
-    }
-    ul.clean{
-      margin:0;
-      padding-left:18px;
-      color:rgba(242,244,255,.78);
-      line-height:1.8;
-      font-weight:650;
-      font-size:13px;
-    }
-    ul.clean li{margin:2px 0}
-    .mutedSmall{
-      color:rgba(242,244,255,.60);
-      font-size:12px;
-      font-weight:750;
-      letter-spacing:.12px;
-      margin-top:10px;
-    }
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:16px;
-    }
 
     /* Embed */
     .embedWrap{
@@ -607,34 +499,12 @@
       padding:16px;
       text-align:center;
       color:rgba(242,244,255,.75);
-      font-weight:850;
+      font-weight:900;
       letter-spacing:.2px;
     }
     iframe{width:100%; height:520px; border:0; display:none}
 
-    /* NEW: Mini tabs */
-    .tabs{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin:10px 0 0;
-    }
-    .tabBtn{
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.05);
-      font-weight:900;
-      font-size:12px;
-      cursor:pointer;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
-    }
-    .tabBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
-    .tabBtn.active{
-      border:1px solid rgba(217,178,76,.45);
-      background:rgba(217,178,76,.12);
-      color:rgba(247,230,163,.95);
-    }
-
-    /* NEW: Modal */
+    /* Modal */
     .modalBack{
       position:fixed; inset:0;
       background:rgba(0,0,0,.64);
@@ -681,245 +551,51 @@
       color:rgba(242,244,255,.92);
       cursor:pointer;
       display:flex;align-items:center;justify-content:center;
-      font-family:"Orbitron", sans-serif;
       font-weight:900;
     }
-    .paper{
-      padding:12px 6px 6px;
-    }
-    .paper h3{
-      margin:14px 0 8px;
-      font-size:18px;
-      font-weight:950;
-      letter-spacing:.3px;
-    }
+    .paper{padding:12px 6px 6px}
+    .paper h3{margin:14px 0 8px;font-size:18px;font-weight:950;letter-spacing:.3px}
     .paper p, .paper li{
       color:rgba(242,244,255,.78);
       font-weight:650;
       font-size:13px;
       line-height:1.8;
       letter-spacing:.08px;
-      font-family:"Orbitron", sans-serif;
     }
     .paper ul{margin:6px 0 10px; padding-left:18px}
 
-    /* NEW: Leaderboard */
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-    }
-    th, td{
-      padding:12px 12px;
-      text-align:left;
-      font-size:12px;
-      font-weight:850;
-      color:rgba(242,244,255,.85);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    th{
-      font-size:11px;
-      color:rgba(242,244,255,.70);
-      letter-spacing:.25px;
-      background:rgba(0,0,0,.20);
-    }
-    tr:last-child td{border-bottom:none}
-    .rankPill{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:6px 10px;
+    /* Quiz tabs */
+    .tabs{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0}
+    .tabBtn{
+      padding:10px 12px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.24);
-      font-weight:950;
-      font-size:11px;
-      min-width:42px;
+      background:rgba(255,255,255,.05);
+      font-weight:900;
+      font-size:12px;
+      cursor:pointer;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
     }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(217,178,76,.35);
-      background:rgba(217,178,76,.10);
+    .tabBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
+    .tabBtn.active{
+      border:1px solid rgba(217,178,76,.45);
+      background:rgba(217,178,76,.12);
       color:rgba(247,230,163,.95);
-      font-weight:950;
-      font-size:11px;
-      letter-spacing:.18px;
-      white-space:nowrap;
-    }
-    .badgeBlue{
-      border:1px solid rgba(129,140,248,.45);
-      background:rgba(129,140,248,.10);
-      color:rgba(224,231,255,.95);
-    }
-    .badgeGreen{
-      border:1px solid rgba(52,211,153,.45);
-      background:rgba(52,211,153,.10);
-      color:rgba(220,252,231,.95);
-    }
-    .badgeRed{
-      border:1px solid rgba(251,113,133,.45);
-      background:rgba(251,113,133,.10);
-      color:rgba(255,228,230,.95);
-    }
-
-    /* NEW: Meme generator */
-    .memeWrap{
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.22);
-      padding:14px;
-    }
-    canvas{
-      width:100%;
-      height:auto;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.25);
-      display:block;
-    }
-    .tiny{
-      font-size:11px;
-      font-weight:800;
-      color:rgba(242,244,255,.60);
-      letter-spacing:.15px;
-      line-height:1.5;
     }
 
     /* Responsive */
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;}
       h1{font-size:46px}
-      .split{grid-template-columns:1fr}
       .grid4{grid-template-columns:repeat(2,1fr)}
+      .grid3{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
     }
     @media (max-width: 640px){
-      :root{ --pad:16px; }
-      .hideMobile{display:none}
       h1{font-size:40px}
-      .grid2{grid-template-columns:1fr}
-      .grid3{grid-template-columns:1fr}
-      .grid4{grid-template-columns:1fr}
-      .navNotice{font-size:10px; padding:7px 0}
-      .navInner{padding:9px 0}
-      .cardPad{padding:18px}
+      .brandText{max-width:44vw}
       th, td{padding:10px 10px}
     }
-    .siteHeader{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  background: rgba(8,10,14,.72);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(242,244,255,.08);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  text-decoration:none;
-}
-
-.brandLogo{
-  width:34px;
-  height:34px;
-}
-
-.brandText{
-  font-weight:900;
-  font-size:20px;
-  color:white;
-}
-
-.headerActions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.ctaBtn{
-  padding:5px 9px;
-  font-size:12px;
-  font-weight:700;
-  border-radius:999px;
-  text-decoration:none;
-  color:white;
-  border:1px solid rgba(255,214,122,.35);
-  background:rgba(255,214,122,.08);
-}
-
-.menuBtn{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.05);
-}
-
-.menuIcon{
-  width:18px;
-  height:2px;
-  background:white;
-  display:block;
-  position:relative;
-}
-
-.menuIcon::before,
-.menuIcon::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  height:2px;
-  background:white;
-}
-
-.menuIcon::before{ top:-6px; }
-.menuIcon::after{ top:6px; }
- /* --- CLICK FIX (STRONG) --- */
-
-/* Put all background FX behind everything */
-.gridGlow, .bgMark, .film {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Make sure page content sits above backgrounds */
-body > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Force header above everything and clickable */
-header, .header, .siteHeader, .topbar, .navBar {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 2147483647 !important;
-  pointer-events: auto !important;
-}
-
-/* Ensure header children can receive taps */
-header *, .header *, .siteHeader *, .topbar *, .navBar * {
-  pointer-events: auto !important;
-}
- /* Mobile drawer toggle */
-#mobileNav {
-  display: none;
-}
-
-#mobileNav.open {
-  display: block;
-}
   </style>
 </head>
 
@@ -935,10 +611,9 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
         <div class="modalTitle">
           <img src="./freedomfi-logo.png" alt="FreedomFi logo" />
           <span>FreedomFi Litepaper (v0.1)</span>
-          <span class="tag tagBlue" id="paperVersionTag">Draft</span>
         </div>
         <div style="display:flex; gap:10px; align-items:center">
-          <button class="pill pillSmall btnPrimary" id="dlPaperTxt" type="button">Download .txt</button>
+          <button class="pill btnPrimary" id="dlPaperTxt" type="button" style="padding:10px 14px">Download .txt</button>
           <button class="modalClose" id="paperClose" aria-label="Close">✕</button>
         </div>
       </div>
@@ -975,30 +650,23 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
     <a class="drawerLink" href="#waitlist">Join Waitlist</a>
     <a class="drawerLink" href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer">Join Telegram</a>
     <a class="drawerLink" href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer">Follow on X</a>
-  <aside id="mobileNav">
+  </aside>
 
-  <!-- NAV -->
+  <!-- Header -->
   <header class="siteHeader">
-  <a class="brand" href="/">
-    <img class="brandLogo" src="./freedomfi-logo.png" alt="FreedomFi" />
-    <span class="brandText">FreedomFi</span>
-  </a>
+    <a class="brand" href="#top">
+      <img class="brandLogo" src="./freedomfi-logo.png" alt="FreedomFi" />
+      <span class="brandText">FreedomFi</span>
+    </a>
 
-  <div class="headerActions">
-    <a class="ctaBtn" href="#early-access">Get Early Access</a>
+    <div class="headerActions">
+      <a class="ctaBtn" href="#waitlist">Get Early Access</a>
+      <button id="menuBtn" class="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="menuIcon"></span>
+      </button>
+    </div>
+  </header>
 
-    <button id="menuBtn" class="menuBtn" type="button">
-  <span class="menuIcon"></span>
-</button>
-  </div>
-</header>
-<div class="heroVisual">
-  <img src="./freedomfi-banner.png">
-  <div class="badgeFloat">
-    <span class="pulseDot"></span>
-    <span>Tools live • Waitlist open • Anti-scam hardened</span>
-  </div>
-</div>
   <main id="top">
     <div class="wrap">
 
@@ -1016,15 +684,15 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
             <div class="grid3" style="margin-top:14px">
               <div class="stat">
                 <div class="label">Network</div>
-                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Solana</div>
+                <div class="value" style="font-size:14px;font-weight:900;color:rgba(242,244,255,.85)">Solana</div>
               </div>
               <div class="stat">
                 <div class="label">Launch</div>
-                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">TBD</div>
+                <div class="value" style="font-size:14px;font-weight:900;color:rgba(242,244,255,.85)">TBD</div>
               </div>
               <div class="stat">
                 <div class="label">Status</div>
-                <div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Vault Tools Live</div>
+                <div class="value" style="font-size:14px;font-weight:900;color:rgba(242,244,255,.85)">Tools Live</div>
               </div>
             </div>
 
@@ -1041,24 +709,26 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
           </div>
         </div>
 
+        <div class="heroVisual">
+          <img src="./freedomfi-banner.png" alt="FreedomFi banner">
+          <div class="badgeFloat">
+            <span class="pulseDot"></span>
+            <span>Tools live • Waitlist open • Anti-scam hardened</span>
+          </div>
+        </div>
       </section>
 
-      <!-- WAITLIST + REFERRALS -->
+      <!-- WAITLIST -->
       <section class="section card" id="waitlist">
         <div class="cardPad">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
             <div>
               <h2 style="margin:0 0 6px">Viral Waitlist</h2>
-              <p style="margin:0" class="muted">Join early access. Invite friends. Move up. Earn Freedom Fighter badges.</p>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap">
-              <div class="tag tagBlue" id="waitStatusTag">Waitlist Open</div>
-              <div class="tag tagGreen" id="walletStatusTag">Wallets Supported</div>
+              <p style="margin:0" class="muted">Join early access. Invite friends. Move up.</p>
             </div>
           </div>
 
           <div class="grid2" style="margin-top:14px">
-            <!-- Left: Join form -->
             <div class="cardSoft">
               <div class="cardPad">
                 <h3 style="margin:0 0 6px; font-size:18px">Secure Your Position</h3>
@@ -1086,17 +756,15 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
                   </div>
 
                   <button class="submitBtn" id="wl_submit" type="submit">⚡ Join Waitlist</button>
-
                   <div id="wl_msg" class="note" style="display:none; margin-top:12px"></div>
                 </form>
               </div>
             </div>
 
-            <!-- Right: Dashboard -->
             <div class="cardSoft">
               <div class="cardPad">
                 <h3 style="margin:0 0 6px; font-size:18px">Your Dashboard</h3>
-                <p style="margin:0 0 12px" class="muted">Saved on-device. Add a backend later for global ranks.</p>
+                <p style="margin:0 0 12px" class="muted">Saved on-device (demo). Backend later for global ranks.</p>
 
                 <div class="grid3">
                   <div class="stat">
@@ -1121,60 +789,44 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
 
                 <div class="codeRow">
                   <div class="code mono" id="refLinkText">—</div>
-                  <button class="pill pillSmall copyBtn" id="copyRef" disabled type="button">Copy</button>
+                  <button class="pill" id="copyRef" disabled type="button" style="padding:10px 14px">Copy</button>
                 </div>
 
-                <div class="shareRow">
-                  <a class="pill pillSmall btnPrimary" id="shareX" href="#" target="_blank" rel="noreferrer">Share on X</a>
-                  <a class="pill pillSmall" id="shareTG" href="#" target="_blank" rel="noreferrer">Share to Telegram</a>
-                  <button class="pill pillSmall" id="addReferralBtn" type="button" title="Demo only (local)">+ Add referral (demo)</button>
+                <div class="ctaRow" style="margin-top:10px">
+                  <a class="pill btnPrimary" id="shareX" href="#" target="_blank" rel="noreferrer">Share on X</a>
+                  <a class="pill" id="shareTG" href="#" target="_blank" rel="noreferrer">Share to Telegram</a>
+                  <button class="pill" id="addReferralBtn" type="button" title="Demo only (local)">+ Add referral (demo)</button>
                 </div>
 
                 <div class="note" style="margin-top:12px">
-                  <b>How it works:</b> Referrals increase priority. Top tiers unlock early access + hypothetical vault bonuses.
+                  <b>How it works:</b> Referrals increase priority. Top tiers unlock early access + hypothetical vault boosts.
                 </div>
               </div>
             </div>
           </div>
 
           <div class="note" style="margin-top:14px">
-            <b>Upgrade path:</b> When you’re ready for a global leaderboard + real referrals, connect this to a backend (Supabase/Firebase/Netlify Functions).
-            The UI is already built for it.
+            <b>Upgrade path:</b> When you’re ready for global leaderboard + real referrals, connect a backend (Supabase/Firebase/Netlify Functions).
           </div>
         </div>
       </section>
 
-      <!-- LITEPAPER SECTION -->
+      <!-- LITEPAPER -->
       <section class="section card" id="litepaper">
         <div class="cardPad">
           <h2>Litepaper</h2>
-          <p class="muted" style="margin-top:-4px">A clean, readable summary of the mission, system design, and execution plan.</p>
-
-          <div class="grid2" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Version</div>
-              <div class="value" style="font-size:14px">v0.1 (Draft)</div>
-              <div class="mutedSmall">We update this as milestones are completed.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Focus</div>
-              <div class="value" style="font-size:14px">Security • Verification • Infrastructure</div>
-              <div class="mutedSmall">Direction over noise. Execution over hype.</div>
-            </div>
-          </div>
-
+          <p class="muted" style="margin-top:-4px">A clean summary of the mission, design, and execution plan.</p>
           <div class="ctaRow" style="margin-top:12px">
             <button class="pill btnPrimary" id="openPaperBtn2" type="button">📄 Open Litepaper Reader</button>
             <button class="pill" id="dlPaperTxt2" type="button">Download .txt</button>
           </div>
-
           <div class="note">
-            <b>Pro tip:</b> Post screenshots of the Litepaper sections (Vision / Security) on X later. It signals legitimacy instantly.
+            <b>Pro tip:</b> Screenshot Litepaper sections (Vision/Security) and post on X. It signals legitimacy instantly.
           </div>
         </div>
       </section>
 
-      <!-- FREEDOM VAULT -->
+      <!-- VAULT SIM -->
       <section class="section card" id="vault">
         <div class="cardPad">
           <h2>Freedom Vault Simulator</h2>
@@ -1187,12 +839,12 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
 
                 <div class="field">
                   <label for="vs_amount">Hypothetical Allocation ($)</label>
-                  <input id="vs_amount" type="number" min="0" step="1" placeholder="100" value="100">
+                  <input id="vs_amount" type="number" min="0" step="1" value="100">
                 </div>
 
                 <div class="field">
                   <label for="vs_refs">Referrals</label>
-                  <input id="vs_refs" type="number" min="0" step="1" placeholder="0" value="0">
+                  <input id="vs_refs" type="number" min="0" step="1" value="0">
                 </div>
 
                 <div class="field">
@@ -1221,7 +873,7 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
                 </div>
 
                 <div class="note tiny" style="margin-top:12px">
-                  This is a <b>simulator</b> (hypothetical) for fun and clarity. Final bonus mechanics are published at launch for accuracy.
+                  This is a <b>simulator</b> (hypothetical). Final mechanics are published at launch.
                 </div>
               </div>
             </div>
@@ -1231,18 +883,9 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
                 <h3 style="margin:0 0 8px; font-size:18px">Results</h3>
 
                 <div class="grid3">
-                  <div class="stat">
-                    <div class="label">Projected Tier</div>
-                    <div class="value" id="vs_tier" style="font-size:14px">—</div>
-                  </div>
-                  <div class="stat">
-                    <div class="label">Hypothetical Bonus</div>
-                    <div class="value" id="vs_bonus" style="font-size:14px">—</div>
-                  </div>
-                  <div class="stat">
-                    <div class="label">Priority Score</div>
-                    <div class="value" id="vs_score">—</div>
-                  </div>
+                  <div class="stat"><div class="label">Projected Tier</div><div class="value" id="vs_tier" style="font-size:14px">—</div></div>
+                  <div class="stat"><div class="label">Hypothetical Bonus</div><div class="value" id="vs_bonus" style="font-size:14px">—</div></div>
+                  <div class="stat"><div class="label">Priority Score</div><div class="value" id="vs_score">—</div></div>
                 </div>
 
                 <div class="note" style="margin-top:12px">
@@ -1265,151 +908,30 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
           </div>
 
           <div class="grid4" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Bronze</div>
-              <div class="value" style="font-size:14px">0–2 refs</div>
-              <div class="mutedSmall">Baseline access.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Silver</div>
-              <div class="value" style="font-size:14px">3–9 refs</div>
-              <div class="mutedSmall">Priority boost.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Gold</div>
-              <div class="value" style="font-size:14px">10–24 refs</div>
-              <div class="mutedSmall">Stronger boost.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Founder</div>
-              <div class="value" style="font-size:14px">25+ refs</div>
-              <div class="mutedSmall">Top-tier perks.</div>
-            </div>
+            <div class="stat"><div class="label">Bronze</div><div class="value" style="font-size:14px">0–2 refs</div><div class="tiny">Baseline access.</div></div>
+            <div class="stat"><div class="label">Silver</div><div class="value" style="font-size:14px">3–9 refs</div><div class="tiny">Priority boost.</div></div>
+            <div class="stat"><div class="label">Gold</div><div class="value" style="font-size:14px">10–24 refs</div><div class="tiny">Stronger boost.</div></div>
+            <div class="stat"><div class="label">Founder</div><div class="value" style="font-size:14px">25+ refs</div><div class="tiny">Top-tier perks.</div></div>
           </div>
         </div>
       </section>
 
-      <!-- WALLET VAULT -->
-      <section class="section card" id="wallets">
-        <div class="cardPad">
-          <h2>Wallet Vault</h2>
-          <p class="muted" style="margin-top:-4px">Add wallets for tracking, proof, and future access. Connect if your wallet supports browser injection.</p>
-
-          <div class="grid2" style="margin-top:12px">
-            <div class="cardSoft">
-              <div class="cardPad">
-                <h3 style="margin:0 0 8px; font-size:18px">Connect / Add</h3>
-
-                <div class="ctaRow">
-                  <button class="pill btnPrimary" id="connectWalletBtn" type="button">🔌 Connect Wallet</button>
-                  <button class="pill" id="disconnectWalletBtn" type="button">Disconnect</button>
-                </div>
-
-                <div class="note" id="walletMsg" style="margin-top:12px">
-                  <b>Status:</b> <span id="walletStatus">Not connected</span>
-                  <div class="tiny" style="margin-top:6px">
-                    Works with injected wallets (commonly Phantom / Solflare / Backpack). For mobile wallets, you can paste the address below.
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="wv_label">Label</label>
-                  <input id="wv_label" type="text" placeholder="Main / Cold / Trading" value="Main">
-                </div>
-
-                <div class="field">
-                  <label for="wv_addr">Wallet Address</label>
-                  <input id="wv_addr" type="text" placeholder="Paste Solana address (base58)">
-                </div>
-
-                <div class="ctaRow" style="margin-top:10px">
-                  <button class="pill btnGold" id="wv_add" type="button">Add Wallet</button>
-                  <button class="pill" id="wv_export" type="button">Export CSV</button>
-                </div>
-
-                <div class="note tiny" style="margin-top:12px">
-                  Privacy: stored locally on your device. Backend optional later.
-                </div>
-              </div>
-            </div>
-
-            <div class="cardSoft">
-              <div class="cardPad">
-                <h3 style="margin:0 0 8px; font-size:18px">Saved Wallets</h3>
-                <div id="wv_list"></div>
-
-                <div class="ctaRow" style="margin-top:12px">
-                  <button class="pill btnDanger" id="wv_clear" type="button">Clear Wallets</button>
-                </div>
-
-                <div class="note tiny" style="margin-top:12px">
-                  “Every major wallet”: without a build system, the best universal approach is injected wallet connect + manual add.
-                  If you want true WalletConnect + all mobile wallets, we can convert this to a small Vite build later.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FREEDOM ACADEMY -->
+      <!-- ACADEMY -->
       <section class="section card" id="academy">
         <div class="cardPad">
           <h2>Freedom Academy</h2>
-          <p class="muted" style="margin-top:-4px">Security education that’s actually fun. Learn fast. Earn badges.</p>
+          <p class="muted" style="margin-top:-4px">Security education that’s actually fun. Learn fast.</p>
 
           <div class="grid3" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Academy Badge</div>
-              <div class="value" id="ac_badge" style="font-size:14px">—</div>
-              <div class="mutedSmall">Earned from quiz score.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Best Score</div>
-              <div class="value" id="ac_best">—</div>
-              <div class="mutedSmall">Stored locally.</div>
-            </div>
-            <div class="stat">
-              <div class="label">Mission</div>
-              <div class="value" style="font-size:14px">Reduce Scams</div>
-              <div class="mutedSmall">Make safety a culture.</div>
-            </div>
-          </div>
-
-          <div class="grid2" style="margin-top:12px">
-            <div class="cardSoft">
-              <div class="cardPad">
-                <h3 style="margin:0 0 8px; font-size:18px">How to Spot Scams (Quick Hits)</h3>
-                <ul class="clean">
-                  <li>Any DM with a “CA” before launch is fake.</li>
-                  <li>Seed phrase requests = instant scam.</li>
-                  <li>Fake “support” accounts mimic usernames.</li>
-                  <li>Links with weird domains or extra characters are traps.</li>
-                  <li>Pressure tactics: “act now” = red flag.</li>
-                </ul>
-                <div class="note"><b>Rule:</b> Verify links only from this site + pinned Telegram.</div>
-              </div>
-            </div>
-
-            <div class="cardSoft">
-              <div class="cardPad">
-                <h3 style="margin:0 0 8px; font-size:18px">Wallet Security Basics</h3>
-                <ul class="clean">
-                  <li>Use a hardware wallet for long-term holdings.</li>
-                  <li>Create a “burner wallet” for new apps.</li>
-                  <li>Never sign random transactions you don’t understand.</li>
-                  <li>Bookmark official sites. Don’t click paid ads.</li>
-                  <li>Revoke approvals periodically (where supported).</li>
-                </ul>
-                <div class="note"><b>Habit:</b> Double-check addresses before sending.</div>
-              </div>
-            </div>
+            <div class="stat"><div class="label">Best Score</div><div class="value" id="ac_best">—</div></div>
+            <div class="stat"><div class="label">Badge</div><div class="value" id="ac_badge" style="font-size:14px">—</div></div>
+            <div class="stat"><div class="label">Mission</div><div class="value" style="font-size:14px">Reduce Scams</div></div>
           </div>
 
           <div class="cardSoft" style="margin-top:12px">
             <div class="cardPad">
               <h3 style="margin:0 0 8px; font-size:18px">Freedom Quiz</h3>
-              <p class="muted" style="margin:0 0 12px">Answer fast. Score high. Earn a badge.</p>
+              <p class="muted" style="margin:0 0 12px">Answer fast. Score high.</p>
 
               <div class="grid2">
                 <div class="stat">
@@ -1434,7 +956,7 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
 
                 <div class="stat">
                   <div class="label">Q3</div>
-                  <div class="value" style="font-size:14px">What’s the safest source for official links?</div>
+                  <div class="value" style="font-size:14px">Safest source for official links?</div>
                   <div class="tabs">
                     <button class="tabBtn" data-q="3" data-a="0" type="button">Random replies</button>
                     <button class="tabBtn" data-q="3" data-a="1" type="button">This site + pinned TG</button>
@@ -1464,57 +986,27 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
         </div>
       </section>
 
-      <!-- VERIFICATION -->
+      <!-- VERIFY -->
       <section class="section card" id="verify">
         <div class="cardPad">
           <h2>Verification Center</h2>
           <p class="muted" style="margin-top:-4px">If it isn’t listed here or pinned in the official Telegram, it’s not official.</p>
 
           <div class="grid3" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Official Website</div>
-              <div class="value" style="font-size:14px">
-                <a href="https://freedomfiofficial.com/" style="text-decoration:underline">freedomfiofficial.com</a>
-              </div>
-            </div>
-            <div class="stat">
-              <div class="label">Official Telegram</div>
-              <div class="value" style="font-size:14px">
-                <a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a>
-              </div>
-            </div>
-            <div class="stat">
-              <div class="label">Official X</div>
-              <div class="value" style="font-size:14px">
-                <a href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer" style="text-decoration:underline">@FreedomFiCoin</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid3" style="margin-top:12px">
-            <div class="stat">
-              <div class="label">Solscan (after launch)</div>
-              <div class="value" id="solscanLink" style="font-size:14px;color:rgba(242,244,255,.75)">Locked</div>
-            </div>
-            <div class="stat">
-              <div class="label">Liquidity lock proof</div>
-              <div class="value" id="lpLockLink" style="font-size:14px;color:rgba(242,244,255,.75)">Soon</div>
-            </div>
-            <div class="stat">
-              <div class="label">Mint / Freeze authority</div>
-              <div class="value" id="authStatus" style="font-size:14px;color:rgba(242,244,255,.75)">Soon</div>
-            </div>
+            <div class="stat"><div class="label">Official Website</div><div class="value" style="font-size:14px"><a href="https://freedomfiofficial.com/" style="text-decoration:underline">freedomfiofficial.com</a></div></div>
+            <div class="stat"><div class="label">Official Telegram</div><div class="value" style="font-size:14px"><a href="https://t.me/FreedomFiOfficial" target="_blank" rel="noreferrer" style="text-decoration:underline">t.me/FreedomFiOfficial</a></div></div>
+            <div class="stat"><div class="label">Official X</div><div class="value" style="font-size:14px"><a href="https://x.com/FreedomFiCoin" target="_blank" rel="noreferrer" style="text-decoration:underline">@FreedomFiCoin</a></div></div>
           </div>
 
           <div class="note"><b>Rule:</b> Never buy from a CA sent in a DM. Wait for the CA here + pinned Telegram.</div>
         </div>
       </section>
 
-      <!-- LIVE STATS -->
+      <!-- STATS -->
       <section class="section card" id="stats">
         <div class="cardPad">
           <h2>Live Stats</h2>
-          <p id="statsHint" class="muted" style="margin-top:-4px">CA unlocks at launch. Stats and chart populate after you paste the CA.</p>
+          <p id="statsHint" class="muted" style="margin-top:-4px">CA unlocks at launch. Stats + chart populate after you paste the CA.</p>
 
           <div class="grid3" style="margin-top:12px">
             <div class="stat"><div class="label">Price</div><div class="value" id="statPrice">—</div></div>
@@ -1528,11 +1020,11 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
             <div class="stat"><div class="label">Holders</div><div class="value" id="statHolders">—</div></div>
           </div>
 
-          <div class="section" id="buy">
-            <h2 style="margin-top:18px">Contract Address (CA)</h2>
+          <div class="section" id="buy" style="margin-top:18px">
+            <h2 style="margin:0 0 10px;font-size:18px">Contract Address (CA)</h2>
             <div class="codeRow">
               <div class="code mono" id="caText">CA: (locked until launch)</div>
-              <button class="pill copyBtn" id="copyCA" disabled title="Locked until launch" type="button">Copy</button>
+              <button class="pill" id="copyCA" disabled type="button" style="padding:10px 14px">Copy</button>
             </div>
             <p class="muted" style="margin-top:10px">Always verify the CA from this site + pinned Telegram before swapping.</p>
           </div>
@@ -1554,10 +1046,6 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
             </div>
             <iframe id="dexFrame" title="Dexscreener chart"></iframe>
           </div>
-
-          <p class="muted2" style="margin-top:12px;font-size:12px">
-            Note: holders aren’t reliably available in-browser without an indexer. We keep this site safe and lightweight.
-          </p>
         </div>
       </section>
 
@@ -1567,63 +1055,16 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
           <h2>Public Roadmap</h2>
           <p class="muted" style="margin-top:-4px">Direction over noise. Execution over hype.</p>
 
-          <div class="split" style="margin-top:12px">
-            <div class="phase">
-              <div class="phaseTop">
-                <div class="phaseTitle">Phase I — Foundation</div>
-                <div class="phaseBadge">Now</div>
-              </div>
-              <ul class="clean">
-                <li>Viral waitlist + referral engine</li>
-                <li>Litepaper + security education</li>
-                <li>Freedom Vault simulator + tools</li>
-                <li>Meme generator + community content</li>
-              </ul>
-              <div class="mutedSmall">Goal: build trust + clean infrastructure before attention spikes.</div>
+          <div class="grid2" style="margin-top:12px">
+            <div class="stat">
+              <div class="label">Phase I — Foundation</div>
+              <div class="value" style="font-size:14px">Now</div>
+              <div class="tiny" style="margin-top:8px">Waitlist • Litepaper • Vault sim • Security culture</div>
             </div>
-
-            <div class="phase">
-              <div class="phaseTop">
-                <div class="phaseTitle">Phase II — Launch</div>
-                <div class="phaseBadge">TBD</div>
-              </div>
-              <ul class="clean">
-                <li>CA published here + pinned Telegram</li>
-                <li>Liquidity lock proof published</li>
-                <li>Authority status published (mint/freeze)</li>
-                <li>Live stats + chart unlocked</li>
-              </ul>
-              <div class="mutedSmall">Goal: keep launch clean, verifiable, and scam-resistant.</div>
-            </div>
-          </div>
-
-          <div class="split" style="margin-top:16px">
-            <div class="phase">
-              <div class="phaseTop">
-                <div class="phaseTitle">Phase III — Expansion</div>
-                <div class="phaseBadge">Post-Launch</div>
-              </div>
-              <ul class="clean">
-                <li>Global leaderboard + badges</li>
-                <li>Transparency dashboard upgrades</li>
-                <li>Selective ecosystem collaborations</li>
-                <li>Listings outreach (methodical)</li>
-              </ul>
-              <div class="mutedSmall">Goal: grow without sacrificing structure.</div>
-            </div>
-
-            <div class="phase">
-              <div class="phaseTop">
-                <div class="phaseTitle">Phase IV — Long-Term</div>
-                <div class="phaseBadge">Durability</div>
-              </div>
-              <ul class="clean">
-                <li>Product direction (TBA)</li>
-                <li>Cycle resilience + brand durability</li>
-                <li>Governance initiatives (if needed)</li>
-                <li>Partnerships aligned with Solana culture</li>
-              </ul>
-              <div class="mutedSmall">Goal: become a Solana-native brand that lasts.</div>
+            <div class="stat">
+              <div class="label">Phase II — Launch</div>
+              <div class="value" style="font-size:14px">TBD</div>
+              <div class="tiny" style="margin-top:8px">CA published • Proof links • Live stats + chart</div>
             </div>
           </div>
 
@@ -1640,31 +1081,12 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
           <p class="muted" style="margin-top:-4px">Clear, simple, transparent. Final values can be updated at launch for accuracy.</p>
 
           <div class="grid2" style="margin-top:12px">
-            <div class="stat"><div class="label">Network</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Solana</div></div>
-            <div class="stat"><div class="label">Taxes</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">0 / 0 (typical Solana)</div></div>
+            <div class="stat"><div class="label">Network</div><div class="value" style="font-size:14px">Solana</div></div>
+            <div class="stat"><div class="label">Total Supply</div><div class="value" id="tokSupply" style="font-size:14px">1,000,000,000</div></div>
           </div>
 
-          <div class="grid2" style="margin-top:12px">
-            <div class="stat"><div class="label">Total Supply</div><div class="value" id="tokSupply">—</div></div>
-            <div class="stat"><div class="label">Contract Address</div><div class="value" style="font-size:14px;font-weight:850;color:rgba(242,244,255,.85)">Published at launch</div></div>
-          </div>
-
-          <div class="section" style="margin-top:16px">
-            <h2 style="font-size:18px;margin:0 0 10px">Allocation (template)</h2>
-            <div class="grid3">
-              <div class="stat"><div class="label">Community + Liquidity</div><div class="value" id="allocCommunity">—</div></div>
-              <div class="stat"><div class="label">Ecosystem / Development</div><div class="value" id="allocEcosystem">—</div></div>
-              <div class="stat"><div class="label">Strategic Growth</div><div class="value" id="allocGrowth">—</div></div>
-            </div>
-            <div class="grid3" style="margin-top:12px">
-              <div class="stat"><div class="label">Founder</div><div class="value" id="allocFounder">—</div></div>
-              <div class="stat"><div class="label">Reserve</div><div class="value" id="allocReserve">—</div></div>
-              <div class="stat"><div class="label">Lock / Vesting</div><div class="value" id="allocLock">—</div></div>
-            </div>
-
-            <div class="note" style="margin-top:12px">
-              After launch we publish proof links: CA, Solscan, liquidity lock, and authority status.
-            </div>
+          <div class="note" style="margin-top:12px">
+            After launch we publish proof links: CA, Solscan, liquidity lock, and authority status.
           </div>
         </div>
       </section>
@@ -1676,7 +1098,7 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
 
           <div class="faqItem">
             <button class="faqQ" type="button">How does the waitlist position work?<span class="chev">▾</span></button>
-            <div class="faqA">After you join, you get a position and referral link. Referrals increase priority. This page shows a local demo dashboard; a global leaderboard is enabled when you add a backend.</div>
+            <div class="faqA">After you join, you get a position and referral link. Referrals increase priority. This is a local demo dashboard; a global leaderboard is enabled when you add a backend.</div>
           </div>
 
           <div class="faqItem">
@@ -1718,14 +1140,12 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
         </div>
       </section>
 
-      <footer>
-        <div style="padding-top:28px">
-          <div style="margin-bottom:10px">
-            <b>Disclaimer:</b> This site is for informational/community purposes only and is not financial advice.
-            Crypto assets can be volatile and risky.
-          </div>
-          <div>© <span id="year"></span> FreedomFi</div>
+      <footer style="padding:28px 0 10px">
+        <div class="note" style="margin-top:0">
+          <b>Disclaimer:</b> This site is for informational/community purposes only and is not financial advice.
+          Crypto assets can be volatile and risky.
         </div>
+        <div class="muted2" style="font-weight:900">© <span id="year"></span> FreedomFi</div>
       </footer>
 
     </div>
@@ -1733,24 +1153,7 @@ header *, .header *, .siteHeader *, .topbar *, .navBar * {
 
   <script>
     const $ = (id) => document.getElementById(id);
-window.addEventListener("error", (e) => {
-  const msg = (e?.message || "Unknown error");
-  const where = e?.filename ? `${e.filename}:${e.lineno}:${e.colno}` : "";
-  document.body.innerHTML =
-    `<div style="padding:16px;font:14px/1.4 system-ui;background:#0b0d1f;color:#fff;">
-      <b>FreedomFi JS Error</b>
-      <pre style="white-space:pre-wrap;opacity:.85;margin:10px 0 0;">${msg}\n${where}</pre>
-    </div>`;
-});
 
-window.addEventListener("unhandledrejection", (e) => {
-  const msg = (e?.reason?.message || String(e?.reason || "Unhandled promise rejection"));
-  document.body.innerHTML =
-    `<div style="padding:16px;font:14px/1.4 system-ui;background:#0b0d1f;color:#fff;">
-      <b>FreedomFi Promise Error</b>
-      <pre style="white-space:pre-wrap;opacity:.85;margin:10px 0 0;">${msg}</pre>
-    </div>`;
-});
     function fmtUSD(n){
       if(!isFinite(n)) return "—";
       return n >= 1 ? "$" + n.toLocaleString(undefined,{maximumFractionDigits: 2})
@@ -1761,7 +1164,9 @@ window.addEventListener("unhandledrejection", (e) => {
       return n.toLocaleString(undefined,{notation:"compact", maximumFractionDigits:2});
     }
 
+    // -------------------------
     // Drawer
+    // -------------------------
     const menuBtn = $("menuBtn");
     const drawerBack = $("drawerBack");
     const drawer = $("drawer");
@@ -1770,22 +1175,27 @@ window.addEventListener("unhandledrejection", (e) => {
     function openDrawer(){
       drawer.classList.add("open");
       drawerBack.classList.add("show");
-      menuBtn.setAttribute("aria-expanded","true");
+      menuBtn?.setAttribute("aria-expanded","true");
       document.documentElement.style.overflow = "hidden";
     }
     function closeDrawer(){
       drawer.classList.remove("open");
       drawerBack.classList.remove("show");
-      menuBtn.setAttribute("aria-expanded","false");
+      menuBtn?.setAttribute("aria-expanded","false");
       document.documentElement.style.overflow = "";
     }
+
     menuBtn?.addEventListener("click", (e)=>{ e.preventDefault(); openDrawer(); });
     drawerClose?.addEventListener("click", (e)=>{ e.preventDefault(); closeDrawer(); });
     drawerBack?.addEventListener("click", closeDrawer);
     drawer?.addEventListener("click", (e)=>{ const a = e.target.closest("a"); if(a) closeDrawer(); });
+
+    // Close on ESC
     window.addEventListener("keydown", (e)=>{ if(e.key==="Escape"){ closeDrawer(); closePaper(); } });
 
+    // -------------------------
     // FAQ accordion
+    // -------------------------
     document.querySelectorAll(".faqItem").forEach(item=>{
       item.querySelector(".faqQ")?.addEventListener("click", ()=> item.classList.toggle("open"));
     });
@@ -1793,57 +1203,20 @@ window.addEventListener("unhandledrejection", (e) => {
     // -------------------------
     // Launch gating
     // -------------------------
-    const LAUNCH_LIVE = false; // Change to true when launching
-    const SOLSCAN_BASE = "https://solscan.io/token/";
+    const LAUNCH_LIVE = false; // set true at launch
+    const CONTRACT_ADDRESS = ""; // paste CA at launch
 
-    // Paste your CA here after launch:
-    const CONTRACT_ADDRESS = ""; // <-- paste CA here later
-    const LP_LOCK_URL = "";      // <-- paste proof link later (optional)
-    const AUTHORITY_STATUS_TEXT = ""; // <-- paste later (e.g. "Mint revoked, Freeze revoked")
-
-    // Tokenomics (fill now; can adjust later)
-    const TOKENOMICS = {
-      totalSupplyText: "1,000,000,000",
-      communityText: "60%",
-      ecosystemText: "15%",
-      growthText: "10%",
-      founderText: "10%",
-      reserveText: "5%",
-      lockText: "Founder allocation locked (duration to be published at launch)"
-    };
-
-    function launchLive(){ return LAUNCH_LIVE; }
-
-    // Fill tokenomics
-    function applyTokenomics(){
-      $("tokSupply").textContent = TOKENOMICS.totalSupplyText || "—";
-      $("allocCommunity").textContent = TOKENOMICS.communityText || "—";
-      $("allocEcosystem").textContent = TOKENOMICS.ecosystemText || "—";
-      $("allocGrowth").textContent = TOKENOMICS.growthText || "—";
-      $("allocFounder").textContent = TOKENOMICS.founderText || "—";
-      $("allocReserve").textContent = TOKENOMICS.reserveText || "—";
-      $("allocLock").textContent = TOKENOMICS.lockText || "—";
-    }
-    applyTokenomics();
-
-    // CA + chart gating
     function applyGates(){
       const caBox = $("caText");
       const copyBtn = $("copyCA");
       const chartBtn = $("chartBtn");
-      const solscan = $("solscanLink");
-      const lp = $("lpLockLink");
-      const auth = $("authStatus");
       const dexFrame = $("dexFrame");
       const embedLock = $("embedLock");
 
-      if(!launchLive() || !CONTRACT_ADDRESS){
+      if(!LAUNCH_LIVE || !CONTRACT_ADDRESS){
         if(caBox) caBox.textContent = "CA: (locked until launch)";
         if(copyBtn) copyBtn.disabled = true;
         if(chartBtn) chartBtn.href = "#";
-        if(solscan) solscan.textContent = "Locked";
-        if(lp) lp.textContent = "Soon";
-        if(auth) auth.textContent = "Soon";
         if(dexFrame) dexFrame.style.display = "none";
         if(embedLock) embedLock.style.display = "flex";
         return;
@@ -1853,10 +1226,6 @@ window.addEventListener("unhandledrejection", (e) => {
       if(copyBtn) copyBtn.disabled = false;
 
       if(chartBtn) chartBtn.href = "https://dexscreener.com/solana/" + CONTRACT_ADDRESS;
-      if(solscan) solscan.innerHTML = '<a href="'+(SOLSCAN_BASE+CONTRACT_ADDRESS)+'" target="_blank" rel="noreferrer" style="text-decoration:underline">View on Solscan</a>';
-      if(lp) lp.innerHTML = LP_LOCK_URL ? '<a href="'+LP_LOCK_URL+'" target="_blank" rel="noreferrer" style="text-decoration:underline">View lock proof</a>' : "To be published";
-      if(auth) auth.textContent = AUTHORITY_STATUS_TEXT || "To be published";
-
       if(dexFrame){
         dexFrame.src = "https://dexscreener.com/solana/" + CONTRACT_ADDRESS + "?embed=1&theme=dark";
         dexFrame.style.display = "block";
@@ -1864,9 +1233,7 @@ window.addEventListener("unhandledrejection", (e) => {
       if(embedLock) embedLock.style.display = "none";
     }
     applyGates();
-    setInterval(applyGates, 2000);
 
-    // Copy CA
     $("copyCA")?.addEventListener("click", async ()=>{
       const txt = ($("caText")?.textContent || "").replace(/^CA:\s*/,'').trim();
       if(!txt || txt.toLowerCase().includes("locked")) return;
@@ -1879,7 +1246,7 @@ window.addEventListener("unhandledrejection", (e) => {
 
     // Dexscreener stats
     async function loadDex(){
-      if(!launchLive() || !CONTRACT_ADDRESS) return;
+      if(!LAUNCH_LIVE || !CONTRACT_ADDRESS) return;
       try{
         const url = "https://api.dexscreener.com/latest/dex/tokens/" + CONTRACT_ADDRESS;
         const res = await fetch(url, {cache:"no-store"});
@@ -1907,13 +1274,9 @@ window.addEventListener("unhandledrejection", (e) => {
     setInterval(loadDex, 30000);
 
     // -------------------------
-    // Viral waitlist (front-end)
+    // Waitlist demo (local + Netlify submit)
     // -------------------------
-    const WAITLIST_CAP = 5000;
-    const LS_KEY = "freedomfi_waitlist_v2";
-    const LB_KEY = "freedomfi_leaderboard_v1";
-    const WV_KEY = "freedomfi_walletvault_v1";
-    const AC_KEY = "freedomfi_academy_v1";
+    const LS_KEY = "freedomfi_waitlist_v3";
 
     function randCode(){
       const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
@@ -1949,33 +1312,25 @@ window.addEventListener("unhandledrejection", (e) => {
       const code = st.code;
 
       $("posText").textContent = pos ? ("#" + pos.toLocaleString()) : "—";
-      $("refCountText").textContent = (pos ? String(refs) : "—");
-      $("tierText").textContent = (pos ? tierFromRefs(refs) : "—");
+      $("refCountText").textContent = pos ? String(refs) : "—";
+      $("tierText").textContent = pos ? tierFromRefs(refs) : "—";
 
       const link = (pos && code) ? buildRefLink(code) : "—";
       $("refLinkText").textContent = link;
-
       $("copyRef").disabled = !(pos && code);
 
       const shareText = encodeURIComponent("I joined the FreedomFi early access waitlist. Move up with referrals. Join here:");
       const shareUrl = encodeURIComponent(link === "—" ? (location.origin + location.pathname) : link);
       $("shareX").href = "https://twitter.com/intent/tweet?text=" + shareText + "%20" + shareUrl;
       $("shareTG").href = "https://t.me/share/url?url=" + shareUrl + "&text=" + shareText;
-
-      // badge for leaderboard / academy
-      $("lb_my_badge").innerHTML = badgeForUser(refs, getAcademyBest().bestScore).outerHTML;
     }
 
-    // Read ?ref= on arrival and prefill the form
     (function seedRefFromQuery(){
       const url = new URL(location.href);
       const qref = url.searchParams.get("ref");
-      if(qref && $("wl_ref")){
-        $("wl_ref").value = qref.trim();
-      }
+      if(qref && $("wl_ref")) $("wl_ref").value = qref.trim();
     })();
 
-    // Copy referral link
     $("copyRef")?.addEventListener("click", async ()=>{
       const txt = ($("refLinkText")?.textContent || "").trim();
       if(!txt || txt === "—") return;
@@ -1986,7 +1341,6 @@ window.addEventListener("unhandledrejection", (e) => {
       }catch{}
     });
 
-    // Demo-only referral increment
     $("addReferralBtn")?.addEventListener("click", ()=>{
       const st = getState();
       if(!st.position) return;
@@ -1994,13 +1348,12 @@ window.addEventListener("unhandledrejection", (e) => {
       const jump = st.referrals >= 25 ? 25 : st.referrals >= 10 ? 12 : st.referrals >= 3 ? 6 : 2;
       st.position = Math.max(1, (st.position || 1) - jump);
       setState(st);
-      // also update demo leaderboard row for "You"
-      upsertLeaderboardSelf();
       updateDashboard();
-      renderLeaderboard();
+      // sync sim too
+      $("vs_refs").value = String(st.referrals || 0);
+      runVault();
     });
 
-    // Netlify AJAX form submit
     function encodeForm(data){
       return Object.keys(data).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
     }
@@ -2024,8 +1377,7 @@ window.addEventListener("unhandledrejection", (e) => {
       const st = getState();
       if(!st.code) st.code = randCode();
       if(!st.position){
-        const base = 1800 + Math.floor(Math.random()*2200);
-        st.position = base;
+        st.position = 1800 + Math.floor(Math.random()*2200);
       }
       st.email = email;
       st.wallet = $("wl_wallet")?.value?.trim() || "";
@@ -2033,9 +1385,7 @@ window.addEventListener("unhandledrejection", (e) => {
       st.referrals = st.referrals || 0;
 
       setState(st);
-      upsertLeaderboardSelf();
       updateDashboard();
-      renderLeaderboard();
 
       try{
         const payload = {
@@ -2080,98 +1430,58 @@ window.addEventListener("unhandledrejection", (e) => {
     const paperBody = $("paperBody");
 
     const LITEPAPER = {
-      version: "v0.1",
-      status: "Draft",
       title: "FreedomFi Litepaper",
+      version: "v0.1 (Draft)",
       sections: [
-        {
-          h: "1. Vision",
-          p: [
-            "FreedomFi is building Solana-native financial infrastructure with a security-first culture.",
-            "We prioritize verifiable information, anti-scam standards, and long-term execution."
-          ]
-        },
-        {
-          h: "2. Problem",
-          p: [
-            "The highest risk in crypto is not volatility — it’s deception.",
-            "Most users lose funds from scams, spoofed contracts, and fake links.",
-            "FreedomFi’s first product surface is trust: verification, education, and participation mechanics that reward real community building."
-          ]
-        },
-        {
-          h: "3. System Overview",
-          p: [
-            "• Viral Waitlist: referral engine that measures participation.",
-            "• Freedom Vault: tiered access concept based on referrals and engagement (finalized at launch).",
-            "• Leaderboard + Badges: culture-building incentives that reward contribution.",
-            "• Freedom Academy: security education with quizzes that increase community readiness."
-          ]
-        },
-        {
-          h: "4. Security Standards",
-          p: [
-            "• Never DM first.",
-            "• Never request seed phrases.",
-            "• Contract address published only on this site + pinned Telegram.",
-            "• Launch gating to reduce spoofing.",
-            "• Clear proofs post-launch: Solscan, liquidity lock, mint/freeze authority status."
-          ]
-        },
-        {
-          h: "5. Roadmap",
-          p: [
-            "Phase I: tools, waitlist, education, verification standards.",
-            "Phase II: launch gating lifted; proof links published; live stats enabled.",
-            "Phase III+: expansion into stronger transparency tooling and ecosystem integrations."
-          ]
-        },
-        {
-          h: "6. Token",
-          p: [
-            "Network: Solana",
-            "Supply: 1,000,000,000",
-            "Taxes: 0/0 (typical Solana)",
-            "Allocations are published with proof at launch."
-          ]
-        },
-        {
-          h: "7. Notes",
-          p: [
-            "This is a living document. We update it as milestones are completed.",
-            "We will not trade security for hype."
-          ]
-        }
+        { h:"1. Vision", p:["FreedomFi is building Solana-native financial infrastructure with a security-first culture.","We prioritize verifiable information and long-term execution."] },
+        { h:"2. Problem", p:["The highest risk in crypto is deception.","Users lose funds from spoofed contracts and fake links."] },
+        { h:"3. System Overview", p:["Viral Waitlist (participation).","Freedom Vault simulator (clarity).","Freedom Academy (security culture).","Verification Center (anti-scam standards)."] },
+        { h:"4. Security Standards", p:["Never DM first.","Never request seed phrases.","CA only on this site + pinned Telegram.","Proof links post-launch (Solscan, lock, authority)."] },
+        { h:"5. Roadmap", p:["Phase I: tools, waitlist, education.","Phase II: launch gating lifted; live stats enabled.","Phase III+: transparency upgrades."] }
       ]
     };
 
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
     function paperToHTML(){
       const parts = [];
-      parts.push(`<div class="note" style="margin-top:0"><b>${LITEPAPER.title}</b> — ${LITEPAPER.version} • ${LITEPAPER.status}</div>`);
+      parts.push(`<div class="note" style="margin-top:0"><b>${escapeHtml(LITEPAPER.title)}</b> — ${escapeHtml(LITEPAPER.version)}</div>`);
       for(const s of LITEPAPER.sections){
         parts.push(`<h3>${escapeHtml(s.h)}</h3>`);
-        if(s.p?.length){
-          parts.push("<ul>");
-          for(const line of s.p){
-            parts.push(`<li>${escapeHtml(line)}</li>`);
-          }
-          parts.push("</ul>");
-        }
+        parts.push("<ul>");
+        for(const line of (s.p||[])) parts.push(`<li>${escapeHtml(line)}</li>`);
+        parts.push("</ul>");
       }
       return parts.join("");
     }
     function paperToTXT(){
       const lines = [];
-      lines.push(`${LITEPAPER.title} — ${LITEPAPER.version} (${LITEPAPER.status})`);
+      lines.push(`${LITEPAPER.title} — ${LITEPAPER.version}`);
       lines.push("");
       for(const s of LITEPAPER.sections){
         lines.push(s.h);
-        for(const line of (s.p || [])){
-          lines.push(`- ${line}`);
-        }
+        for(const line of (s.p || [])) lines.push(`- ${line}`);
         lines.push("");
       }
       return lines.join("\n");
+    }
+    function downloadText(filename, text){
+      const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
     }
 
     function openPaper(){
@@ -2187,33 +1497,19 @@ window.addEventListener("unhandledrejection", (e) => {
     openPaperBtn2?.addEventListener("click", openPaper);
     paperClose?.addEventListener("click", closePaper);
     paperBack?.addEventListener("click", (e)=>{ if(e.target === paperBack) closePaper(); });
-
-    function downloadText(filename, text){
-      const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url), 500);
-    }
     dlPaperTxt?.addEventListener("click", ()=> downloadText("FreedomFi-Litepaper-v0.1.txt", paperToTXT()));
     dlPaperTxt2?.addEventListener("click", ()=> downloadText("FreedomFi-Litepaper-v0.1.txt", paperToTXT()));
 
     // -------------------------
-    // Freedom Vault Simulator
+    // Vault simulator
     // -------------------------
     function vaultBonusPct(refs, holdDays, style){
-      // base tier bonus from referrals
       let tierBonus = 0;
       if(refs >= 25) tierBonus = 0.18;
       else if(refs >= 10) tierBonus = 0.12;
       else if(refs >= 3) tierBonus = 0.07;
       else tierBonus = 0.03;
 
-      // holding multiplier
       let holdBonus = 0;
       if(holdDays >= 90) holdBonus = 0.06;
       else if(holdDays >= 60) holdBonus = 0.04;
@@ -2221,13 +1517,11 @@ window.addEventListener("unhandledrejection", (e) => {
       else if(holdDays >= 14) holdBonus = 0.015;
       else holdBonus = 0.01;
 
-      // style adjustment
       let styleAdj = 0;
       if(style === "conservative") styleAdj = -0.01;
       if(style === "aggressive") styleAdj = +0.01;
 
-      const total = Math.max(0, tierBonus + holdBonus + styleAdj);
-      return total; // 0.xx
+      return Math.max(0, tierBonus + holdBonus + styleAdj);
     }
 
     function nextTierGoal(refs){
@@ -2238,16 +1532,10 @@ window.addEventListener("unhandledrejection", (e) => {
     }
 
     function priorityScore(refs, holdDays, amt){
-      // A simple fun scoring that feels “real”:
-      // referrals dominate, holding helps, amount helps, capped for sanity
-      const score = Math.min(9999,
-        Math.round(refs*220 + holdDays*3 + Math.sqrt(Math.max(0, amt))*25)
-      );
-      return score;
+      return Math.min(9999, Math.round(refs*220 + holdDays*3 + Math.sqrt(Math.max(0, amt))*25));
     }
 
     function runVault(){
-      const st = getState();
       const amt = Number($("vs_amount").value || 0);
       const refs = Number($("vs_refs").value || 0);
       const hold = Number($("vs_hold").value || 30);
@@ -2263,10 +1551,6 @@ window.addEventListener("unhandledrejection", (e) => {
       $("vs_score").textContent = String(score);
       $("vs_effective").textContent = fmtUSD(eff);
       $("vs_next").textContent = nextTierGoal(refs);
-
-      // store last sim
-      st.lastVaultSim = {amt, refs, hold, style, tier, bonus, score, eff, at: Date.now()};
-      setState(st);
     }
 
     $("vs_run")?.addEventListener("click", runVault);
@@ -2297,511 +1581,17 @@ window.addEventListener("unhandledrejection", (e) => {
     });
 
     // -------------------------
-    // Meme generator (Canvas)
+    // Academy quiz
     // -------------------------
+    const AC_KEY = "freedomfi_academy_v1";
+    const answers = {1:1, 2:1, 3:1, 4:1};
+    const picks = {};
 
-// randomizeMemeStyle();
-    function drawBackground(mode){
-      const w = memeCanvas.width, h = memeCanvas.height;
-      ctx.clearRect(0,0,w,h);
-
-      // base
-      const g = ctx.createLinearGradient(0,0,w,h);
-      if(mode === "gold"){
-        g.addColorStop(0, "rgba(10,10,18,1)");
-        g.addColorStop(1, "rgba(40,28,10,1)");
-      }else if(mode === "dark"){
-        g.addColorStop(0, "rgba(8,10,16,1)");
-        g.addColorStop(1, "rgba(3,4,8,1)");
-      }else{
-        g.addColorStop(0, "rgba(8,10,16,1)");
-        g.addColorStop(1, "rgba(10,10,28,1)");
-      }
-      ctx.fillStyle = g;
-      ctx.fillRect(0,0,w,h);
-
-      // glow blobs
-      function blob(x,y,r, color){
-        const rg = ctx.createRadialGradient(x,y,0,x,y,r);
-        rg.addColorStop(0, color);
-        rg.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = rg;
-        ctx.beginPath();
-        ctx.arc(x,y,r,0,Math.PI*2);
-        ctx.fill();
-      }
-      if(mode === "gold"){
-        blob(w*0.25,h*0.2, 260, "rgba(217,178,76,0.22)");
-        blob(w*0.8,h*0.3, 300, "rgba(129,140,248,0.14)");
-      }else if(mode === "dark"){
-        blob(w*0.2,h*0.25, 260, "rgba(255,255,255,0.08)");
-        blob(w*0.78,h*0.32, 300, "rgba(129,140,248,0.10)");
-      }else{
-        blob(w*0.25,h*0.2, 260, "rgba(129,140,248,0.20)");
-        blob(w*0.8,h*0.35, 330, "rgba(217,178,76,0.16)");
-      }
-
-      // subtle grid
-      ctx.save();
-      ctx.globalAlpha = 0.10;
-      ctx.strokeStyle = "rgba(255,255,255,0.25)";
-      for(let x=0; x<w; x+=60){
-        ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
-      }
-      for(let y=0; y<h; y+=60){
-        ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke();
-      }
-      ctx.restore();
-
-      // vignette
-      const v = ctx.createRadialGradient(w*0.5,h*0.5, 120, w*0.5,h*0.5, 900);
-      v.addColorStop(0, "rgba(0,0,0,0)");
-      v.addColorStop(1, "rgba(0,0,0,0.65)");
-      ctx.fillStyle = v;
-      ctx.fillRect(0,0,w,h);
-    }
-
-    function wrapText(text, maxWidth, font){
-      ctx.font = font;
-      const words = (text || "").split(/\s+/).filter(Boolean);
-      const lines = [];
-      let line = "";
-      for(const word of words){
-        const test = line ? (line + " " + word) : word;
-        if(ctx.measureText(test).width <= maxWidth){
-          line = test;
-        }else{
-          if(line) lines.push(line);
-          line = word;
-        }
-      }
-      if(line) lines.push(line);
-      return lines;
-    }
-
-    function drawMeme(){
-      const tpl = $("mg_template").value;
-      const text = ($("mg_text").value || "").trim() || "Freedom is built — not promised.";
-      const colors = [
-  "rgba(217,178,76,0.90)",
-  "rgba(129,140,248,0.90)",
-  "rgba(255,255,255,0.85)",
-  "rgba(247,230,163,0.95)"
-];
-
-const accent = colors[Math.floor(Math.random()*colors.length)];
-      const footer = ($("mg_footer").value || "").trim();
-      const bg = $("mg_bg").value;
-
-      drawBackground(bg);
-
-      const w = memeCanvas.width, h = memeCanvas.height;
-
-      // header chip
-      ctx.save();
-      ctx.globalAlpha = 0.95;
-      roundRect(40, 40, 360, 56, 18, "rgba(0,0,0,0.35)", "rgba(255,255,255,0.18)");
-      ctx.drawImage(logoImg, 56, 52, 32, 32);
-      ctx.fillStyle = "rgba(242,244,255,0.95)";
-      ctx.font = "900 20px Orbitron, sans-serif";
-      ctx.restore();
-
-      // template styling
-      let title = "QUOTE";
-      if(tpl === "warning"){
-        title = "SECURITY NOTICE";
-        accent = "rgba(251,113,133,0.85)";
-        sub = "Verify links only from official sources";
-      }else if(tpl === "hype"){
-        title = "TRANSMISSION";
-        accent = "rgba(129,140,248,0.85)";
-        sub = "Infrastructure moves quietly";
-      }
-
-      // accent line
-      ctx.save();
-      ctx.globalAlpha = 0.95;
-      ctx.fillStyle = accent;
-      ctx.fillRect(40, 120, 8, h - 200);
-      ctx.restore();
-
-      // title
-      ctx.fillStyle = "rgba(242,244,255,0.92)";
-      ctx.font = "900 22px Orbitron, sans-serif";
-      ctx.fillText(title, 64, 150);
-
-      ctx.fillStyle = "rgba(242,244,255,0.68)";
-      ctx.font = "800 14px Orbitron, sans-serif";
-      ctx.fillText(sub, 64, 176);
-
-      // main text
-const maxW = w - 120;
-const fontMain = "900 52px Orbitron, sans-serif";
-ctx.font = fontMain;
-const lines = wrapText(text || "Freedom is built for those who claim it.", maxW);
-      const startY = 260;
-
-      ctx.fillStyle = "rgba(242,244,255,0.96)";
-      ctx.font = fontMain;
-      let y = startY;
-      for(const ln of lines.slice(0,6)){
-        ctx.fillText(ln, 64, y);
-        y += lineH;
-      }
-
-      // footer
-      if(footer){
-        ctx.fillStyle = "rgba(242,244,255,0.72)";
-        ctx.font = "800 18px Orbitron, sans-serif";
-        ctx.fillText(footer, 64, h - 66);
-      }
-
-      // watermark
-      ctx.save();
-      ctx.globalAlpha = 0.18;
-      ctx.translate(w - 160, h - 120);
-      ctx.rotate(-0.08);
-      ctx.drawImage(logoImg, 0, 0, 96, 96);
-      ctx.restore();
-
-      // border
-      ctx.save();
-      ctx.globalAlpha = 0.35;
-      ctx.strokeStyle = "rgba(255,255,255,0.30)";
-      ctx.lineWidth = 2;
-      roundedStroke(18, 18, w-36, h-36, 22);
-      ctx.restore();
-    }
-
-    function roundRect(x,y,w,h,r, fill, stroke){
-      ctx.beginPath();
-      ctx.moveTo(x+r,y);
-      ctx.arcTo(x+w,y,x+w,y+h,r);
-      ctx.arcTo(x+w,y+h,x,y+h,r);
-      ctx.arcTo(x,y+h,x,y,r);
-      ctx.arcTo(x,y,x+w,y,r);
-      ctx.closePath();
-      if(fill){ ctx.fillStyle = fill; ctx.fill(); }
-      if(stroke){ ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); }
-    }
-    function roundedStroke(x,y,w,h,r){
-      ctx.beginPath();
-      ctx.moveTo(x+r,y);
-      ctx.arcTo(x+w,y,x+w,y+h,r);
-      ctx.arcTo(x+w,y+h,x,y+h,r);
-      ctx.arcTo(x,y+h,x,y,r);
-      ctx.arcTo(x,y,x+w,y,r);
-      ctx.closePath();
-      ctx.stroke();
-    }
-/* MEME GENERATOR DISABLED
-    $("mg_render")?.addEventListener("click", ()=>{
-  randomizeMemeStyle();
-  drawMeme();
-});
-
-    $("mg_download")?.addEventListener("click", ()=>{
-      drawMeme();
-      memeCanvas.toBlob((blob)=>{
-        if(!blob) return;
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "FreedomFi-meme.png";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(()=>URL.revokeObjectURL(url), 500);
-      }, "image/png");
-    });
-
-    $("mg_share")?.addEventListener("click", async ()=>{
-      drawMeme();
-      if(!navigator.share){
-        window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent("FreedomFi") + "&url=" + encodeURIComponent(location.origin + location.pathname), "_blank");
-        return;
-      }
-      memeCanvas.toBlob(async (blob)=>{
-        if(!blob) return;
-        const file = new File([blob], "FreedomFi-meme.png", {type:"image/png"});
-        try{
-          await navigator.share({title:"FreedomFi Meme", text:"FreedomFi", files:[file]});
-        }catch{}
-      }, "image/png");
-    });
-
-    // draw after logo loads
-    // logoImg.onload = () => drawMeme();
-
-    // -------------------------
-    */
-    // Leaderboard (demo + ready)
-    // -------------------------
-    function getLB(){
-      try{ return JSON.parse(localStorage.getItem(LB_KEY) || "[]"); }catch{ return []; }
-    }
-    function setLB(rows){
-      localStorage.setItem(LB_KEY, JSON.stringify(rows || []));
-    }
-
-    function badgeForUser(refs, academyBest){
-      // refs badge baseline
-      let b = {text:"Freedom Cadet", cls:"badgeBlue"};
-      if(refs >= 25) b = {text:"Freedom Commander", cls:"badge"};
-      else if(refs >= 10) b = {text:"Freedom Captain", cls:"badge"};
-      else if(refs >= 3) b = {text:"Freedom Recruit", cls:"badgeGreen"};
-
-      // academy overlay
-      if(academyBest >= 4) b = {text:"Security Sentinel", cls:"badgeGreen"};
-      if(academyBest >= 3 && refs >= 10) b = {text:"Elite Freedom Fighter", cls:"badge"};
-
-      const el = document.createElement("span");
-      el.className = "badge " + (b.cls || "");
-      el.textContent = "🏅 " + b.text;
-      return el;
-    }
-
-    function upsertLeaderboardSelf(){
-      const st = getState();
-      if(!st.code) return;
-      const lb = getLB();
-      const idx = lb.findIndex(r => r.id === st.code);
-      const row = {
-        id: st.code,
-        name: "You",
-        handle: "@FreedomFighter",
-        refs: Number(st.referrals || 0),
-      };
-      if(idx >= 0) lb[idx] = {...lb[idx], ...row};
-      else lb.push(row);
-      setLB(lb);
-    }
-
-    function seedDemoLeaderboard(){
-      const demo = [
-        {id:"FRDM-DEMO01", name:"Apex", handle:"@ApexSol", refs:31},
-        {id:"FRDM-DEMO02", name:"Nova", handle:"@NovaFi", refs:18},
-        {id:"FRDM-DEMO03", name:"Ranger", handle:"@RangerSOL", refs:12},
-        {id:"FRDM-DEMO04", name:"Cipher", handle:"@CipherNode", refs:7},
-        {id:"FRDM-DEMO05", name:"Echo", handle:"@EchoChain", refs:4},
-      ];
-      const lb = getLB();
-      const merged = [...lb];
-      for(const r of demo){
-        if(!merged.find(x=>x.id===r.id)) merged.push(r);
-      }
-      setLB(merged);
-      upsertLeaderboardSelf();
-      renderLeaderboard();
-    }
-
-    function renderLeaderboard(){
-      const tb = $("lb_rows");
-      if(!tb) return;
-      const lb = getLB().slice().sort((a,b)=> (Number(b.refs)||0) - (Number(a.refs)||0));
-
-      tb.innerHTML = "";
-      const best = getAcademyBest();
-
-      lb.forEach((r, i)=>{
-        const tr = document.createElement("tr");
-
-        const tdRank = document.createElement("td");
-        tdRank.innerHTML = `<span class="rankPill">#${i+1}</span>`;
-        tr.appendChild(tdRank);
-
-        const tdName = document.createElement("td");
-        tdName.innerHTML = `<div style="font-weight:950">${escapeHtml(r.name || "—")}</div><div class="tiny">${escapeHtml(r.handle || "")}</div>`;
-        tr.appendChild(tdName);
-
-        const tdRefs = document.createElement("td");
-        tdRefs.textContent = String(r.refs ?? 0);
-        tr.appendChild(tdRefs);
-
-        const tdBadge = document.createElement("td");
-        const badge = badgeForUser(Number(r.refs||0), best.bestScore);
-        // personalize "You"
-        if(r.name === "You"){
-          badge.className = badge.className + " badgeBlue";
-        }
-        tdBadge.appendChild(badge);
-        tr.appendChild(tdBadge);
-
-        tb.appendChild(tr);
-      });
-
-      // my badge indicator
-      const st = getState();
-      const myRefs = Number(st.referrals || 0);
-      const myBadge = badgeForUser(myRefs, best.bestScore);
-      $("lb_my_badge").innerHTML = myBadge.outerHTML;
-    }
-
-    $("lb_refresh")?.addEventListener("click", ()=>{ upsertLeaderboardSelf(); renderLeaderboard(); });
-    $("lb_seed")?.addEventListener("click", seedDemoLeaderboard);
-    $("lb_clear")?.addEventListener("click", ()=>{ localStorage.removeItem(LB_KEY); renderLeaderboard(); });
-
-    // -------------------------
-    // Wallet Vault (local) + injected connect
-    // -------------------------
-    function getWalletVault(){
-      try{ return JSON.parse(localStorage.getItem(WV_KEY) || "[]"); }catch{ return []; }
-    }
-    function setWalletVault(rows){
-      localStorage.setItem(WV_KEY, JSON.stringify(rows || []));
-    }
-
-    function isLikelySolAddress(s){
-      // lightweight validation: base58 charset and reasonable length (NOT full on-curve check)
-      if(!s) return false;
-      const t = String(s).trim();
-      if(t.length < 32 || t.length > 44) return false;
-      if(!/^[1-9A-HJ-NP-Za-km-z]+$/.test(t)) return false;
-      return true;
-    }
-
-    function renderWalletVault(){
-      const list = $("wv_list");
-      if(!list) return;
-      const rows = getWalletVault();
-      if(!rows.length){
-        list.innerHTML = `<div class="note tiny" style="margin-top:0">No wallets saved yet.</div>`;
-        return;
-      }
-      list.innerHTML = "";
-      rows.forEach((r, idx)=>{
-        const box = document.createElement("div");
-        box.className = "note";
-        box.style.marginTop = idx ? "10px" : "0";
-        box.innerHTML = `
-          <div style="display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap">
-            <div>
-              <div style="font-weight:950">${escapeHtml(r.label || "Wallet")}</div>
-              <div class="mono" style="margin-top:6px; font-size:12px; color:rgba(242,244,255,.82)">${escapeHtml(r.addr)}</div>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap">
-              <button class="pill pillSmall" data-copy="${escapeHtml(r.addr)}" type="button">Copy</button>
-              <button class="pill pillSmall btnDanger" data-del="${idx}" type="button">Remove</button>
-            </div>
-          </div>
-        `;
-        list.appendChild(box);
-      });
-
-      list.querySelectorAll("[data-copy]").forEach(btn=>{
-        btn.addEventListener("click", async ()=>{
-          try{ await navigator.clipboard.writeText(btn.getAttribute("data-copy")); btn.textContent="Copied"; setTimeout(()=>btn.textContent="Copy", 900);}catch{}
-        });
-      });
-      list.querySelectorAll("[data-del]").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          const i = Number(btn.getAttribute("data-del"));
-          const rows = getWalletVault();
-          rows.splice(i,1);
-          setWalletVault(rows);
-          renderWalletVault();
-        });
-      });
-    }
-
-    $("wv_add")?.addEventListener("click", ()=>{
-      const label = ($("wv_label").value || "Wallet").trim();
-      const addr = ($("wv_addr").value || "").trim();
-      if(!isLikelySolAddress(addr)){
-        $("walletMsg").className = "note danger";
-        $("walletStatus").textContent = "Invalid address (check characters/length).";
-        return;
-      }
-      const rows = getWalletVault();
-      if(rows.find(r => r.addr === addr)){
-        $("walletMsg").className = "note";
-        $("walletStatus").textContent = "Already saved.";
-        return;
-      }
-      rows.push({label, addr, addedAt: Date.now()});
-      setWalletVault(rows);
-      $("wv_addr").value = "";
-      $("walletMsg").className = "note success";
-      $("walletStatus").textContent = "Saved locally.";
-      renderWalletVault();
-    });
-
-    $("wv_clear")?.addEventListener("click", ()=>{
-      localStorage.removeItem(WV_KEY);
-      renderWalletVault();
-      $("walletMsg").className = "note";
-      $("walletStatus").textContent = "Cleared.";
-    });
-
-    $("wv_export")?.addEventListener("click", ()=>{
-      const rows = getWalletVault();
-      const lines = ["label,address,addedAt"];
-      for(const r of rows){
-        lines.push(`"${(r.label||"").replaceAll('"','""')}","${r.addr}","${new Date(r.addedAt||Date.now()).toISOString()}"`);
-      }
-      downloadText("FreedomFi-wallets.csv", lines.join("\n"));
-    });
-
-    // injected wallet connect (Phantom/Solflare/Backpack typically expose window.solana)
-    let connectedPubkey = null;
-
-    function getProvider(){
-      // Phantom & many wallets
-      if(window?.solana?.isPhantom) return window.solana;
-      // Solflare often uses window.solflare
-      if(window?.solflare) return window.solflare;
-      // Backpack might use window.backpack?.solana (varies)
-      if(window?.backpack?.solana) return window.backpack.solana;
-      // Generic fallback
-      if(window?.solana) return window.solana;
-      return null;
-    }
-
-    $("connectWalletBtn")?.addEventListener("click", async ()=>{
-      const provider = getProvider();
-      if(!provider || !provider.connect){
-        $("walletMsg").className = "note danger";
-        $("walletStatus").textContent = "No injected wallet detected (use Phantom/Solflare/Backpack or paste address).";
-        return;
-      }
-      try{
-        const res = await provider.connect();
-        const pubkey = res?.publicKey?.toString?.() || provider?.publicKey?.toString?.();
-        if(pubkey){
-          connectedPubkey = pubkey;
-          $("walletMsg").className = "note success";
-          $("walletStatus").textContent = "Connected: " + pubkey.slice(0,4) + "…" + pubkey.slice(-4);
-          $("wv_addr").value = pubkey;
-        }else{
-          $("walletMsg").className = "note danger";
-          $("walletStatus").textContent = "Connected, but could not read public key.";
-        }
-      }catch(e){
-        $("walletMsg").className = "note danger";
-        $("walletStatus").textContent = "Connection cancelled or failed.";
-      }
-    });
-
-    $("disconnectWalletBtn")?.addEventListener("click", async ()=>{
-      const provider = getProvider();
-      try{
-        if(provider?.disconnect) await provider.disconnect();
-      }catch{}
-      connectedPubkey = null;
-      $("walletMsg").className = "note";
-      $("walletStatus").textContent = "Not connected";
-    });
-
-    // -------------------------
-    // Freedom Academy
-    // -------------------------
     function getAcademyBest(){
       try{
         const d = JSON.parse(localStorage.getItem(AC_KEY) || "{}");
         return {bestScore: Number(d.bestScore || 0)};
-      }catch{
-        return {bestScore:0};
-      }
+      }catch{ return {bestScore:0}; }
     }
     function setAcademyBest(score){
       const d = getAcademyBest();
@@ -2809,24 +1599,18 @@ const lines = wrapText(text || "Freedom is built for those who claim it.", maxW)
       localStorage.setItem(AC_KEY, JSON.stringify({bestScore: best}));
       return best;
     }
-
     function badgeFromScore(score){
-      if(score >= 4) return `<span class="badge badgeGreen">🛡️ Security Sentinel</span>`;
-      if(score >= 3) return `<span class="badge badgeBlue">🎯 Security Scout</span>`;
-      if(score >= 2) return `<span class="badge">🧠 Security Learner</span>`;
-      return `<span class="badge badgeRed">⚠️ Needs Training</span>`;
+      if(score >= 4) return "🛡️ Security Sentinel";
+      if(score >= 3) return "🎯 Security Scout";
+      if(score >= 2) return "🧠 Security Learner";
+      return "⚠️ Needs Training";
     }
-
-    const answers = {1:1, 2:1, 3:1, 4:1};
-    const picks = {};
 
     document.querySelectorAll(".tabBtn").forEach(btn=>{
       btn.addEventListener("click", ()=>{
         const q = Number(btn.getAttribute("data-q"));
         const a = Number(btn.getAttribute("data-a"));
         picks[q] = a;
-
-        // set active style within same question
         const group = btn.parentElement;
         group.querySelectorAll(".tabBtn").forEach(b=> b.classList.remove("active"));
         btn.classList.add("active");
@@ -2836,30 +1620,23 @@ const lines = wrapText(text || "Freedom is built for those who claim it.", maxW)
     function updateAcademyUI(){
       const best = getAcademyBest();
       $("ac_best").textContent = best.bestScore ? (best.bestScore + " / 4") : "—";
-      $("ac_badge").innerHTML = best.bestScore ? badgeFromScore(best.bestScore) : "—";
-      // also refresh leaderboard badge view
-      const st = getState();
-      $("lb_my_badge").innerHTML = badgeForUser(Number(st.referrals||0), best.bestScore).outerHTML;
+      $("ac_badge").textContent = best.bestScore ? badgeFromScore(best.bestScore) : "—";
     }
 
     $("ac_grade")?.addEventListener("click", ()=>{
       let score = 0;
-      for(const q of [1,2,3,4]){
-        if(picks[q] === answers[q]) score++;
-      }
+      for(const q of [1,2,3,4]) if(picks[q] === answers[q]) score++;
       const best = setAcademyBest(score);
+
       const msg = $("ac_msg");
       msg.style.display = "block";
       msg.className = "note " + (score >= 3 ? "success" : score >= 2 ? "" : "danger");
       msg.innerHTML = `<b>Score:</b> ${score}/4 • <b>Best:</b> ${best}/4<br/><span class="tiny">Badge: ${badgeFromScore(best)}</span>`;
       updateAcademyUI();
-      renderLeaderboard();
     });
 
     $("ac_reset")?.addEventListener("click", ()=>{
-      for(const q of [1,2,3,4]){
-        delete picks[q];
-      }
+      for(const q of [1,2,3,4]) delete picks[q];
       document.querySelectorAll(".tabs").forEach(g=>{
         g.querySelectorAll(".tabBtn").forEach(b=> b.classList.remove("active"));
       });
@@ -2869,30 +1646,17 @@ const lines = wrapText(text || "Freedom is built for those who claim it.", maxW)
     });
 
     // -------------------------
-    // Utilities
+    // Init
     // -------------------------
-    function escapeHtml(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    // init
     (function init(){
       $("year").textContent = String(new Date().getFullYear());
       updateDashboard();
-      renderLeaderboard();
-      renderWalletVault();
       updateAcademyUI();
-      // prime sim with your saved refs if exists
+      // prime sim with saved refs if any
       const st = getState();
       if(st?.referrals != null) $("vs_refs").value = String(st.referrals || 0);
       runVault();
     })();
   </script>
-
 </body>
 </html>
