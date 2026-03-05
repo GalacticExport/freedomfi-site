@@ -397,27 +397,7 @@
       border-color: rgba(242,244,255,.16);
     }
     .heroVisual img{width:100%;height:100%;object-fit:cover}
-    .badgeFloat{
-      position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%, -50%);
-      display:flex;
-flex-direction:column;
-gap:6px;
-align-items:center;
-text-align:center;
-      padding:10px 12px;
-      max-width:85%;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.34);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      font-weight:900;
-      color:rgba(242,244,255,.92);
-      box-shadow:0 14px 40px rgba(0,0,0,.45);
-    }
+    
     .pulseDot{
       width:10px;height:10px;border-radius:999px;
       background:rgba(52,211,153,.95);
@@ -436,7 +416,40 @@ text-align:center;
       15%{opacity:.55}
       100%{transform:scale(1.2); opacity:0}
     }
+.badgeFloat{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  top:auto;
+  transform:translateX(-50%);
 
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  padding:12px 16px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.42);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 14px 40px rgba(0,0,0,.55);
+
+  width:fit-content;
+  max-width:calc(100% - 32px);
+  text-align:center;
+}
+
+.badgeFloat .pulseDot{
+  flex:0 0 auto;
+}
+
+.badgeFloat span:last-child{
+  display:block;
+  line-height:1.15;
+}
     .kicker{
       display:inline-flex; gap:10px; align-items:center;
       padding:10px 14px;
