@@ -1357,7 +1357,14 @@
       document.documentElement.style.overflow = "";
     }
 
-    menuBtn?.addEventListener("click", (e)=>{ e.preventDefault(); openDrawer(); });
+menuBtn?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  if(drawer.classList.contains("open")){
+    closeDrawer();
+  } else {
+    openDrawer();
+  }
+});
     drawerClose?.addEventListener("click", (e)=>{ e.preventDefault(); closeDrawer(); });
     drawerBack?.addEventListener("click", closeDrawer);
     drawer?.addEventListener("click", (e)=>{ const a = e.target.closest("a"); if(a) closeDrawer(); });
