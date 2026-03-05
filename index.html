@@ -61,6 +61,7 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
       color:var(--text);
@@ -84,21 +85,102 @@
       padding:0 var(--pad);
     }
 
+    /* =========================
+       Rinza-style layers (1–5)
+       ========================= */
+
+    /* Floating glow blobs (animated) */
+    .glowBlobs{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+    .glowBlobs i{
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:999px;
+      filter: blur(70px);
+      opacity:.55;
+      transform: translate3d(0,0,0);
+      animation: blobFloat 18s ease-in-out infinite;
+    }
+    .glowBlobs i:nth-child(1){
+      left:-160px; top:-180px;
+      background: rgba(124,58,237,.55);
+    }
+    .glowBlobs i:nth-child(2){
+      right:-180px; top:40px;
+      background: rgba(34,211,238,.45);
+      animation-duration: 21s;
+    }
+    .glowBlobs i:nth-child(3){
+      left:28%; bottom:-240px;
+      background: rgba(16,185,129,.35);
+      animation-duration: 24s;
+    }
+    @keyframes blobFloat{
+      0%,100%{ transform: translate(0,0) scale(1); }
+      50%{ transform: translate(22px,-26px) scale(1.05); }
+    }
+
+    /* Subtle noise overlay */
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.12;
+      z-index:1;
+    }
+
+    /* Scroll reveal animations */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .55s var(--easeOut), transform .55s var(--easeOut);
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .glowBlobs i{ animation:none !important; }
+      .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+      .pulseDot::after{ animation:none !important; }
+    }
+
+    /* Cards */
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.070), rgba(255,255,255,.030));
-      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.080), rgba(255,255,255,.028));
+      border:1px solid rgba(255,255,255,.11);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform .18s var(--easeOut), border-color .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(242,244,255,.16);
     }
     .cardSoft{
-      background:linear-gradient(180deg, rgba(255,255,255,.050), rgba(255,255,255,.020));
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.020));
       border:1px solid rgba(255,255,255,.10);
       border-radius:var(--radius);
       box-shadow:none;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform .18s var(--easeOut), border-color .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .cardSoft:hover{
+      transform: translateY(-1px);
+      border-color: rgba(242,244,255,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022));
     }
     .cardPad{padding:22px}
     .muted{color:var(--muted)}
@@ -114,7 +196,7 @@
         linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
       background-size: auto, auto, 56px 56px, 56px 56px;
-      opacity:.13;
+      opacity:.12;
       pointer-events:none;
       z-index:0;
     }
@@ -126,7 +208,7 @@
       background-repeat:no-repeat;
       background-position:center;
       background-size: cover;
-      opacity:.08;
+      opacity:.07;
       pointer-events:none;
       z-index:0;
     }
@@ -191,7 +273,24 @@
       border:1px solid rgba(255,214,122,.35);
       background:rgba(255,214,122,.08);
       white-space:nowrap;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
+      position:relative;
+      overflow:hidden;
     }
+    .ctaBtn::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(260px 120px at 10% 10%, rgba(255,255,255,.18), transparent 55%);
+      opacity:.7;
+      transform: translateX(-20px);
+      pointer-events:none;
+    }
+    .ctaBtn:hover{
+      transform: translateY(-1px);
+      background:rgba(255,214,122,.11);
+      border-color: rgba(255,214,122,.48);
+    }
+
     .menuBtn{
       width:42px;height:42px;
       border-radius:12px;
@@ -199,6 +298,12 @@
       background:rgba(255,255,255,.05);
       display:inline-flex;align-items:center;justify-content:center;
       cursor:pointer;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
+    }
+    .menuBtn:hover{
+      transform: translateY(-1px);
+      background:rgba(255,255,255,.07);
+      border-color: rgba(242,244,255,.18);
     }
     .menuIcon{width:18px;height:2px;background:white;display:block;position:relative}
     .menuIcon::before,.menuIcon::after{
@@ -259,12 +364,13 @@
       background:rgba(255,255,255,.05);
       margin:10px 0;
       font-weight:900;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
     }
-    .drawerLink:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
+    .drawerLink:hover{transform:translateY(-1px); background:rgba(255,255,255,.08); border-color: rgba(242,244,255,.15);}
 
     /* Main */
     main{padding:18px 0 70px}
+
     .hero{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -280,6 +386,11 @@
       box-shadow:var(--shadow);
       position:relative;
       min-height:320px;
+      transition: transform .18s var(--easeOut), border-color .18s var(--easeOut);
+    }
+    .heroVisual:hover{
+      transform: translateY(-2px);
+      border-color: rgba(242,244,255,.16);
     }
     .heroVisual img{width:100%;height:100%;object-fit:cover}
     .badgeFloat{
@@ -326,10 +437,10 @@
       margin-bottom:14px;
     }
     h1{
-      font-size:54px;
-      line-height:1.03;
+      font-size: clamp(40px, 4.8vw, 58px);
+      line-height:1.02;
       margin:0 0 10px;
-      letter-spacing:.6px;
+      letter-spacing:.35px;
     }
     p{
       color:var(--muted);
@@ -337,9 +448,10 @@
       line-height:1.65;
       margin:0 0 18px;
       font-weight:600;
-      letter-spacing:.12px;
+      letter-spacing:.10px;
     }
 
+    /* Pills + shine */
     .pill{
       display:inline-flex; align-items:center; justify-content:center;
       padding:12px 18px;
@@ -348,12 +460,28 @@
       background:rgba(255,255,255,.06);
       color:rgba(242,244,255,.92);
       font-weight:900;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
       user-select:none;
       white-space:nowrap;
       cursor:pointer;
+      position:relative;
+      overflow:hidden;
     }
-    .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.09)}
+    .pill::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(300px 140px at 12% 18%, rgba(255,255,255,.16), transparent 55%);
+      opacity:.75;
+      pointer-events:none;
+      transform: translateX(-12px);
+    }
+    .pill:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.09);
+      border-color: rgba(242,244,255,.16);
+    }
+
     .btnGold{
       border:1px solid rgba(217,178,76,.55);
       background:linear-gradient(180deg, rgba(247,230,163,.18), rgba(217,178,76,.10));
@@ -383,6 +511,7 @@
       border-radius:16px;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.05);
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
     }
     .stat .label{color:rgba(242,244,255,.65);font-weight:900;font-size:12px;letter-spacing:.35px}
     .stat .value{font-size:18px;font-weight:950;margin-top:6px}
@@ -415,6 +544,11 @@
       font-weight:800;
       letter-spacing:.12px;
       resize:vertical;
+      transition: border-color .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(129,140,248,.40);
+      background: rgba(0,0,0,.28);
     }
     input::placeholder, textarea::placeholder{color:rgba(242,244,255,.45)}
     .submitBtn{
@@ -428,9 +562,22 @@
       color:rgba(242,244,255,.95);
       font-family:"Orbitron", sans-serif;
       letter-spacing:.25px;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
+      position:relative;
+      overflow:hidden;
     }
-    .submitBtn:hover{transform:translateY(-1px); background:rgba(217,178,76,.20)}
+    .submitBtn::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(320px 140px at 12% 20%, rgba(255,255,255,.20), transparent 55%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .submitBtn:hover{
+      transform:translateY(-1px);
+      background:rgba(217,178,76,.20);
+      border-color: rgba(217,178,76,.48);
+    }
 
     .codeRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .code{
@@ -452,6 +599,7 @@
       background:rgba(255,255,255,.05);
       overflow:hidden;
       margin:10px 0;
+      transition: transform .18s var(--easeOut), border-color .18s var(--easeOut), background .18s var(--easeOut);
     }
     .faqQ{
       width:100%;
@@ -574,9 +722,9 @@
       font-weight:900;
       font-size:12px;
       cursor:pointer;
-      transition: transform .18s var(--easeOut), background .18s var(--easeOut);
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut);
     }
-    .tabBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.08)}
+    .tabBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.08); border-color: rgba(242,244,255,.16);}
     .tabBtn.active{
       border:1px solid rgba(217,178,76,.45);
       background:rgba(217,178,76,.12);
@@ -586,20 +734,21 @@
     /* Responsive */
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;}
-      h1{font-size:46px}
       .grid4{grid-template-columns:repeat(2,1fr)}
       .grid3{grid-template-columns:1fr}
       .grid2{grid-template-columns:1fr}
     }
     @media (max-width: 640px){
-      h1{font-size:40px}
       .brandText{max-width:44vw}
-      th, td{padding:10px 10px}
     }
   </style>
 </head>
 
 <body>
+  <!-- Rinza-style animated glow blobs -->
+  <div class="glowBlobs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <!-- Your existing background layers -->
   <div class="gridGlow" aria-hidden="true"></div>
   <div class="bgMark" aria-hidden="true"></div>
   <div class="film" aria-hidden="true"></div>
@@ -671,7 +820,7 @@
     <div class="wrap">
 
       <!-- HERO -->
-      <section class="hero">
+      <section class="hero reveal">
         <div class="card">
           <div class="cardPad">
             <div class="kicker">🦅 Solana-native • Built for financial freedom</div>
@@ -719,7 +868,7 @@
       </section>
 
       <!-- WAITLIST -->
-      <section class="section card" id="waitlist">
+      <section class="section card reveal" id="waitlist">
         <div class="cardPad">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
             <div>
@@ -812,7 +961,7 @@
       </section>
 
       <!-- LITEPAPER -->
-      <section class="section card" id="litepaper">
+      <section class="section card reveal" id="litepaper">
         <div class="cardPad">
           <h2>Litepaper</h2>
           <p class="muted" style="margin-top:-4px">A clean summary of the mission, design, and execution plan.</p>
@@ -827,7 +976,7 @@
       </section>
 
       <!-- VAULT SIM -->
-      <section class="section card" id="vault">
+      <section class="section card reveal" id="vault">
         <div class="cardPad">
           <h2>Freedom Vault Simulator</h2>
           <p class="muted" style="margin-top:-4px">Estimate your projected tier, hypothetical bonuses, and priority score.</p>
@@ -917,7 +1066,7 @@
       </section>
 
       <!-- ACADEMY -->
-      <section class="section card" id="academy">
+      <section class="section card reveal" id="academy">
         <div class="cardPad">
           <h2>Freedom Academy</h2>
           <p class="muted" style="margin-top:-4px">Security education that’s actually fun. Learn fast.</p>
@@ -987,7 +1136,7 @@
       </section>
 
       <!-- VERIFY -->
-      <section class="section card" id="verify">
+      <section class="section card reveal" id="verify">
         <div class="cardPad">
           <h2>Verification Center</h2>
           <p class="muted" style="margin-top:-4px">If it isn’t listed here or pinned in the official Telegram, it’s not official.</p>
@@ -1003,7 +1152,7 @@
       </section>
 
       <!-- STATS -->
-      <section class="section card" id="stats">
+      <section class="section card reveal" id="stats">
         <div class="cardPad">
           <h2>Live Stats</h2>
           <p id="statsHint" class="muted" style="margin-top:-4px">CA unlocks at launch. Stats + chart populate after you paste the CA.</p>
@@ -1032,7 +1181,7 @@
       </section>
 
       <!-- CHART -->
-      <section class="section card" id="chart">
+      <section class="section card reveal" id="chart">
         <div class="cardPad">
           <h2>Chart</h2>
           <p class="muted">When CA is live, the chart button + embed will unlock automatically.</p>
@@ -1050,7 +1199,7 @@
       </section>
 
       <!-- ROADMAP -->
-      <section class="section card" id="roadmap">
+      <section class="section card reveal" id="roadmap">
         <div class="cardPad">
           <h2>Public Roadmap</h2>
           <p class="muted" style="margin-top:-4px">Direction over noise. Execution over hype.</p>
@@ -1075,7 +1224,7 @@
       </section>
 
       <!-- TOKENOMICS -->
-      <section class="section card" id="tokenomics">
+      <section class="section card reveal" id="tokenomics">
         <div class="cardPad">
           <h2>Tokenomics</h2>
           <p class="muted" style="margin-top:-4px">Clear, simple, transparent. Final values can be updated at launch for accuracy.</p>
@@ -1092,7 +1241,7 @@
       </section>
 
       <!-- FAQ -->
-      <section class="section card" id="faq">
+      <section class="section card reveal" id="faq">
         <div class="cardPad">
           <h2>FAQ</h2>
 
@@ -1124,7 +1273,7 @@
       </section>
 
       <!-- COMMUNITY -->
-      <section class="section card" id="community">
+      <section class="section card reveal" id="community">
         <div class="cardPad">
           <h2>Community</h2>
           <p class="muted">Telegram is where we post pinned verification + launch updates first.</p>
@@ -1140,7 +1289,7 @@
         </div>
       </section>
 
-      <footer style="padding:28px 0 10px">
+      <footer class="reveal" style="padding:28px 0 10px">
         <div class="note" style="margin-top:0">
           <b>Disclaimer:</b> This site is for informational/community purposes only and is not financial advice.
           Crypto assets can be volatile and risky.
@@ -1163,6 +1312,28 @@
       if(!isFinite(n)) return "—";
       return n.toLocaleString(undefined,{notation:"compact", maximumFractionDigits:2});
     }
+
+    // -------------------------
+    // Scroll reveal (Rinza-style motion)
+    // -------------------------
+    (function setupReveal(){
+      const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const els = Array.from(document.querySelectorAll(".reveal"));
+      if(!els.length) return;
+      if(reduce){
+        els.forEach(el=> el.classList.add("in"));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(el=> io.observe(el));
+    })();
 
     // -------------------------
     // Drawer
