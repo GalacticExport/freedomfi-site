@@ -398,11 +398,17 @@
     }
     .heroVisual img{width:100%;height:100%;object-fit:cover}
     .badgeFloat{
-      position:absolute; left:50%; transform:translateX(-50%);
-      bottom:-34px;
-      display:flex; gap:10px; align-items:center;
-      text-align:center;
+      position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%, -50%);
+      display:flex;
+flex-direction:column;
+gap:6px;
+align-items:center;
+text-align:center;
       padding:10px 12px;
+      max-width:85%;
       border-radius:16px;
       border:1px solid rgba(255,255,255,.12);
       background:rgba(0,0,0,.34);
