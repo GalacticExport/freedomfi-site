@@ -750,6 +750,22 @@
   margin:28px 0 56px;
   display:flex;
   justify-content:center;
+  position:relative;
+}
+    .heroVisual::before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  background:radial-gradient(
+    circle,
+    rgba(255,190,80,0.35) 0%,
+    rgba(255,160,40,0.15) 40%,
+    transparent 70%
+  );
+  filter:blur(40px);
+  z-index:-1;
+  animation:orbPulse 6s ease-in-out infinite;
 }
 
 .heroVisual img{
@@ -758,12 +774,17 @@
   border-radius:16px;
   box-shadow:0 30px 80px rgba(0,0,0,0.6),
              0 0 40px rgba(255,180,60,0.25);
-  animation:eagleFloat 6s ease-in-out infinite;
+  
 }
     @keyframes eagleFloat{
   0%{transform:translateY(0px);}
   50%{transform:translateY(-10px);}
   100%{transform:translateY(0px);}
+}
+@keyframes orbPulse{
+  0%{transform:scale(1); opacity:.8;}
+  50%{transform:scale(1.15); opacity:1;}
+  100%{transform:scale(1); opacity:.8;}
 }
   </style>
 </head>
