@@ -242,22 +242,23 @@
       padding-top: calc(14px + env(safe-area-inset-top));
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  flex:1 1 auto;
+}
     .brandLogo{width:34px;height:34px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     .brandText{
-      font-weight:900;
-      font-size:18px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width:55vw;
-      letter-spacing:.12em;
-    }
+  font-weight:900;
+  font-size:18px;
+  white-space:nowrap;
+  overflow:visible;     /* was hidden */
+  text-overflow:clip;   /* remove ... */
+  max-width:none;       /* remove vw cap */
+  letter-spacing:.10em; /* slightly tighter */
+}
     .headerActions{
       display:flex;
       align-items:center;
