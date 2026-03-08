@@ -491,6 +491,144 @@
       .glowBlobs i,.pulseDot::after{animation:none!important}
       .reveal{opacity:1!important;transform:none!important;transition:none!important}
     }
+/* Mobile + overflow fix */
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  position:relative;
+}
+
+main,
+.wrap,
+.section,
+.card,
+.cardPad,
+.hero,
+.grid2,
+.grid3,
+.grid4{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+}
+
+.wrap{
+  width:100%;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 14px;
+}
+
+.codeRow,
+.ctaRow{
+  width:100%;
+  max-width:100%;
+}
+
+.code{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  overflow-x:auto;
+  white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+}
+
+iframe,
+img{
+  max-width:100%;
+}
+
+.embedWrap{
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+}
+
+iframe{
+  width:100%;
+  max-width:100%;
+  display:block;
+}
+
+.stickyBar{
+  left:8px;
+  right:8px;
+  width:auto;
+  max-width:none;
+}
+
+.stickyBar a,
+.stickyBar button{
+  min-width:0;
+  font-size:12px;
+  padding:11px 8px;
+}
+
+@media (max-width: 980px){
+  .hero,
+  .grid2,
+  .grid3,
+  .grid4{
+    grid-template-columns:1fr !important;
+  }
+
+  iframe{
+    height:460px;
+  }
+}
+
+@media (max-width: 640px){
+  .wrap{
+    padding:0 12px;
+  }
+
+  .cardPad{
+    padding:18px;
+  }
+
+  h1{
+    font-size:34px;
+    line-height:1.05;
+  }
+
+  h2{
+    font-size:18px;
+  }
+
+  .brandText{
+    font-size:16px;
+    letter-spacing:.05em;
+  }
+
+  .ctaRow{
+    gap:10px;
+  }
+
+  .pill,
+  .ctaBtn{
+    max-width:100%;
+  }
+
+  .stat .value{
+    font-size:16px;
+  }
+
+  iframe{
+    height:400px;
+  }
+
+  .stickyBar{
+    bottom:8px;
+    padding:8px;
+    gap:8px;
+  }
+}
   </style>
 </head>
 <body>
